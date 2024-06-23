@@ -1,0 +1,45 @@
+/* src/components/SavedAddress.css */
+
+.new-address {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.new-address h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.address-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.address-item {
+  background-color: #f9f9f9;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.address-item p {
+  margin: 5px 0;
+}
+
+.add-address-link {
+  display: block;
+  text-align: center;
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.add-address-link:hover {
+  background-color: #0056b3;
+}
