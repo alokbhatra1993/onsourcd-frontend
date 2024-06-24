@@ -5515,12 +5515,13 @@ color: #fff;
 /* src/components/AddProductForm.css */
 
 .add-product-form {
-  max-width: 400px;
+  width: 50%;
   margin: auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: #f9f9f9;
+  margin: 30px auto;
 }
 
 .add-product-form h2 {
@@ -5570,17 +5571,17 @@ color: #fff;
 }
 
 .products {
-  max-width: 100%;
+  width: 84%;
   margin: auto;
   padding: 20px;
   background: #fff;
   color: #000;
   text-align: left;
   position: absolute;
-  left: 30vh;
-  top: 3vh;
+  left: 27vh;
+  top: 8vh;
+  border-radius: 20px;
 }
-
 .justify-content{
   display: flex;
   justify-content: space-between;
