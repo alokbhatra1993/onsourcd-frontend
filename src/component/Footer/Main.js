@@ -38,7 +38,7 @@ const Footer = () => {
             {/* Column 2 */}
             <div className="col-lg-3 col-md-6 mb-4">
               <div className="footer-widget">
-                <div className="f-widget-title mb-4">
+                <div className="f-widget-title mb-4 text-left">
                   <h2>Contact Us</h2>
                 </div>
                 <div className="f-contact">

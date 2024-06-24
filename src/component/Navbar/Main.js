@@ -36,11 +36,7 @@ const Navbar = () => {
         <div className="container mx-auto flex justify-between items-center">
           <div className="flex items-center">
             <Link to="/">
-              <img
-                src="assets/img/logo/logo.png"
-                alt="logo"
-                className="h-10"
-              />
+              <img src="assets/img/logo/logo.png" alt="logo" className="h-10" />
             </Link>
           </div>
           <div className="flex items-center space-x-4">
@@ -48,13 +44,13 @@ const Navbar = () => {
               <>
                 <Link
                   to="/login"
-                  className="btn btn-primary px-4 py-2 rounded-md text-white hover:bg-gray-200"
+                  className="bg-white px-4 py-2 rounded-md text-black hover:bg-gray-200"
                 >
                   Login
                 </Link>
                 <Link
                   to="/signup"
-                  className="btn btn-success px-4 py-2 rounded-md text-white hover:bg-gray-200"
+                  className="bg-white px-4 py-2 rounded-md text-black hover:bg-gray-200"
                 >
                   Register Now
                 </Link>
@@ -137,22 +133,31 @@ const Navbar = () => {
                 </Link>
               </nav>
             </div>
-            <div className="hidden lg:flex items-center space-x-4">
-              <form className="flex items-center" onSubmit={handleSearchSubmit}>
+            <div className="hidden lg:flex items-center space-x-4 relative">
+              <form
+                className="flex items-center border border-gray-300 rounded-full px-4 py-2 bg-white"
+                onSubmit={handleSearchSubmit}
+              >
                 <input
                   type="text"
-                  className="form-control px-4 py-2 rounded-l-md text-black"
+                  className="form-input outline-none px-2 py-1 w-full"
                   placeholder="Search for Products"
                   value={searchQuery}
                   onChange={handleSearchChange}
                 />
                 <button
                   type="submit"
-                  className="bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-r-md"
+                  className="text-white bg-blue-500 hover:bg-blue-700 rounded-full px-4 py-2 ml-2"
                 >
                   <i className="fas fa-search"></i>
                 </button>
               </form>
+              {searchQuery && (
+                <div className="absolute right-0 mt-3 bg-white border border-gray-300 rounded-md shadow-lg px-4 py-2">
+                  {/* Display search results here */}
+                  <p>Search results for "{searchQuery}"</p>
+                </div>
+              )}
             </div>
           </div>
           {mobile && (

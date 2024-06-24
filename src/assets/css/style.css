@@ -662,12 +662,16 @@ margin-left: 0px;
 #scrollUp:hover {
 	background: #02123c;
 }
+.footer-top.pt-5.pb-5 h2 {
+  text-align: left;
+}
 /* 2. header */
 
 .header-top {
 	padding-top: 40px;
 	border-bottom: 1px solid #e6e6e6;
 	padding-bottom: 30px;
+  background: #02123c;
 }
 .innder-ht {
 	padding: 10px 0;
