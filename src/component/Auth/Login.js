@@ -1,23 +1,21 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { setUserData } from '../../redux/actions';
-
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setUserData } from "../../redux/actions";
 
 const Login = () => {
-
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const response = await fetch('http://localhost:5000/api/users/login', {
-      method: 'POST',
+    const response = await fetch("http://localhost:5000/api/users/login", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ email, password }),
     });
@@ -25,14 +23,19 @@ const Login = () => {
     if (response.ok) {
       // Handle successful login
       const data = await response.json();
-      console.log(data)
+      console.log({ data });
       // console.log({response});
       dispatch(setUserData(data));
-
-      navigate('/'); // Redirect to a dashboard or home page
+      if (data?.userType === "seller") {
+        navigate("/seller-dashboard"); 
+      } else if (data?.userType === "buyer") {
+        navigate("/buyer-dashboard"); 
+      } else if(data?.userType === "admin"){
+        navigate("/admin-dashboard"); 
+      }
     } else {
       // Handle errors
-      alert('Login failed. Please try again.');
+      alert("Login failed. Please try again.");
     }
   };
 
