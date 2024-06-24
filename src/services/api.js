@@ -50,15 +50,30 @@ export const fetchSubCategories = async (categoryId) => {
 };
 
 export const addProductApi = async (formData) => {
+  // console.log("ADD PRODUTC API" , formData);
   const response = await fetch(
     `http://localhost:5000/api/products/`,
     {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
       },
-      body: JSON.stringify(formData),
+      body: formData,
     }
   );
   return response;
 };
+
+export const fetchProductApi = async () => {
+  const response = await fetch(
+    `http://localhost:5000/api/products/`,
+    {
+      method: "GET",
+      headers: {
+        // "Content-Type": "application/json",
+      },    }
+  );
+  return response;
+};
+
+

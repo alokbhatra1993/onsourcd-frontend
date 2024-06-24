@@ -62,6 +62,9 @@ CSS Index
     border-radius: 10px;
     text-align: center;
   }
+  .add-product-form select {
+    background: #585858;
+}
   
   .price-request {
     display: flex;

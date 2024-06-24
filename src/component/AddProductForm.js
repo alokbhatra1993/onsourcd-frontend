@@ -42,12 +42,15 @@ export const AddProductForm = () => {
 
   // Form submission handler
   const onSubmit = (data) => {
+    console.log({data})
     const formData = new FormData();
     formData.append("name", data.productName);
     formData.append("categoryId", data.category);
     formData.append("subcategoryId", data.subcategory);
     formData.append("gst", data.gstNumber);
     formData.append("document", data.document[0]);
+
+    console.log({formData})
 
     addProductApi(formData).then(response => {
       if (response.ok) {
@@ -124,7 +127,7 @@ export const AddProductForm = () => {
             >
               <option value="">Select Subcategory</option>
               {subCategoriesState.map((subcategory) => (
-                <option key={subcategory.id} value={subcategory.id}>
+                <option key={subcategory._id} value={subcategory._id}>
                   {subcategory.name}
                 </option>
               ))}

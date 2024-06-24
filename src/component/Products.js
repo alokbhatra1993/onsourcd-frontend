@@ -1,40 +1,33 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { fetchProductApi } from '../services/api';
 
 const Products = () => {
-  // Example products data
-  const products = [
-    {
-      id: 1,
-      productName: 'Biomass Pellets',
-      productImage: 'https://example.com/biomass-pellets.jpg',
-      category: 'Raw Materials',
-      subcategory: 'Biomass',
-    },
-    {
-      id: 2,
-      productName: 'Biofuel Processing Kit',
-      productImage: 'https://example.com/biofuel-kit.jpg',
-      category: 'Biofuel Manufacturing',
-      subcategory: 'Processing Equipment',
-    },
-    {
-      id: 3,
-      productName: 'Waste-to-Energy System',
-      productImage: 'https://example.com/waste-to-energy.jpg',
-      category: 'Energy Solutions',
-      subcategory: 'Waste Management',
-    },
-    // Add more products as needed
-  ];
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    loadProducts();
+  }, []);
+
+  const loadProducts = async () => {
+    try {
+      const response = await fetchProductApi();
+      if (response ) {
+        const data = await response.json()
+
+        setProducts(data?.products);
+      }
+    } catch (error) {
+      console.error('Failed to fetch products:', error);
+    }
+  };
 
   return (
     <div className="products">
-      <div className='justify-content'>
-      <h2>Product List</h2>
-      <Link to="/admin-dashboard/add-product">Add Product</Link>
+      <div className="justify-content">
+        <h2>Product List</h2>
+        <Link to="/admin-dashboard/add-product">Add Product</Link>
       </div>
-      
 
       <table className="product-table">
         <thead>
@@ -48,14 +41,14 @@ const Products = () => {
         </thead>
         <tbody>
           {products.map((product, index) => (
-            <tr key={product.id}>
+            <tr key={product._id}>
               <td>{index + 1}</td>
-              <td>{product.productName}</td>
+              <td>{product.name}</td>
               <td>
-                <img src={product.productImage} alt={product.productName} style={{ maxWidth: '100px' }} />
+                <img src={product.image} alt={product.name} style={{ maxWidth: '100px' }} />
               </td>
-              <td>{product.category}</td>
-              <td>{product.subcategory}</td>
+              <td>{product?.category?.name}</td>
+              <td>{product?.subCategory?.name}</td>
             </tr>
           ))}
         </tbody>
