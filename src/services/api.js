@@ -75,5 +75,3 @@ export const fetchProductApi = async () => {
   );
   return response;
 };
-
-

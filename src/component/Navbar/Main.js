@@ -108,7 +108,7 @@ const Navbar = () => {
       </div>
       <nav className="menu-area bg-white shadow-lg text-black">
         <div className="container mx-auto">
-          <div className="flex justify-between items-center py-4">
+          <div className="flex justify-between items-center py-2">
             <div className="flex items-center lg:hidden">
               <button
                 className="text-2xl focus:outline-none text-black"
