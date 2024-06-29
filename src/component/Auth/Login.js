@@ -15,7 +15,7 @@ const Login = () => {
 
   const onSubmit = async (formData) => {
     const { email, password } = formData;
- setloading(true)
+    setloading(true)
     const response = await fetch("https://onsourcd-backend.vercel.app/api/users/login", {
       method: "POST",
       headers: {
@@ -27,6 +27,13 @@ const Login = () => {
     if (response.ok) {
       const data = await response.json();
       dispatch(setUserData(data));
+      console.log({data , v:data?.isVerifiedEmail})
+      if(!data?.isVerifiedEmail){
+        console.log("VERIFY EMail")
+        navigate("/customer/verify-email",{state:{email:data?.email}})
+        return;
+      }
+
       if (data?.userType === "seller" ||  data?.userType === "buyer") {
         navigate("/customer");
       } else if (data?.userType === "admin") {

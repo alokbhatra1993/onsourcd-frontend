@@ -93,3 +93,23 @@ export const fetchProductApi = async () => {
   });
   return response;
 };
+
+export const sendVerifyEmail = async (token) => {
+  const response = await fetch(`http://localhost:5000/api/users/send-verify-email`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
+};
+
+export const verifyEmailApi = async (token) => {
+  const response = await fetch(`http://localhost:5000/api/users/verify-email`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
+};

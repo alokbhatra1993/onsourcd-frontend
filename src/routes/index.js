@@ -24,6 +24,8 @@ import B2BSection from "../component/Home/B2BSection";
 import { useSelector } from "react-redux";
 import AddRequirements from "../component/Pages/AddRequirements";
 import BuyerRequirementsList from "../component/Pages/BuyerRequirementsList";
+import VerifyEmail from "../component/Auth/VerifyEmail";
+import VerficationSuccessEmail from "../component/Auth/VerficationSuccessEmail";
 
 const Routing = () => {
   const user = useSelector((state) => state);
@@ -77,6 +79,8 @@ const Routing = () => {
           }
         >
           <Route path="add-new-address" element={<SaveAddressForm />} />
+          <Route path="verify-email" element={<VerifyEmail />} />
+          <Route path="verified" element={<VerficationSuccessEmail />} />
           <Route path="savedaddress" element={<SavedAddress />} />
           
           <Route path="requirements" element={<BuyerRequirementsList />} />
