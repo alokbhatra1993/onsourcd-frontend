@@ -13,6 +13,16 @@ import { AdminDashBaord } from '../component/AdminDashBaord';
 import { AddProductForm } from '../component/AddProductForm';
 import Products from '../component/Products';
 import Categeories from '../component/Pages/Categeories';
+import ExploreCategories from '../component/Home/ExploreCategories';
+import PlatformFeatures from '../component/Home/PlatformFeatures';
+import SustainabilityGoals from '../component/Home/SustainabilityGoals';
+import BlogSection from '../component/Home/BlogSection';
+import PartnerSection from '../component/Home/PartnerSection';
+import FAQSection from '../component/Home/FAQSection';
+import SellerBuyerTabs from '../component/Home/SellerBuyerTabs';
+import B2BSection from '../component/Home/B2BSection';
+
+
 
 const Routing = () => {
     const [showNavbar, setShowNavbar] = useState(true);
@@ -54,6 +64,15 @@ const Routing = () => {
                     <Route path="add-product" element={<AddProductForm />} />
                     <Route path="products" element={<Products />} />
                     <Route path="categories" element={<Categeories />} />
+                    <Route path="explorecategories" element={<ExploreCategories />} />
+                    <Route path="platformfeatures" element={<PlatformFeatures />} />
+                    <Route path="sustainabilitygoals" element={<SustainabilityGoals />} />
+                    <Route path="blogsection" element={<BlogSection />} />
+                    <Route path="partnersection" element={<PartnerSection />} />
+                    <Route path="faqsection" element={<FAQSection />} />
+                    <Route path="sellerbuyertabs" element={<SellerBuyerTabs />} />
+                    <Route path="B2BSection" element={<B2BSection />} />
+                   
                     {/* <Route path="add-category" element={<AddCategory />} /> */}
                     {/* <Route path="see-orders" element={<SeeOrders />} /> */}
                 </Route>

@@ -7,39 +7,40 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state);
 
-  const [mobile, setMobile] = useState(false);
-  const [profileDropdown, setProfileDropdown] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
   const location = useLocation();
   const path = location.pathname;
 
-  // Handle search input change
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
-  // Handle search form submission
   const handleSearchSubmit = (event) => {
     event.preventDefault();
     console.log(`Searching for: ${searchQuery}`);
   };
 
-  // Toggle profile dropdown visibility
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   const toggleProfileDropdown = () => {
-    setProfileDropdown(!profileDropdown);
+    setProfileDropdownOpen(!profileDropdownOpen);
   };
 
   return (
-    <header className="header-area">
-      <div className="header-top bg-blue-900 text-white py-2">
-        <div className="container mx-auto flex justify-between items-center">
+    <header className="sticky top-0 z-50">
+      <div className="bg-[#372800] text-white py-2">
+        <div className="container mx-auto flex justify-between items-center px-4">
           <div className="flex items-center">
             <Link to="/">
               <img src="assets/img/logo/logo.png" alt="logo" className="h-10" />
             </Link>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-4">
             {!user?.token ? (
               <>
                 <Link
@@ -63,7 +64,7 @@ const Navbar = () => {
                 >
                   <i className="fas fa-user"></i>
                 </div>
-                {profileDropdown && (
+                {profileDropdownOpen && (
                   <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50">
                     <li>
                       <Link
@@ -104,88 +105,92 @@ const Navbar = () => {
               </div>
             )}
           </div>
+          <div className="lg:hidden flex items-center">
+            <button
+              className="text-2xl focus:outline-none text-white"
+              onClick={toggleMobileMenu}
+              style={{ backgroundColor: "#f6b60d", padding: "8px", borderRadius: "4px" }}
+            >
+              {mobileMenuOpen ? (
+                <i className="fas fa-times"></i>
+              ) : (
+                <i className="fas fa-bars"></i>
+              )}
+            </button>
+          </div>
         </div>
       </div>
-      <nav className="menu-area bg-white shadow-lg text-black">
-        <div className="container mx-auto">
+      <nav className="bg-[#f6b60d] text-black shadow-lg">
+        <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-2">
-            <div className="flex items-center lg:hidden">
-              <button
-                className="text-2xl focus:outline-none text-black"
-                onClick={() => setMobile(!mobile)}
-              >
-                {mobile ? "X" : <i className="fas fa-bars"></i>}
-              </button>
-            </div>
-            <div className="hidden lg:flex items-center space-x-4">
-              <nav className="flex space-x-4">
-                <Link to="/" className="hover:text-gray-300">
+            <div className="hidden lg:flex items-center space-x-8">
+              <nav className="flex space-x-8">
+                <Link to="/" className="hover:text-gray-800 ml-4">
                   Home
                 </Link>
-                <Link to="/" className="hover:text-gray-300">
+                <Link to="/blogs" className="hover:text-gray-800">
                   Blogs
                 </Link>
-                <Link to="/room" className="hover:text-gray-300">
+                <Link to="/room" className="hover:text-gray-800">
                   Products
                 </Link>
-                <Link to="/service" className="hover:text-gray-300">
+                <Link to="/service" className="hover:text-gray-800">
                   Contact Us
                 </Link>
               </nav>
             </div>
-            <div className="hidden lg:flex items-center space-x-4 relative">
+            <div className="hidden lg:flex items-center space-x-4 relative w-1/1">
               <form
-                className="flex items-center border border-gray-300 rounded-full px-4 py-2 bg-white"
+                className="flex items-center border border-gray-300 rounded-full px-2 py-1 bg-white shadow-md w-full"
                 onSubmit={handleSearchSubmit}
               >
                 <input
                   type="text"
-                  className="form-input outline-none px-2 py-1 w-full"
-                  placeholder="Search for Products"
+                  className="form-input outline-none px-3 py-1 w-full rounded-l-full"
+                  placeholder="Search "
                   value={searchQuery}
                   onChange={handleSearchChange}
                 />
                 <button
                   type="submit"
-                  className="text-white bg-blue-500 hover:bg-blue-700 rounded-full px-4 py-2 ml-2"
+                  className="text-white bg-[#372800] hover:bg-[#372800]/90 rounded-r-full px-3 py-1 transition duration-300"
                 >
                   <i className="fas fa-search"></i>
                 </button>
               </form>
               {searchQuery && (
                 <div className="absolute right-0 mt-3 bg-white border border-gray-300 rounded-md shadow-lg px-4 py-2">
-                  {/* Display search results here */}
                   <p>Search results for "{searchQuery}"</p>
                 </div>
               )}
             </div>
           </div>
-          {mobile && (
-            <div className="lg:hidden bg-white text-black">
+          {mobileMenuOpen && (
+            <div className="lg:hidden bg-[#f6b60d] text-black">
               <nav className="p-4 space-y-2">
-                <Link to="/" className="block hover:text-gray-300">
+                <Link to="/" className="block hover:text-gray-800 ml-4">
                   Home
                 </Link>
-                <Link to="/" className="block hover:text-gray-300">
+                <Link to="/blogs" className="block hover:text-gray-800">
                   Blogs
                 </Link>
-                <Link to="/room" className="block hover:text-gray-300">
+                <Link to="/room" className="block hover:text-gray-800">
                   Products
                 </Link>
-                <Link to="/service" className="block hover:text-gray-300">
+                <Link to="/service" className="block hover:text-gray-800">
                   Contact Us
                 </Link>
                 {!user?.token ? (
                   <>
                     <Link
                       to="/login"
-                      className="block bg-blue-500 hover:bg-blue-700 text-white px-4 py-2 rounded-md"
+                      className="block bg-[#372800] hover:bg-[#372800]/90 text-white px-4 py-2 rounded-md"
                     >
                       Login
                     </Link>
                     <Link
                       to="/signup"
-                      className="block bg-green-500 hover:bg-green-700 text-white px-4 py-2 rounded-md"
+                      className="block bg-[#372800] hover:bg-[#372800]/90 text-white px-4 py-2 rounded-md"
                     >
                       Register Now
                     </Link>
@@ -198,7 +203,7 @@ const Navbar = () => {
                     >
                       <i className="fas fa-user text-2xl"></i>
                     </div>
-                    {profileDropdown && (
+                    {profileDropdownOpen && (
                       <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50">
                         <li>
                           <Link
@@ -239,6 +244,24 @@ const Navbar = () => {
                   </div>
                 )}
               </nav>
+              <form
+                className="flex items-center border border-gray-300 rounded-full px-2 py-1 bg-white shadow-md w-full mt-4"
+                onSubmit={handleSearchSubmit}
+              >
+                <input
+                  type="text"
+                  className="form-input outline-none px-3 py-1 w-full rounded-l-full"
+                  placeholder="Search for Products"
+                  value={searchQuery}
+                  onChange={handleSearchChange}
+                />
+                <button
+                  type="submit"
+                  className="text-white bg-[#372800] hover:bg-[#372800]/90 rounded-r-full px-3 py-1 transition duration-300"
+                >
+                  <i className="fas fa-search"></i>
+                </button>
+              </form>
             </div>
           )}
         </div>
@@ -247,4 +270,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar
