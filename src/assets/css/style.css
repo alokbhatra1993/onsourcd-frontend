@@ -5460,7 +5460,7 @@ color: #fff;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  background-color: #f9f9f9;
+  background-color: #fff;
   margin: 30px auto;
 }
 
@@ -5511,16 +5511,15 @@ color: #fff;
 }
 
 .products {
-  width: 84%;
+  width: 80%;
   margin: auto;
   padding: 20px;
   background: #fff;
   color: #000;
-  text-align: left;
-  position: absolute;
-  left: 27vh;
-  top: 8vh;
   border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 90vh;
+  overflow: scroll;
 }
 .justify-content{
   display: flex;
@@ -5566,6 +5565,15 @@ color: #fff;
   display: block;
   margin: auto;
 }
+.parent-admin select {
+    color: #000;
+}
+.parent-admin input {
+  color: #000;
+}
+.parent-admin textarea {
+  color: #000;
+}
 
 .parent-admin{
   
@@ -5577,6 +5585,7 @@ color: #fff;
     align-content: center;
     color: #fff;
     z-index: 99999999;
+    align-items: flex-start;
 
 }
  .home-blog-active .slick-dots li.slick-active button {

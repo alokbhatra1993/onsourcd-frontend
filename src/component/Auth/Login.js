@@ -27,10 +27,8 @@ const Login = () => {
     if (response.ok) {
       const data = await response.json();
       dispatch(setUserData(data));
-      if (data?.userType === "seller") {
-        navigate("/seller-dashboard");
-      } else if (data?.userType === "buyer") {
-        navigate("/buyer-dashboard");
+      if (data?.userType === "seller" ||  data?.userType === "buyer") {
+        navigate("/customer");
       } else if (data?.userType === "admin") {
         navigate("/admin-dashboard");
       }
