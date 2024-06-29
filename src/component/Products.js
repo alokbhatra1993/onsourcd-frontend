@@ -14,6 +14,7 @@ const Products = () => {
       const response = await fetchProductApi();
       if (response ) {
         const data = await response.json()
+        // console.log("data",data);
 
         setProducts(data?.products);
       }

@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { useForm } from "react-hook-form";
 import { fetchSubCategories, fetchCategories } from "../services/api";
 import { addProductApi } from "../services/api"; // Ensure this path is correct
+import { FaSpinner } from "react-icons/fa6";
 
 export const AddProductForm = () => {
+  const navigate = useNavigate();
+
   const { handleSubmit, control, register, watch, formState: { errors } } = useForm();
   const [categoriesState, setCategoriesState] = useState([]);
   const [subCategoriesState, setSubCategoriesState] = useState([]);
-
+  const [loading,setloading]=useState(false)
   const selectedCategory = watch("category");
 
   useEffect(() => {
@@ -43,6 +48,7 @@ export const AddProductForm = () => {
   // Form submission handler
   const onSubmit = (data) => {
     console.log({data})
+    setloading(true)
     const formData = new FormData();
     formData.append("name", data.productName);
     formData.append("categoryId", data.category);
@@ -54,13 +60,15 @@ export const AddProductForm = () => {
 
     addProductApi(formData).then(response => {
       if (response.ok) {
-        console.log("Product added successfully");
+        navigate("/admin-dashboard/products")
       } else {
         console.error("Failed to add product");
       }
+      setloading(false)
     }).catch(error => {
       console.error("Error adding product:", error);
     });
+   
   };
 
   return (
@@ -93,7 +101,7 @@ export const AddProductForm = () => {
         <div className="form-group">
           <label htmlFor="gstNumber">GST Number</label>
           <input
-            type="text"
+            type="number"
             id="gstNumber"
             {...register("gstNumber", { required: true })}
           />
@@ -137,7 +145,7 @@ export const AddProductForm = () => {
         )}
 
         {/* Submit Button */}
-        <button type="submit">Add Product</button>
+        <button type="submit" >  {loading?(<FaSpinner/>):" Add Product"}</button>
       </form>
     </div>
   );
