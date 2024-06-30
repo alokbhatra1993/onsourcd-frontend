@@ -1,34 +1,37 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { verifyEmailApi } from "../../services/api";
 import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { setVerificationEmailComplete } from "../../redux/actions";
 
 const VerficationSuccessEmail = () => {
   const user = useSelector((state) => state);
+  const dispatch = useDispatch();
+
   const location = useLocation();
   const queryParams = new URLSearchParams(location?.search);
-    const token = queryParams?.get('token');
-  console.log({ location })
+  const token = queryParams?.get('token');
   const navigate = useNavigate();
 
-  console.log("VERIFIED emil", queryParams  ,token);
   useEffect(() => {
     verifyEmail();
   }, []);
 
   const verifyEmail = async () => {
     const response = await verifyEmailApi(token);
-    console.log({ response });
+    console.log({ response, user });
     if (response?.ok) {
-      if(user){
+      if (user) {
+        // dispatch(setUserData({... , isVerifiedEmail:true}));
+        dispatch(setVerificationEmailComplete())
         if (user?.userType === "seller" || user?.userType === "buyer") {
           navigate("/customer/savedaddress");
         }
-        else{
+        else {
           navigate("/login")
         }
       }
-     
+
     }
   };
 
