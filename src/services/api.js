@@ -84,6 +84,17 @@ export const fetchMyRequirements = async (token) => {
   return response;
 };
 
+export const fetchNewRequirements = async (token) => {
+  const response = await fetch(`http://localhost:5000/api/requirments`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // "Content-Type": "application/json",
+    },
+  });
+  return response;
+};
+
 export const fetchProductApi = async () => {
   const response = await fetch(`http://localhost:5000/api/products/`, {
     method: "GET",

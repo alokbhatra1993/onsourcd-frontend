@@ -1,11 +1,153 @@
-import React from 'react'
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { fetchNewRequirements } from "../../services/api";
+import { useSelector } from "react-redux";
+import AddQuotation from "./AddQuotation";
 
 const SellerRequirements = () => {
-  return (
-    <div>
-      all requirments made by biuyer to be shown here
-    </div>
-  )
-}
+  const user = useSelector((state) => state);
+  const [myRequirements, setMyRequirements] = useState([]);
+  const [myCurrentCordinates, setMyCurrentCordinates] = useState({
+    latitude: 0,
+    longitude: 0
+  })
 
-export default SellerRequirements
+  const [openAddQuotation, setAddOpenQutation] = useState(false);
+
+  useEffect(() => {
+    loadNewRequirements();
+    fethCurrentCordinates()
+  }, []);
+
+  const loadNewRequirements = async () => {
+    try {
+      const response = await fetchNewRequirements(user?.token);
+      const results = await response.json();
+      setMyRequirements(results);
+    } catch (error) {
+      console.error("Error loading requirements:", error);
+    }
+  };
+
+  const haversineDistance = (lat1, lon1) => {
+    // lat1 long1 coming fro  user
+    const R = 6371; // Radius of the Earth in kilometers
+    const dLat = degreesToRadians(myCurrentCordinates?.latitude - lat1);
+    const dLon = degreesToRadians(myCurrentCordinates?.longitude - lon1);
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos(degreesToRadians(lat1)) * Math.cos(degreesToRadians(myCurrentCordinates?.latitude)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c; // Distance in kilometers
+    return distance?.toFixed(1);
+  }
+
+  const degreesToRadians = (degrees) => {
+    return degrees * (Math.PI / 180);
+  }
+
+  const fethCurrentCordinates = async () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          setMyCurrentCordinates({
+            latitude: latitude,
+            longitude: longitude
+          })
+        })
+    }
+  }
+
+
+  const handleOpenAddQuotation = (requirementId) => {
+    setAddOpenQutation(true)
+  }
+
+  const closeModal=()=>{
+    setAddOpenQutation(false)
+  }
+
+  return (
+    <div className="products">
+      <div className="justify-content">
+        <h2>New Requirements</h2>
+        {/* <Link to="/customer/add-requirement">Add Requirement</Link> */}
+      </div>
+
+      <table className="product-table">
+        <thead>
+          <tr>
+            <th>Index</th>
+            <th>Product Name</th>
+            <th>Product Image</th>
+            <th>Quantity</th>
+            <th>Frequency</th>
+            <th>Total Orders</th>
+            <th>Expected Start Date</th>
+            <th>Expected End Date</th>
+            <th>Description</th>
+            <th>Area Range</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {myRequirements?.length > 0 ? (
+            <>
+              {myRequirements.map((requirement, index) => (
+                <tr key={requirement._id}>
+                  <td>{index + 1}</td>
+                  <td>{requirement.productId.name}</td>
+                  <td>
+                    <img
+                      src={requirement.productId.image}
+                      alt={requirement.productId.name}
+                      style={{ maxWidth: "100px" }}
+                    />
+                  </td>
+
+                  <td>{requirement.quantity}</td>
+
+                  <td>{requirement.frequency}</td>
+                  <td>{requirement.totalOrders}</td>
+                  <td>{requirement.expectedStartDate.slice(0, 10)}</td>
+                  <td>{requirement.expectedEndDate.slice(0, 10)}</td>
+                  <td>{requirement.description}</td>
+                  <td>{haversineDistance(requirement?.latitude, requirement?.longitude)} KM</td>
+
+                  <td>
+                    {
+                      requirement?.status === "open" ? (
+                        <button
+                          onClick={() => {
+                            handleOpenAddQuotation(requirement?._id)
+                          }}
+                        >Add/View  Quotation</button>
+                      )
+                        : (
+                          "Closed"
+                        )
+                    }
+                  </td>
+                </tr>
+              ))}
+            </>
+          ) : (
+            <tr>
+              <td colSpan="17">No requirements found.</td>
+            </tr>
+          )}
+        </tbody>
+      </table>
+
+      {
+        openAddQuotation ? (
+          <AddQuotation closeModal={closeModal} />
+        ) : null
+      }
+    </div>
+  );
+};
+
+export default SellerRequirements;

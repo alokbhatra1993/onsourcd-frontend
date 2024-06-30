@@ -21,8 +21,6 @@ const BuyerRequirementsList = () => {
     }
   };
 
-  console.log({myRequirements})
-
   return (
     <div className="products">
       <div className="justify-content">

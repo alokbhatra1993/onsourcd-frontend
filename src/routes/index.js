@@ -26,6 +26,7 @@ import AddRequirements from "../component/Pages/AddRequirements";
 import BuyerRequirementsList from "../component/Pages/BuyerRequirementsList";
 import VerifyEmail from "../component/Auth/VerifyEmail";
 import VerficationSuccessEmail from "../component/Auth/VerficationSuccessEmail";
+import SellerRequirements from "../component/Pages/SellerRequirements";
 
 const Routing = () => {
   const user = useSelector((state) => state);
@@ -83,7 +84,9 @@ const Routing = () => {
           
           <Route path="requirements" element={<BuyerRequirementsList />} />
           <Route path="add-requirement" element={<AddRequirements />} />
-
+          {/* Requirements coming from buyers will be shown to seller here  */}
+          
+          <Route path="new-requirements" element={<SellerRequirements />} />
 
         </Route>
 

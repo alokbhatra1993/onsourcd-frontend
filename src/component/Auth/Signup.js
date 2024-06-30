@@ -98,7 +98,7 @@ const Signup = () => {
                 {errors.password && <p className="error">{errors.password.message}</p>}
               </div>
 
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                   Confirm Password
                 </label>
@@ -112,7 +112,7 @@ const Signup = () => {
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
                 {errors.confirmPassword && <p className="error">{errors.confirmPassword.message}</p>}
-              </div>
+              </div> */}
 
               <div className="form-group">
                 <label htmlFor="userType" className="block text-sm font-medium text-gray-700">
