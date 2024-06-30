@@ -4,10 +4,13 @@ import { useForm } from "react-hook-form";
 import { fetchAddress } from "../../services/googleApi";
 import { useSelector } from "react-redux";
 import { fetchUserAddress } from "../../services/addressApi";
+import { useNavigate } from "react-router-dom";
+import { FaSpinner } from "react-icons/fa";
 
 const SaveAddressForm = () => {
   const user = useSelector((state) => state);
-  console.log({ user });
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate();
 
   const { register, setValue, handleSubmit } = useForm();
   const [map, setMap] = useState(null);
@@ -50,7 +53,6 @@ const SaveAddressForm = () => {
           setValue("state", address_components[4].long_name);
           setValue("city", address_components[2].long_name);
           setValue("zipcode", address_components[6].long_name);
-
         },
         (error) => {
           console.log({ error });
@@ -61,7 +63,7 @@ const SaveAddressForm = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
+    setLoading(true)
     const response = await fetch("http://localhost:5000/api/address", {
       method: "POST",
       headers: {
@@ -69,12 +71,14 @@ const SaveAddressForm = () => {
       },
       body: JSON.stringify(data),
     });
-
+    setLoading(false)
+    const responseData = await response.json();
+      console.log({data});
     if (response.ok) {
       // Handles successful login
+      navigate("/customer/savedaddress")
     } else {
-      // Handle errors
-      // alert("Login failed. Please try again.");
+      
     }
   };
 
@@ -93,7 +97,7 @@ const SaveAddressForm = () => {
             <Marker
               position={markerPosition}
               draggable={true}
-              // onDragEnd={onMarkerDragEnd}
+            // onDragEnd={onMarkerDragEnd}
             />
           </GoogleMap>
         </LoadScript>
@@ -126,7 +130,9 @@ const SaveAddressForm = () => {
             disabled
           />
           <input type="text" placeholder="Landmark" {...register("landmark")} />
-          <button type="submit">Save Address</button>
+          <button type="submit">
+            {loading ? (<FaSpinner />) : "Save Address"}
+          </button>
         </form>
       </div>
     </div>

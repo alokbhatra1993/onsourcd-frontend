@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -6,6 +6,9 @@ const Signup = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
   const navigate = useNavigate();
   const password = watch("password", "");
+
+  const [signupErrror, setSignUpError] = useState(" ")
+
 
   const onSubmit = async (data) => {
     const response = await fetch('http://localhost:5000/api/users/register', {
@@ -16,13 +19,18 @@ const Signup = () => {
       body: JSON.stringify(data),
     });
 
+    const responseData = await response.json()
+
     if (response.ok) {
-      navigate('/login'); // Redirect to login page on successful signup
+      navigate('/login');
     } else {
-      // Handle errors
-      alert('Signup failed. Please try again.');
+      setSignUpError(responseData?.message)
     }
   };
+
+  const handleOnChange = () => {
+    setSignUpError(" ")
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-6 sm:py-0 sm:px-6">
@@ -39,6 +47,7 @@ const Signup = () => {
                   type="text"
                   id="name"
                   {...register('name', { required: 'Name is required' })}
+                  onChange={handleOnChange}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
                 {errors.name && <p className="error">{errors.name.message}</p>}
@@ -52,6 +61,7 @@ const Signup = () => {
                   type="email"
                   id="email"
                   {...register('email', { required: 'Email is required' })}
+                  onChange={handleOnChange}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
                 {errors.email && <p className="error">{errors.email.message}</p>}
@@ -65,6 +75,7 @@ const Signup = () => {
                   type="tel"
                   id="phone"
                   {...register('phone', { required: 'Phone number is required' })}
+                  onChange={handleOnChange}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
                 {errors.phone && <p className="error">{errors.phone.message}</p>}
@@ -77,10 +88,11 @@ const Signup = () => {
                 <input
                   type="password"
                   id="password"
-                  {...register('password', { 
+                  {...register('password', {
                     required: 'Password is required',
                     minLength: { value: 6, message: 'Password must be at least 6 characters' }
                   })}
+                  onChange={handleOnChange}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
                 {errors.password && <p className="error">{errors.password.message}</p>}
@@ -96,6 +108,7 @@ const Signup = () => {
                   {...register('confirmPassword', {
                     validate: value => value === password || 'Passwords do not match'
                   })}
+                  onChange={handleOnChange}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
                 {errors.confirmPassword && <p className="error">{errors.confirmPassword.message}</p>}
@@ -108,6 +121,7 @@ const Signup = () => {
                 <select
                   id="userType"
                   {...register('userType', { required: 'User type is required' })}
+                  onChange={handleOnChange}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 >
                   <option value="">Select user type</option>
@@ -117,6 +131,8 @@ const Signup = () => {
                 </select>
                 {errors.userType && <p className="error">{errors.userType.message}</p>}
               </div>
+
+              {signupErrror && <p className="error">{signupErrror}</p>}
 
               <button
                 type="submit"
@@ -129,7 +145,7 @@ const Signup = () => {
           </div>
         </div>
         <div className="hidden sm:flex sm:w-1/3 sm:ml-4 bg-cover bg-center"
-             style={{ backgroundImage: `url('https://images.unsplash.com/photo-1595569099963-77bf7706643a?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`, height: '42rem' }}>
+          style={{ backgroundImage: `url('https://images.unsplash.com/photo-1595569099963-77bf7706643a?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`, height: '42rem' }}>
         </div>
       </div>
     </div>

@@ -29,15 +29,17 @@ const Login = () => {
 
     if (response.ok) {
       dispatch(setUserData(data));
+
       console.log({ data, v: data?.isVerifiedEmail })
+      
       if (!data?.isVerifiedEmail) {
         console.log("VERIFY EMail")
-        navigate("/customer/verify-email", { state: { email: data?.email } })
+        navigate("/verify-email", { state: { email: data?.email } })
         return;
       }
 
       if (data?.userType === "seller" || data?.userType === "buyer") {
-        navigate("/customer");
+        navigate("/customer/savedaddress");
       } else if (data?.userType === "admin") {
         navigate("/admin-dashboard");
       }

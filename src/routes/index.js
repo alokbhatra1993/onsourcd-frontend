@@ -63,10 +63,10 @@ const Routing = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="verify-email" element={<VerifyEmail />} />
+        <Route path="verified" element={<VerficationSuccessEmail />} />
 
-        {/* <Route path="/seller-dashboard" element={<SellerDashboard />} /> */}
-        {/* <Route path="/buyer-dashboard" element={<BuyerDashboard />} /> */}
-        
+  
         {/* BUYER SELLER */}
         <Route
           path="/customer/*"
@@ -79,8 +79,6 @@ const Routing = () => {
           }
         >
           <Route path="add-new-address" element={<SaveAddressForm />} />
-          <Route path="verify-email" element={<VerifyEmail />} />
-          <Route path="verified" element={<VerficationSuccessEmail />} />
           <Route path="savedaddress" element={<SavedAddress />} />
           
           <Route path="requirements" element={<BuyerRequirementsList />} />

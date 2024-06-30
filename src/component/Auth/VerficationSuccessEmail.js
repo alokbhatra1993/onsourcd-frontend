@@ -8,6 +8,8 @@ const VerficationSuccessEmail = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location?.search);
     const token = queryParams?.get('token');
+  console.log({ location })
+  const navigate = useNavigate();
 
   console.log("VERIFIED emil", queryParams  ,token);
   useEffect(() => {
@@ -18,15 +20,26 @@ const VerficationSuccessEmail = () => {
     const response = await verifyEmailApi(token);
     console.log({ response });
     if (response?.ok) {
-      if (user?.userType === "seller" || user?.userType === "buyer") {
-        navigate("/customer");
+      if(user){
+        if (user?.userType === "seller" || user?.userType === "buyer") {
+          navigate("/customer/savedaddress");
+        }
+        else{
+          navigate("/login")
+        }
       }
+     
     }
   };
 
   return (
-    <div>
-      <h1>You have successfully verified</h1>
+    <div className="mx-auto w-full px-2 py-40 max-w-lg bg-white rounded-lg shadow-md">
+      <div className="flex flex-col items-center">
+        <h1 className="text-2xl font-semibold text-center text-gray-800">
+          You have successfully verified , redirecting you to dashboard
+        </h1>
+      </div>
+
     </div>
   );
 };
