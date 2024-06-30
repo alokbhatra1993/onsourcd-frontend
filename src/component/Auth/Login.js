@@ -10,7 +10,9 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
- const [loading,setloading]=useState(false)
+  const [loading, setloading] = useState(false)
+
+  const [loginError, setLoginError] = useState(" ")
 
 
   const onSubmit = async (formData) => {
@@ -23,27 +25,34 @@ const Login = () => {
       },
       body: JSON.stringify({ email, password }),
     });
+    const data = await response.json();
 
     if (response.ok) {
-      const data = await response.json();
       dispatch(setUserData(data));
-      console.log({data , v:data?.isVerifiedEmail})
-      if(!data?.isVerifiedEmail){
+      console.log({ data, v: data?.isVerifiedEmail })
+      if (!data?.isVerifiedEmail) {
         console.log("VERIFY EMail")
-        navigate("/customer/verify-email",{state:{email:data?.email}})
+        navigate("/customer/verify-email", { state: { email: data?.email } })
         return;
       }
 
-      if (data?.userType === "seller" ||  data?.userType === "buyer") {
+      if (data?.userType === "seller" || data?.userType === "buyer") {
         navigate("/customer");
       } else if (data?.userType === "admin") {
         navigate("/admin-dashboard");
       }
     } else {
-      alert("Login failed. Please try again.");
+      console.log({ data });
+      setLoginError(data?.message)
     }
     setloading(false)
   };
+
+
+  const handleOnChange=()=>{
+    setLoginError(" ")
+  }
+
 
   return (
     <div className="mt-50 mb-50 flex flex-col justify-center sm:items-center sm:px-6">
@@ -61,7 +70,8 @@ const Login = () => {
                     id="email"
                     {...register("email", { required: true })}
                     type="email"
-                    autoComplete="email"
+                    // autoComplete="email"
+                    onChange={handleOnChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                   {errors.email && <span className="text-red-500">Email is required</span>}
@@ -78,11 +88,16 @@ const Login = () => {
                     {...register("password", { required: true })}
                     type="password"
                     autoComplete="current-password"
+                    onChange={handleOnChange}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                   {errors.password && <span className="text-red-500">Password is required</span>}
                 </div>
               </div>
+
+
+              {loginError && <span className="text-red-500">{loginError}</span>}
+
 
               <div>
                 <button
@@ -90,7 +105,7 @@ const Login = () => {
                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6"
                   style={{ backgroundColor: "#02123c" }}
                 >
-                  {loading?(<FaSpinner/>):"  Sign in"}
+                  {loading ? (<FaSpinner />) : "  Sign in"}
                   {/* Sign in */}
                 </button>
               </div>
