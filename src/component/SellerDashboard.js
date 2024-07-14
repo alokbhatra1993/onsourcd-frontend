@@ -6,6 +6,7 @@ export const SellerDashboard = () => {
   return (
     <div className='parent-admin'>
         <CustomerSideBar/>
+        
         <Outlet/>
     
     </div>

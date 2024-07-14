@@ -76,9 +76,7 @@ const Routing = () => {
         <Route path="blogdetail" element={<BlogDetail />} />
         <Route path="contact" element={<Contact />} />
 
-        {/* <Route path="/seller-dashboard" element={<SellerDashboard />} /> */}
-        {/* <Route path="/buyer-dashboard" element={<BuyerDashboard />} /> */}
-        
+  
         {/* BUYER SELLER */}
         <Route
           path="/customer/*"
@@ -91,13 +89,13 @@ const Routing = () => {
           }
         >
           <Route path="add-new-address" element={<SaveAddressForm />} />
-          <Route path="verify-email" element={<VerifyEmail />} />
-          <Route path="verified" element={<VerficationSuccessEmail />} />
           <Route path="savedaddress" element={<SavedAddress />} />
           
           <Route path="requirements" element={<BuyerRequirementsList />} />
           <Route path="add-requirement" element={<AddRequirements />} />
-
+          {/* Requirements coming from buyers will be shown to seller here  */}
+          
+          {/* <Route path="new-requirements" element={<SellerRequirements />} /> */}
 
         </Route>
 

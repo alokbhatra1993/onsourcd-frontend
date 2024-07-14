@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import 'animate.css';
@@ -7,6 +7,9 @@ const Signup = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
   const navigate = useNavigate();
   const password = watch("password", "");
+
+  const [signupErrror, setSignUpError] = useState(" ")
+
 
   const onSubmit = async (data) => {
     const response = await fetch('http://localhost:5000/api/users/register', {
@@ -17,13 +20,18 @@ const Signup = () => {
       body: JSON.stringify(data),
     });
 
+    const responseData = await response.json()
+
     if (response.ok) {
-      navigate('/login'); // Redirect to login page on successful signup
+      navigate('/login');
     } else {
-      // Handle errors
-      alert('Signup failed. Please try again.');
+      setSignUpError(responseData?.message)
     }
   };
+
+  const handleOnChange = () => {
+    setSignUpError(" ")
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-6 sm:py-0 sm:px-6">
@@ -78,7 +86,7 @@ const Signup = () => {
                 <input
                   type="password"
                   id="password"
-                  {...register('password', { 
+                  {...register('password', {
                     required: 'Password is required',
                     minLength: { value: 6, message: 'Password must be at least 6 characters' }
                   })}
@@ -87,7 +95,7 @@ const Signup = () => {
                 {errors.password && <p className="error">{errors.password.message}</p>}
               </div>
 
-              <div className="form-group">
+              {/* <div className="form-group">
                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
                   Confirm Password
                 </label>
@@ -100,7 +108,7 @@ const Signup = () => {
                   className="input-field"
                 />
                 {errors.confirmPassword && <p className="error">{errors.confirmPassword.message}</p>}
-              </div>
+              </div> */}
 
               <div className="form-group">
                 <label htmlFor="userType" className="block text-sm font-medium text-gray-700">
@@ -118,6 +126,8 @@ const Signup = () => {
                 </select>
                 {errors.userType && <p className="error">{errors.userType.message}</p>}
               </div>
+
+              {signupErrror && <p className="error">{signupErrror}</p>}
 
               <button
                 type="submit"
