@@ -1,7 +1,7 @@
 export const fetchCategories = async () => {
   const response = await fetch(
     `http://localhost:5000/api/products/categories`,
-    {
+    { 
       method: "GET",
       headers: {
         "Content-Type": "application/json",

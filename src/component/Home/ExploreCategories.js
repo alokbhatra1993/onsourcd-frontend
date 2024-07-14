@@ -2,6 +2,7 @@ import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import 'animate.css';
 
 const ExploreCategories = () => {
   // Sample product data
@@ -43,6 +44,7 @@ const ExploreCategories = () => {
     dots: true,
     infinite: true,
     speed: 500,
+    arrows:false,
     slidesToShow: 4, // Display four slides at a time
     slidesToScroll: 1,
     autoplay: true, // Autoplay enabled
@@ -56,14 +58,15 @@ const ExploreCategories = () => {
           initialSlide: 0,
           dots: true,
         },
-        
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            initialSlide: 0,
-            dots: true,
-          },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+          initialSlide: 0,
+          dots: true,
+        },
       },
     ],
   };
@@ -71,15 +74,18 @@ const ExploreCategories = () => {
   return (
     <section className="py-16 bg-gradient-to-b from-yellow-50 to-yellow-100">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <div className="text-center mb-12 animate__animated animate__fadeInDown">
           <h2 className="text-4xl font-bold leading-tight text-yellow-800">
             Explore Our Products
           </h2>
         </div>
         <div>
           <Slider {...sliderSettings} className="px-4">
-            {products.map((product) => (
-              <div key={product.id} className="px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10">
+            {products.map((product, index) => (
+              <div
+                key={product.id}
+                className={`px-2 sm:px-4 md:px-6 lg:px-8 xl:px-10 animate__animated animate__fadeInUp animate__delay-${index}s`}
+              >
                 <div className="bg-white rounded-lg shadow-md overflow-hidden">
                   <img
                     src={product.image}

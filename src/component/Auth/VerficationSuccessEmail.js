@@ -6,10 +6,12 @@ import { useLocation, useNavigate, useParams, useSearchParams } from "react-rout
 const VerficationSuccessEmail = () => {
   const user = useSelector((state) => state);
   const location = useLocation();
+  const navigate = useNavigate(); // Added useNavigate hook
   const queryParams = new URLSearchParams(location?.search);
-    const token = queryParams?.get('token');
+  const token = queryParams?.get('token');
 
-  console.log("VERIFIED emil", queryParams  ,token);
+  console.log("VERIFIED email", queryParams, token);
+
   useEffect(() => {
     verifyEmail();
   }, []);

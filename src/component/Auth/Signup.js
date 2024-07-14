@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import 'animate.css';
 
 const Signup = () => {
   const { register, handleSubmit, formState: { errors }, watch } = useForm();
@@ -26,11 +27,11 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-6 sm:py-0 sm:px-6">
-      <div className="sm:flex sm:justify-center sm:items-center">
-        <div className="bg-white w-full sm:max-w-md sm:rounded-lg shadow-lg overflow-hidden">
-          <div className="px-6 py-8 sm:px-10">
-            <h2 className="text-3xl font-extrabold text-gray-900 text-center">Sign Up</h2>
-            <form onSubmit={handleSubmit(onSubmit)} className="mt-6 space-y-6">
+      <div className="container mx-auto sm:flex sm:justify-center sm:items-center">
+        <div className="bg-white w-full sm:max-w-md sm:rounded-lg shadow-lg overflow-hidden animate__animated animate__fadeInUp">
+          <div className="px-6 py-6 sm:px-10">
+            <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-4 animate__animated animate__fadeInDown">Sign Up</h2>
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="form-group">
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                   Name
@@ -39,7 +40,7 @@ const Signup = () => {
                   type="text"
                   id="name"
                   {...register('name', { required: 'Name is required' })}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="input-field"
                 />
                 {errors.name && <p className="error">{errors.name.message}</p>}
               </div>
@@ -52,7 +53,7 @@ const Signup = () => {
                   type="email"
                   id="email"
                   {...register('email', { required: 'Email is required' })}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="input-field"
                 />
                 {errors.email && <p className="error">{errors.email.message}</p>}
               </div>
@@ -65,7 +66,7 @@ const Signup = () => {
                   type="tel"
                   id="phone"
                   {...register('phone', { required: 'Phone number is required' })}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="input-field"
                 />
                 {errors.phone && <p className="error">{errors.phone.message}</p>}
               </div>
@@ -81,7 +82,7 @@ const Signup = () => {
                     required: 'Password is required',
                     minLength: { value: 6, message: 'Password must be at least 6 characters' }
                   })}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="input-field"
                 />
                 {errors.password && <p className="error">{errors.password.message}</p>}
               </div>
@@ -96,7 +97,7 @@ const Signup = () => {
                   {...register('confirmPassword', {
                     validate: value => value === password || 'Passwords do not match'
                   })}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="input-field"
                 />
                 {errors.confirmPassword && <p className="error">{errors.confirmPassword.message}</p>}
               </div>
@@ -108,7 +109,7 @@ const Signup = () => {
                 <select
                   id="userType"
                   {...register('userType', { required: 'User type is required' })}
-                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="input-field"
                 >
                   <option value="">Select user type</option>
                   <option value="buyer">Buyer</option>
@@ -120,16 +121,16 @@ const Signup = () => {
 
               <button
                 type="submit"
-                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6"
-                style={{ backgroundColor: "#02123c" }}
+                className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 mt-6 animate__animated animate__fadeInUp"
+                style={{ backgroundColor: "#f6b60d" }}
               >
                 Sign Up
               </button>
             </form>
           </div>
         </div>
-        <div className="hidden sm:flex sm:w-1/3 sm:ml-4 bg-cover bg-center"
-             style={{ backgroundImage: `url('https://images.unsplash.com/photo-1595569099963-77bf7706643a?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`, height: '42rem' }}>
+        <div className="hidden sm:flex sm:w-1/3 sm:ml-4 bg-cover bg-center animate__animated animate__fadeIn"
+             style={{ backgroundImage: `url('https://images.unsplash.com/photo-1595569099963-77bf7706643a?q=80&w=1472&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')`, height: '30rem' }}>
         </div>
       </div>
     </div>

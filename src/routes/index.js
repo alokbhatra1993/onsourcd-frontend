@@ -26,6 +26,14 @@ import AddRequirements from "../component/Pages/AddRequirements";
 import BuyerRequirementsList from "../component/Pages/BuyerRequirementsList";
 import VerifyEmail from "../component/Auth/VerifyEmail";
 import VerficationSuccessEmail from "../component/Auth/VerficationSuccessEmail";
+import ProductDetail from "../component/Auth/ProductDetail";
+import Blog from "../component/Auth/Blogs";
+import BlogDetail from "../component/Auth/BlogDetail";
+import Contact from "../component/Auth/Contact";
+
+
+
+
 
 const Routing = () => {
   const user = useSelector((state) => state);
@@ -63,6 +71,10 @@ const Routing = () => {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="productdetail" element={<ProductDetail />} />
+        <Route path="blogs" element={<Blog />} />
+        <Route path="blogdetail" element={<BlogDetail />} />
+        <Route path="contact" element={<Contact />} />
 
         {/* <Route path="/seller-dashboard" element={<SellerDashboard />} /> */}
         {/* <Route path="/buyer-dashboard" element={<BuyerDashboard />} /> */}
@@ -102,6 +114,12 @@ const Routing = () => {
           <Route path="faqsection" element={<FAQSection />} />
           <Route path="sellerbuyertabs" element={<SellerBuyerTabs />} />
           <Route path="B2BSection" element={<B2BSection />} />
+
+  
+
+
+      
+
 
           {/* <Route path="add-category" element={<AddCategory />} /> */}
           {/* <Route path="see-orders" element={<SeeOrders />} /> */}

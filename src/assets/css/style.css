@@ -50,6 +50,15 @@ CSS Index
 	font-style: normal;
      line-height: 26px;
 }
+/* In your styles.css or a custom CSS file */
+.text-shadow-lg {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Adjust the shadow here */
+}
+
+.text-shadow-xl {
+  text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8); /* More pronounced shadow */
+}
+
 
 /* General styles for the services section */
 .services-area {
@@ -59,6 +68,10 @@ CSS Index
   .container{
     width:1370px;
   }
+  .btn-search {
+    width: 30px;
+    border-radius: 50%;
+}
   .services-content {
 
     padding: 20px;
@@ -83,6 +96,14 @@ CSS Index
     font-size: 14px;
     font-weight: bold;
   }
+  .dropdown button {
+    color: #000;
+    text-transform: capitalize;
+}
+.dropdown button:hover {
+ color: rgba(246, 182, 13, 1);
+  ;
+}
 
   /* App.css */
 .signup-container {

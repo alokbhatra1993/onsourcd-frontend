@@ -11,7 +11,7 @@ const faqs = [
 ];
 
 const FAQSection = () => {
-  const [openIndex, setOpenIndex] = useState(null);
+  const [openIndex, setOpenIndex] = useState(0);
 
   const handleAccordionClick = (index) => {
     setOpenIndex(index === openIndex ? null : index);
@@ -29,7 +29,7 @@ const FAQSection = () => {
                 <div key={index} className="border-b border-gray-200">
                   <button
                     onClick={() => handleAccordionClick(index)}
-                    className={`flex justify-between items-center w-full py-4 px-6 text-left text-lg font-semibold focus:outline-none ${openIndex === index ? 'bg-[#F6B60D] text-white' : 'bg-white text-[#372800]'}`}
+                    className={`flex justify-between items-center w-full py-4 px-6 text-left text-lg font-semibold focus:outline-none transition-all duration-300 ${openIndex === index ? 'bg-[#F6B60D] text-white' : 'bg-white text-[#372800]'}`}
                   >
                     <span>{faq.question}</span>
                     {openIndex === index ? (
@@ -38,6 +38,11 @@ const FAQSection = () => {
                       <FiChevronDown className="w-6 h-6" />
                     )}
                   </button>
+                  {openIndex === index && (
+                    <div className="p-4 text-gray-700 bg-white">
+                      <p>{faq.answer}</p>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
