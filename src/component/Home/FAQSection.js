@@ -11,7 +11,7 @@ const faqs = [
 ];
 
 const FAQSection = () => {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState(null);
 
   const handleAccordionClick = (index) => {
     setOpenIndex(index === openIndex ? null : index);
@@ -23,13 +23,13 @@ const FAQSection = () => {
         <h2 className="text-4xl font-bold mb-8 text-center text-[#372800]">FAQ</h2>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* FAQ Accordion */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-1">
             <div className="bg-white rounded-lg shadow-md overflow-hidden">
               {faqs.map((faq, index) => (
                 <div key={index} className="border-b border-gray-200">
                   <button
                     onClick={() => handleAccordionClick(index)}
-                    className={`flex justify-between items-center w-full py-4 px-6 text-left text-lg font-semibold focus:outline-none transition-all duration-300 ${openIndex === index ? 'bg-[#F6B60D] text-white' : 'bg-white text-[#372800]'}`}
+                    className={`flex justify-between items-center w-full py-4 px-6 text-left text-lg font-semibold focus:outline-none transition-all duration-300 ${openIndex === index ? 'bg-[#F6B60D] text-white' : 'bg-white text-[#372800] hover:bg-white'}`}
                   >
                     <span>{faq.question}</span>
                     {openIndex === index ? (
@@ -38,25 +38,27 @@ const FAQSection = () => {
                       <FiChevronDown className="w-6 h-6" />
                     )}
                   </button>
-                  {openIndex === index && (
-                    <div className="p-4 text-gray-700 bg-white">
-                      <p>{faq.answer}</p>
-                    </div>
-                  )}
                 </div>
               ))}
             </div>
           </div>
 
           {/* Right Side Panel with Answers */}
-          <div className="lg:col-span-1">
+          <div className="lg:col-span-2">
             <div className="bg-white rounded-lg shadow-md p-6">
-              {faqs.map((faq, index) => (
-                <div key={index} className={`mb-4 ${openIndex === index ? 'block' : 'hidden'}`}>
-                  <h3 className="text-xl font-semibold mb-2 text-[#372800]">{faq.question}</h3>
-                  <p className="text-gray-600">{faq.answer}</p>
+              {openIndex === null ? (
+                <div className="text-center text-gray-700">
+                  <h3 className="text-2xl font-semibold mb-4">Welcome to the FAQ Section</h3>
+                  <p className="text-lg">
+                    Select a question from the left to see the answer here. We are here to help you understand how ONSOURCD works and how it can benefit you.
+                  </p>
                 </div>
-              ))}
+              ) : (
+                <div className="transition-opacity duration-300 ease-in-out opacity-100 block">
+                  <h3 className="text-xl font-semibold mb-2 text-[#372800]">{faqs[openIndex].question}</h3>
+                  <p className="text-gray-600">{faqs[openIndex].answer}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

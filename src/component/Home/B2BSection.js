@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { FiDollarSign, FiCreditCard, FiUsers, FiTrendingUp, FiShoppingCart, FiPackage } from "react-icons/fi";
-// Import animate.css if needed for other parts of the project, but not for this section
-// import "animate.css/animate.min.css"; 
 
 const B2BSection = () => {
   const [activeTab, setActiveTab] = useState("buyer");
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
+  };
+
+  const getHeadingText = () => {
+    return activeTab === "buyer" ? "Why Buyers Choose Us" : "Why Suppliers Choose Us";
   };
 
   return (
@@ -20,7 +22,7 @@ const B2BSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold leading-tight text-white">
-            Why Buyers Choose Us
+            {getHeadingText()}
           </h2>
         </div>
         {/* Tabs */}

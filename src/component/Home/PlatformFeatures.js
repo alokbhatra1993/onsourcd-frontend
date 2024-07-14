@@ -58,12 +58,16 @@ const PlatformFeatures = () => {
           </div>
         </div>
 
-        {/* Register Now Button */}
-        <div className="flex justify-center mt-8 md:mt-12">
-          <Link to="/signup" className="px-4 md:px-6 w-40 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition duration-300 animate__animated animate__pulse animate__infinite">
-            Register Now
-          </Link>
-        </div>
+      {/* Register Now Button */}
+<div className="flex justify-center mt-8 md:mt-12">
+  <Link 
+    to="/signup" 
+    className="px-4 md:px-6 w-40 py-2 bg-[#f6b60d] text-black rounded-md hover:bg-yellow-600 transition duration-300 animate__animated animate__pulse animate__infinite text-center"
+  >
+    Register Now
+  </Link>
+</div>
+
       </div>
     </section>
   );

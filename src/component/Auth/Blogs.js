@@ -4,7 +4,7 @@ import { Dropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 const Blogs = () => {
-  const [selectedCategory, setSelectedCategory] = useState('Tech');
+  const [selectedCategory, setSelectedCategory] = useState('select');
   const [sortOption, setSortOption] = useState('Latest');
   const [visibleBlogs, setVisibleBlogs] = useState(6);
 

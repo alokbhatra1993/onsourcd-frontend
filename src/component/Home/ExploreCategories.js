@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -12,12 +13,6 @@ const ExploreCategories = () => {
       name: "Briquettes",
       category: "Bagasse",
       image: "https://img.freepik.com/free-photo/overhead-shot-small-pieces-cut-wood-stacked-each-other_181624-27604.jpg?t=st=1719390856~exp=1719394456~hmac=9f74d0e40e7df34dea507c2a9cfea155698aac30c5a21138231af202d21662e9&w=740",
-    },
-    {
-      id: 2,
-      name: "Pellets",
-      category: "Saw Dust",
-      image: "https://img.freepik.com/free-photo/top-view-plant-leaves-pellets-with-copy-space_23-2148895420.jpg?t=st=1719390889~exp=1719394489~hmac=fea9ae8f337fd9f0919f13faf28331e4532b60f9c706e632755f18593ef85a1c&w=826",
     },
     {
       id: 2,
@@ -44,7 +39,7 @@ const ExploreCategories = () => {
     dots: true,
     infinite: true,
     speed: 500,
-    arrows:false,
+    arrows: false,
     slidesToShow: 4, // Display four slides at a time
     slidesToScroll: 1,
     autoplay: true, // Autoplay enabled
@@ -95,9 +90,12 @@ const ExploreCategories = () => {
                   <div className="p-4">
                     <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
                     <p className="text-sm text-gray-600 mb-4">{product.category}</p>
-                    <button className="block w-full bg-yellow-800 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition duration-300">
-                      Explore
-                    </button>
+                    <Link
+                      to="/signup"
+                      className="block w-full bg-yellow-800 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition duration-300 text-center"
+                    >
+                      Register Now
+                    </Link>
                   </div>
                 </div>
               </div>
