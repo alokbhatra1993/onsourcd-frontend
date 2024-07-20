@@ -30,6 +30,7 @@ import ProductDetail from "../component/Auth/ProductDetail";
 import Blog from "../component/Auth/Blogs";
 import BlogDetail from "../component/Auth/BlogDetail";
 import Contact from "../component/Auth/Contact";
+import CompanyDetail from "../component/CompanyDetail";
 
 
 
@@ -77,6 +78,7 @@ const Routing = () => {
         <Route path="contact" element={<Contact />} />
         <Route path="verify-email" element={<VerifyEmail />} />
         <Route path="verified" element={<VerficationSuccessEmail />} />
+        <Route path="company-detail" element={<CompanyDetail />} />
 
   
         {/* BUYER SELLER */}
@@ -115,6 +117,8 @@ const Routing = () => {
           <Route path="faqsection" element={<FAQSection />} />
           <Route path="sellerbuyertabs" element={<SellerBuyerTabs />} />
           <Route path="B2BSection" element={<B2BSection />} />
+
+   
 
   
 

@@ -39,7 +39,7 @@ const Login = () => {
       }
 
       if (data?.userType === "seller" || data?.userType === "buyer") {
-        navigate("/customer/add-new-address");
+        navigate("/add-new-address");
       } else if (data?.userType === "admin") {
         navigate("/admin-dashboard");
       }

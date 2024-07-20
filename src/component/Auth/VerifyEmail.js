@@ -8,6 +8,7 @@ const VerifyEmail = () => {
   const location = useLocation();
   const user = useSelector((state) => state);
   const navigate = useNavigate();
+  console.log("verifyemail")
 
   const [loading, setloading] = useState(true);
 

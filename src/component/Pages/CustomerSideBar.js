@@ -10,7 +10,7 @@ const CustomerSideBar = () => {
   return (
     <div className="sidebar">
       <ul className="sidebar-list">
-        <li><Link to="/customer/products"> Products</Link></li>
+        <li><Link to="/customer/add-product"> Products</Link></li>
         <li><Link
           to={user && user?.userType === "buyer" ? "/customer/requirements" : "/customer/new-requirements"}>
           {user && user?.userType === "buyer" ? "My Requirements" : "New Requirements"}
