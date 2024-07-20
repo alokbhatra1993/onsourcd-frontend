@@ -111,6 +111,7 @@ const AddRequirements = () => {
             totalOrders = 0;
         }
         setTotalOrders(totalOrders);
+        setValue("totalOrders",totalOrders)
       } else {
         setTotalOrders(0);
       }
@@ -119,16 +120,27 @@ const AddRequirements = () => {
     }
   };
 
+  console.log({totalOrders});
+
   const onSubmit = async (data) => {
-    setLoading(true);
-    const saveRequirementResponse = await addRequirement(data, user?.token);
-    if (saveRequirementResponse?.ok) {
-      setLoading(false);
-      navigate("/customer/requirements");
-    } else {
-      // show error message
-      toast.error("Something went wrong")
+    try {
+      console.log({data});
+
+       setLoading(true);
+      const saveRequirementResponse = await addRequirement(data, user?.token);
+      if (saveRequirementResponse?.ok) {
+        setLoading(false);
+        navigate("/customer/requirements");
+      } else {
+        // show error message
+        toast.error("Something went wrong")
+      }
+      setLoading(false)
+      
+    } catch (error) {
+      
     }
+   
   };
 
   const handleStartDateChange = (e) => {
