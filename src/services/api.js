@@ -1,7 +1,7 @@
 export const fetchCategories = async () => {
   const response = await fetch(
     `http://localhost:5000/api/products/categories`,
-    { 
+    {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -117,6 +117,32 @@ export const sendVerifyEmail = async (token) => {
 
 export const verifyEmailApi = async (token) => {
   const response = await fetch(`http://localhost:5000/api/users/verify-email`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
+};
+
+
+export const saveCompanyDetails = async (formData, token) => {
+  console.log({formData});
+  const response = await fetch(`http://localhost:5000/api/company/register`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  }
+
+  );
+  return response;
+};
+
+export const getCompanyDetails = async (token) => {
+  const response = await fetch(`http://localhost:5000/api/company/details`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

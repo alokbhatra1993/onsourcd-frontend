@@ -1,6 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { GoogleMap, useJsApiLoader, Marker } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, Marker, LoadScript } from '@react-google-maps/api';
+import { useSelector } from 'react-redux';
+import { fetchAddress } from '../services/googleApi';
+import { getCompanyDetails, saveCompanyDetails } from '../services/api';
+import { Toast, ToastBody } from "react-bootstrap";
 
 const containerStyle = {
   width: '100%',
@@ -13,27 +17,99 @@ const center = {
 };
 
 const CompanyDetail = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const [markerPosition, setMarkerPosition] = useState({ lat: 0, lng: 0 });
+  const [map, setMap] = useState(null);
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const [location, setLocation] = useState(center);
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'YOUR_GOOGLE_MAPS_API_KEY' // Replace with your Google Maps API key
   });
 
-  const onSubmit = data => {
-    console.log(data);
-    console.log(location);
+  const [loading, setLoading] = useState(false);
+
+  const user = useSelector((state) => state);
+
+  useEffect(() => {
+    handleUseCurrentLocation();
+    fetchCompany()
+  }, []);
+
+  const handleUseCurrentLocation = async () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          console.log("position", position);
+          const { latitude, longitude } = position.coords;
+          setMarkerPosition({ lat: latitude, lng: longitude });
+          const locationAddress =
+            (await fetchAddress(latitude, longitude)) || "";
+          console.log("locationAddress", locationAddress);
+          const { address_components, formatted_address } = locationAddress;
+          setValue("latitude", latitude);
+          setValue("longitude", longitude);
+          setValue("userId", user?._id);
+          setValue("googleAddress", formatted_address);
+        },
+        (error) => {
+          console.log({ error });
+        }
+      );
+    } else {
+    }
   };
 
-  const onMapClick = useCallback((event) => {
-    setLocation({
-      lat: event.latLng.lat(),
-      lng: event.latLng.lng()
-    });
-  }, []);
+  const onLoad = (map) => {
+    setMap(map);
+  };
+
+  const onSubmit = async (data) => {
+    try {
+      console.log({ data });
+    setLoading(true)
+    const response = await saveCompanyDetails(data, user?.token);
+    if (response?.ok) {
+      Toast.success("Details Updated");
+      fetchCompany()
+    }
+    else{
+      Toast.error("Something went wrong");
+
+    }
+    setLoading(false)
+    } catch (error) {
+      Toast.error("Something went wrong");
+
+      setLoading(false)
+
+    }
+    
+  };
+
+  const fetchCompany = async () => {
+    // setLoading(true)
+    const response = await getCompanyDetails(user?.token);
+    console.log({ response });
+    if (response?.ok) {
+      const data = await response.json()
+      console.log({ data });
+      const company = data?.company;
+      setValue("latitude", company?.latitude);
+      setValue("longitude", company?.longitude);
+      setValue("googleAddress", company?.googleAddress);
+      setValue("companyAddress", company?.companyAddresss);
+      setValue("companyName", company?.companyName);
+      setValue("gstNumber", company?.gst);
+      setValue("occupation", company?.Occupation);
+      setValue("terms", true)
+    }
+
+  }
+
 
   return (
     <div className="max-w-9xl mx-auto p-8 md:p-10 lg:p-12">
+      <ToastBody/>
       <div className="bg-white shadow-2xl rounded-lg p-10 border border-gray-200">
         <h2 className="text-3xl font-bold mb-8 text-gray-900">Company Details</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
@@ -61,7 +137,7 @@ const CompanyDetail = () => {
             <div className="flex flex-col">
               <label className="block mb-2 text-sm font-medium text-gray-900">GST Number</label>
               <input
-                {...register('gstNumber', { required: 'GST Number is required' })}
+                {...register('gstNumber')}
                 type="text"
                 className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500"
               />
@@ -107,24 +183,25 @@ const CompanyDetail = () => {
             <label className="block mb-2 text-sm font-medium text-gray-900">Select Location</label>
             {isLoaded ? (
               <div className="flex-grow h-96">
-                <GoogleMap
-                  mapContainerStyle={containerStyle}
-                  center={location}
-                  zoom={10}
-                  onClick={onMapClick}
-                  options={{
-                    fullscreenControl: false,
-                    mapTypeControl: false,
-                    streetViewControl: false,
-                  }}
-                >
-                  <Marker position={location} />
-                </GoogleMap>
+                <LoadScript googleMapsApiKey="AIzaSyCL_QSk4NjKCD376dCE3LM93zIkn234Yrs">
+                  <GoogleMap
+                    mapContainerStyle={containerStyle}
+                    center={center}
+                    zoom={10}
+                    onLoad={onLoad}
+                  >
+                    <Marker
+                      position={markerPosition}
+                      draggable={true}
+                    // onDragEnd={onMarkerDragEnd}
+                    />
+                  </GoogleMap>
+                </LoadScript>
               </div>
             ) : <p>Loading...</p>}
             <div>
-              <p className="text-sm text-gray-700">Latitude: <span className="font-medium">{location.lat}</span></p>
-              <p className="text-sm text-gray-700">Longitude: <span className="font-medium">{location.lng}</span></p>
+              {/* <p className="text-sm text-gray-700">Latitude: <span className="font-medium">{location.lat}</span></p>
+              <p className="text-sm text-gray-700">Longitude: <span className="font-medium">{location.lng}</span></p> */}
             </div>
           </div>
         </div>
