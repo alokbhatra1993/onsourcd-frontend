@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { addRequirement, fetchProductApi } from "../../services/api";
+import { addRequirement, fetchProductApi, fetchCategories } from "../../services/api";
 import { useSelector } from "react-redux";
 import { fetchAddress } from "../../services/googleApi";
-
 import { FaSpinner } from "react-icons/fa6";
 import { Toast, ToastBody } from "react-bootstrap";
 
@@ -13,13 +12,17 @@ const AddRequirements = () => {
   const user = useSelector((state) => state);
 
   const [detectLocationLoading, setDetectLocationLoading] = useState(false);
-
+  const [categoriesState, setCategoriesState] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [totalOrders, setTotalOrders] = useState(0);
 
   const {
     register,
     handleSubmit,
     setValue,
+    getValues,
     formState: { errors },
   } = useForm();
   const [products, setProducts] = useState([]);
@@ -43,18 +46,27 @@ const AddRequirements = () => {
     };
 
     loadProducts();
+    loadCategories();
   }, []);
+
+  const loadCategories = async () => {
+    try {
+      const response = await fetchCategories();
+      const data = await response.json();
+      setCategoriesState(data?.categories || []);
+    } catch (error) {
+      console.error("Error fetching categories:", error);
+    }
+  };
 
   const detectLocation = async () => {
     setDetectLocationLoading(true);
-
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
-          const locationAddress =
-            (await fetchAddress(latitude, longitude)) || "";
-          const { address_components, formatted_address } = locationAddress;
+          const locationAddress = (await fetchAddress(latitude, longitude)) || "";
+          const { address_components } = locationAddress;
           setValue("latitude", latitude);
           setValue("longitude", longitude);
           setValue("deliveryState", address_components[4].long_name);
@@ -72,6 +84,40 @@ const AddRequirements = () => {
     }
   };
 
+  const calculateTotalOrders = (start, end, frequency) => {
+    if (start && end && frequency) {
+      const startDate = new Date(start);
+      const endDate = new Date(end);
+      const timeDiff = endDate - startDate;
+      const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // +1 to include both start and end dates
+
+      if (dayDiff >= 0) {
+        let totalOrders = 0;
+        switch (frequency) {
+          case "Daily":
+            totalOrders = dayDiff;
+            break;
+          case "Weekly":
+            totalOrders = Math.ceil(dayDiff / 7);
+            break;
+          case "Monthly":
+            totalOrders = Math.ceil(dayDiff / 30);
+            break;
+          case "OneTime":
+            totalOrders = 1;
+            break;
+          default:
+            totalOrders = 0;
+        }
+        setTotalOrders(totalOrders);
+      } else {
+        setTotalOrders(0);
+      }
+    } else {
+      setTotalOrders(0);
+    }
+  };
+
   const onSubmit = async (data) => {
     setLoading(true);
     const saveRequirementResponse = await addRequirement(data, user?.token);
@@ -83,15 +129,53 @@ const AddRequirements = () => {
     }
   };
 
+  const handleStartDateChange = (e) => {
+    const value = e.target.value;
+    setStartDate(value);
+    setValue("expectedStartDate", value);
+    calculateTotalOrders(value, endDate, getValues("frequency"));
+  };
+
+  const handleEndDateChange = (e) => {
+    const value = e.target.value;
+    setEndDate(value);
+    setValue("expectedEndDate", value);
+    calculateTotalOrders(startDate, value, getValues("frequency"));
+  };
+
+  const handleFrequencyChange = (e) => {
+    const value = e.target.value;
+    setValue("frequency", value);
+    calculateTotalOrders(startDate, endDate, value);
+  };
+
   return (
     <div className="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
       <ToastBody />
       <h2 className="text-3xl font-bold text-center mb-6">Add Requirements</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium">Product</label>
+            <label htmlFor="category" className="block text-gray-700 font-medium mb-2">Category</label>
             <select
+              id="category"
+              {...register("category", { required: true })}
+              className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              <option value="">Select Category</option>
+              {categoriesState.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+            {errors.category && <span className="text-red-500 text-sm">Category is required</span>}
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="product" className="block text-gray-700 font-medium mb-2">Product</label>
+            <select
+              id="product"
               {...register("productId", { required: true })}
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
@@ -102,50 +186,52 @@ const AddRequirements = () => {
                 </option>
               ))}
             </select>
-            {errors.productId && (
-              <span className="text-red-500 text-sm">Product is required</span>
-            )}
+            {errors.productId && <span className="text-red-500 text-sm">Product is required</span>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium">
-              Minimum Amount
-            </label>
+            <label htmlFor="totalOrders" className="block text-gray-700 font-medium mb-2">Total Orders</label>
             <input
+              id="totalOrders"
+              {...register("totalOrders")}
+              type="number"
+              value={totalOrders}
+              className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled
+            />
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+          <div className="mb-4">
+            <label htmlFor="minimumAmount" className="block text-gray-700 font-medium mb-2">Minimum Amount</label>
+            <input
+              id="minimumAmount"
               {...register("minimumAmount", { required: true })}
               type="number"
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.minimumAmount && (
-              <span className="text-red-500 text-sm">
-                Minimum amount is required
-              </span>
-            )}
+            {errors.minimumAmount && <span className="text-red-500 text-sm">Minimum amount is required</span>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium">
-              Maximum Amount
-            </label>
+            <label htmlFor="maximumAmount" className="block text-gray-700 font-medium mb-2">Maximum Amount</label>
             <input
+              id="maximumAmount"
               {...register("maximumAmount", { required: true })}
               type="number"
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.maximumAmount && (
-              <span className="text-red-500 text-sm">
-                Maximum amount is required
-              </span>
-            )}
+            {errors.maximumAmount && <span className="text-red-500 text-sm">Maximum amount is required</span>}
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium">Frequency</label>
+            <label htmlFor="frequency" className="block text-gray-700 font-medium mb-2">Frequency</label>
             <select
+              id="frequency"
               {...register("frequency", { required: true })}
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={handleFrequencyChange}
             >
               <option value="">Select frequency</option>
               <option value="Daily">Daily</option>
@@ -153,146 +239,91 @@ const AddRequirements = () => {
               <option value="Monthly">Monthly</option>
               <option value="OneTime">One Time</option>
             </select>
-            {errors.frequency && (
-              <span className="text-red-500 text-sm">
-                Frequency is required
-              </span>
-            )}
+            {errors.frequency && <span className="text-red-500 text-sm">Frequency is required</span>}
           </div>
+        </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium">
-              Expected Start Date
-            </label>
+            <label htmlFor="expectedStartDate" className="block text-gray-700 font-medium mb-2">Expected Start Date</label>
             <input
+              id="expectedStartDate"
               {...register("expectedStartDate", { required: true })}
               type="date"
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={handleStartDateChange}
             />
-            {errors.expectedStartDate && (
-              <span className="text-red-500 text-sm">
-                Expected start date is required
-              </span>
-            )}
+            {errors.expectedStartDate && <span className="text-red-500 text-sm">Start date is required</span>}
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium">
-              Expected End Date
-            </label>
+            <label htmlFor="expectedEndDate" className="block text-gray-700 font-medium mb-2">Expected End Date</label>
             <input
+              id="expectedEndDate"
               {...register("expectedEndDate", { required: true })}
               type="date"
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              onChange={handleEndDateChange}
             />
-            {errors.expectedEndDate && (
-              <span className="text-red-500 text-sm">
-                Expected end date is required
-              </span>
-            )}
+            {errors.expectedEndDate && <span className="text-red-500 text-sm">End date is required</span>}
           </div>
+        </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
           <div className="mb-4">
-            <label className="block text-gray-700 font-medium">Quantity</label>
+            <label htmlFor="deliveryCity" className="block text-gray-700 font-medium mb-2">City</label>
             <input
-              {...register("quantity", { required: true })}
-              type="number"
-              className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            {errors.quantity && (
-              <span className="text-red-500 text-sm">Quantity is required</span>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium">
-              Delivery Address
-            </label>
-            <input
-              {...register("deliveryAddress", { required: true })}
+              id="deliveryCity"
+              {...register("deliveryCity", { required: true })}
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.expectedStartDate && (
-              <span className="text-red-500 text-sm">
-                Delivery Address is required
-              </span>
-            )}
+            {errors.deliveryCity && <span className="text-red-500 text-sm">City is required</span>}
           </div>
-          <div className="mb-4 flex items-end">
+
+          <div className="mb-4">
+            <label htmlFor="deliveryState" className="block text-gray-700 font-medium mb-2">State</label>
+            <input
+              id="deliveryState"
+              {...register("deliveryState", { required: true })}
+              type="text"
+              className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.deliveryState && <span className="text-red-500 text-sm">State is required</span>}
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="deliveryZipCode" className="block text-gray-700 font-medium mb-2">Zip Code</label>
+            <input
+              id="deliveryZipCode"
+              {...register("deliveryZipCode", { required: true })}
+              type="text"
+              className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.deliveryZipCode && <span className="text-red-500 text-sm">Zip code is required</span>}
+          </div>
+
+          <div className="mb-4">
             <button
               type="button"
+              className="w-full mt-2 p-2 bg-blue-500 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-center items-center"
               onClick={detectLocation}
-              className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              disabled={detectLocationLoading}
             >
-              {detectLocationLoading ? <FaSpinner /> : "Detect Location"}
+              {detectLocationLoading ? <FaSpinner className="animate-spin" /> : "Detect Location"}
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium">
-              Delivery City
-            </label>
-            <input
-              {...register("deliveryCity", { required: true })}
-              type="text"
-              className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              disabled
-            />
-            {errors.deliveryCity && (
-              <span className="text-red-500 text-sm">City is required</span>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium">
-              Delivery State
-            </label>
-            <input
-              {...register("deliveryState", { required: true })}
-              type="text"
-              className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              disabled
-            />
-            {errors.deliveryState && (
-              <span className="text-red-500 text-sm">State is required</span>
-            )}
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-gray-700 font-medium">
-              Delivery Zip Code
-            </label>
-            <input
-              {...register("deliveryZipCode", { required: true })}
-              type="text"
-              className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              disabled
-            />
-            {errors.deliveryZipCode && (
-              <span className="text-red-500 text-sm">
-                Zip Code is required
-              </span>
-            )}
-          </div>
+        <div className="flex justify-end">
+          <button
+            type="submit"
+            className="w-full md:w-auto bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            disabled={loading}
+          >
+            {loading ? <FaSpinner className="animate-spin" /> : "Submit"}
+          </button>
         </div>
-
-        <div className="mb-4">
-          <label className="block text-gray-700 font-medium">Description</label>
-          <textarea
-            {...register("description")}
-            className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            rows="3"
-          ></textarea>
-        </div>
-        <button
-          type="submit"
-          className="w-full px-4 py-3 bg-blue-800 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-green-500"
-        >
-          {loading ? <FaSpinner /> : <>Submit</>}
-        </button>
       </form>
     </div>
   );
