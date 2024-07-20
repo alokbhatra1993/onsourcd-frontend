@@ -11,6 +11,8 @@ import './assets/css/meanmenu.css'
 import './assets/css/default.css'
 import './assets/css/style.css'
 import './assets/css/responsive.css'
+import 'react-toastify/dist/ReactToastify.css';
+
 
 
 export default function App() {

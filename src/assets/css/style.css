@@ -5530,14 +5530,15 @@ color: #fff;
 }
 
 .products {
-  width: 80%;
-  margin: auto;
+  width: 100%;
+  /* margin: auto; */
+  margin-left: 10px;
   padding: 20px;
   background: #fff;
   color: #000;
-  border-radius: 20px;
+  /* border-radius: 20px; */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  height: 90vh;
+  height: 100vh;
   overflow: scroll;
 }
 .justify-content{
@@ -5598,7 +5599,7 @@ color: #fff;
   
     display: flex;
     align-items: center;
-    align-content: ju;
+    /* align-content: ju; */
     color: #000;
     background: #ddd;
     align-content: center;

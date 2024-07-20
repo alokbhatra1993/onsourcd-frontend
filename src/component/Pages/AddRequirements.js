@@ -5,7 +5,8 @@ import { addRequirement, fetchProductApi, fetchCategories } from "../../services
 import { useSelector } from "react-redux";
 import { fetchAddress } from "../../services/googleApi";
 import { FaSpinner } from "react-icons/fa6";
-import { Toast, ToastBody } from "react-bootstrap";
+import { Toast, ToastBody, ToastContainer } from "react-bootstrap";
+import { toast } from "react-toastify";
 
 const AddRequirements = () => {
   const navigate = useNavigate();
@@ -126,6 +127,7 @@ const AddRequirements = () => {
       navigate("/customer/requirements");
     } else {
       // show error message
+      toast.error("Something went wrong")
     }
   };
 
@@ -150,8 +152,8 @@ const AddRequirements = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-10">
-      <ToastBody />
+    <div className="w-full mx-auto p-6 bg-white shadow-lg rounded-lg pl-20 ">
+      <ToastContainer />
       <h2 className="text-3xl font-bold text-center mb-6">Add Requirements</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
@@ -256,6 +258,8 @@ const AddRequirements = () => {
             {errors.expectedStartDate && <span className="text-red-500 text-sm">Start date is required</span>}
           </div>
 
+
+
           <div className="mb-4">
             <label htmlFor="expectedEndDate" className="block text-gray-700 font-medium mb-2">Expected End Date</label>
             <input
@@ -267,7 +271,20 @@ const AddRequirements = () => {
             />
             {errors.expectedEndDate && <span className="text-red-500 text-sm">End date is required</span>}
           </div>
+
+          <div className="mb-4">
+            <label htmlFor="expectedStartDate" className="block text-gray-700 font-medium mb-2">Quantity</label>
+            <input
+              id="expectedStartDate"
+              {...register("quantity", { required: true })}
+              type="number"
+              className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.quantity && <span className="text-red-500 text-sm">Quantity is requred</span>}
+          </div>
         </div>
+
+
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
           <div className="mb-4">
@@ -275,6 +292,7 @@ const AddRequirements = () => {
             <input
               id="deliveryCity"
               {...register("deliveryCity", { required: true })}
+              disabled
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -285,6 +303,7 @@ const AddRequirements = () => {
             <label htmlFor="deliveryState" className="block text-gray-700 font-medium mb-2">State</label>
             <input
               id="deliveryState"
+              disabled
               {...register("deliveryState", { required: true })}
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -298,9 +317,35 @@ const AddRequirements = () => {
               id="deliveryZipCode"
               {...register("deliveryZipCode", { required: true })}
               type="text"
+              disabled
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.deliveryZipCode && <span className="text-red-500 text-sm">Zip code is required</span>}
+          </div>
+
+
+          <div className="mb-4">
+            <label htmlFor="deliveryAddress" className="block text-gray-700 font-medium mb-2">Address</label>
+            <input
+              id="deliveryAddress"
+              {...register("deliveryAddress", { required: true })}
+              type="text"
+              // disabled
+              className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.deliveryAddress && <span className="text-red-500 text-sm">Address  is required</span>}
+          </div>
+
+          <div className="mb-4">
+            <label htmlFor="description" className="block text-gray-700 font-medium mb-2">Description</label>
+            <input
+              id="description"
+              {...register("description", { required: true })}
+              type="text"
+              // disabled
+              className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+            {errors.description && <span className="text-red-500 text-sm">Description  is required</span>}
           </div>
 
           <div className="mb-4">

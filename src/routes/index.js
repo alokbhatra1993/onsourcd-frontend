@@ -31,6 +31,7 @@ import Blog from "../component/Auth/Blogs";
 import BlogDetail from "../component/Auth/BlogDetail";
 import Contact from "../component/Auth/Contact";
 import CompanyDetail from "../component/CompanyDetail";
+import { ToastContainer } from "react-bootstrap";
 
 
 
@@ -68,6 +69,7 @@ const Routing = () => {
   return (
     <>
       {showNavbar && <Navbar />}
+      <ToastContainer/>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -77,6 +79,8 @@ const Routing = () => {
         <Route path="blogdetail" element={<BlogDetail />} />
         <Route path="contact" element={<Contact />} />
         <Route path="verify-email" element={<VerifyEmail />} />
+        <Route path="verified" element={<VerficationSuccessEmail />} />
+
 
   
         {/* BUYER SELLER */}
@@ -96,7 +100,6 @@ const Routing = () => {
           <Route path="requirements" element={<BuyerRequirementsList />} />
           <Route path="add-requirement" element={<AddRequirements />} />
           <Route path="company-detail" element={<CompanyDetail />} />
-          <Route path="verified" element={<VerficationSuccessEmail />} />
 
           {/* Requirements coming from buyers will be shown to seller here  */}
           

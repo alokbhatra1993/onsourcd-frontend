@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { fetchAddress } from '../services/googleApi';
 import { getCompanyDetails, saveCompanyDetails } from '../services/api';
 import { Toast, ToastBody } from "react-bootstrap";
+import { toast, ToastContainer } from 'react-toastify';
 
 const containerStyle = {
   width: '100%',
@@ -66,24 +67,23 @@ const CompanyDetail = () => {
   const onSubmit = async (data) => {
     try {
       console.log({ data });
-    setLoading(true)
-    const response = await saveCompanyDetails(data, user?.token);
-    if (response?.ok) {
-      Toast.success("Details Updated");
-      fetchCompany()
-    }
-    else{
-      Toast.error("Something went wrong");
+      setLoading(true)
+      const response = await saveCompanyDetails(data, user?.token);
+      if (response?.ok) {
+        toast.success("Details Updated");
+        fetchCompany()
+      }
+      else {
+        Toast.error("Something went wrong");
 
-    }
-    setLoading(false)
+      }
+      setLoading(false)
     } catch (error) {
-      Toast.error("Something went wrong");
-
+      toast.error("Something went wrong");
       setLoading(false)
 
     }
-    
+
   };
 
   const fetchCompany = async () => {
@@ -108,9 +108,10 @@ const CompanyDetail = () => {
 
 
   return (
-    <div className="max-w-9xl mx-auto p-8 md:p-10 lg:p-12">
-      <ToastBody/>
-      <div className="bg-white shadow-2xl rounded-lg p-10 border border-gray-200">
+    <div className=" mx-auto w-full pl-10 ">
+      {/* <ToastBody/> */}
+      <ToastContainer/>
+      <div className="bg-white shadow-2xl  p-2">
         <h2 className="text-3xl font-bold mb-8 text-gray-900">Company Details</h2>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
