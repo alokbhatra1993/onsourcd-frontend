@@ -127,7 +127,6 @@ export const verifyEmailApi = async (token) => {
 
 
 export const saveCompanyDetails = async (formData, token) => {
-  console.log({formData});
   const response = await fetch(`http://localhost:5000/api/company/register`, {
     method: "POST",
     headers: {
@@ -148,5 +147,44 @@ export const getCompanyDetails = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   });
+  return response;
+};
+
+export const addQuotation = async (formData, token, requirementId) => {
+  const response = await fetch(`http://localhost:5000/api/quotation/${requirementId}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formData),
+  }
+  );
+  return response;
+};
+
+export const readQuotationByRequirementAndUser = async (requirementID, token) => {
+  const response = await fetch(`http://localhost:5000/api/quotation/user-requirement/${requirementID}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    // body: JSON.stringify(formData),
+  }
+  );
+  return response;
+};
+
+export const readQuotationByRequirement = async (requirementID, token) => {
+  const response = await fetch(`http://localhost:5000/api/quotation/requirement/${requirementID}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    // body: JSON.stringify(formData),
+  }
+  );
   return response;
 };

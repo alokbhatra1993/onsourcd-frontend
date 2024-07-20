@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { fetchMyRequirements } from "../../services/api";
 import { useSelector } from "react-redux";
 
 const BuyerRequirementsList = () => {
+  const navigate = useNavigate()
   const user = useSelector((state) => state);
   const [myRequirements, setMyRequirements] = useState([]);
 
@@ -14,6 +15,7 @@ const BuyerRequirementsList = () => {
   const loadMyRequirements = async () => {
     try {
       const response = await fetchMyRequirements(user?.token);
+      console.log({ response });
       const data = await response.json();
       setMyRequirements(data?.requirement);
     } catch (error) {
@@ -72,15 +74,20 @@ const BuyerRequirementsList = () => {
                   <td>{requirement.maximumAmount}</td>
                   <td>{requirement.frequency}</td>
                   <td>{requirement.totalOrders}</td>
-                  <td>{requirement.expectedStartDate.slice(0,10)}</td>
-                  <td>{requirement.expectedEndDate.slice(0,10)}</td>
+                  <td>{requirement.expectedStartDate.slice(0, 10)}</td>
+                  <td>{requirement.expectedEndDate.slice(0, 10)}</td>
                   <td>{requirement.description}</td>
                   <td>{requirement.deliveryAddress}</td>
                   <td>{requirement.deliveryCity}</td>
                   <td>{requirement.deliveryState}</td>
                   <td>{requirement.deliveryZipCode}</td>
                   <td>
-                    <button>View Quotations</button>
+                    <button
+                      onClick={() => {
+                        console.log({ requirement });
+                        navigate("/customer/requirement-quotations", { state: { requirementId: requirement?._id } })
+                      }}
+                    >View Quotations</button>
                   </td>
 
                 </tr>

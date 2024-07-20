@@ -1,32 +1,76 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { FaTimes } from "react-icons/fa";
+import { toast, ToastContainer } from "react-toastify";
+import { addQuotation, readQuotationByRequirement, readQuotationByRequirementAndUser } from "../../services/api";
+import { useSelector } from "react-redux";
 
 const AddQuotation = (props) => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const user = useSelector((state) => state);
+  const { register, handleSubmit, formState: { errors }, setValue } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // handle form submission
+  const [status, setStatus] = useState("")
+
+
+  const onSubmit = async (data) => {
+    try {
+      const response = await addQuotation(data, user?.token, props?.requirementId);
+      console.log({ response });
+      if (response?.ok) {
+        toast.success("Qutation Updated ")
+        // closeModal()
+      }
+    } catch (error) {
+      toast.error("Something went wrong")
+      // closeModal()
+    }
+
   };
 
   const closeModal = () => {
     props.closeModal();
   };
 
+  useEffect(() => {
+    loadQuotation()
+  }, []);
+
+  const loadQuotation = async () => {
+    try {
+      const response = await readQuotationByRequirementAndUser(props?.requirementId, user?.token);
+      console.log({ response });
+      if (response.ok) {
+        const data = await response.json()
+        console.log({ data });
+        setStatus(data[0]?.status)
+        setValue("gst", data[0]?.gst)
+        setValue("estimatedPrice", data[0]?.estimatedPrice)
+        setValue("qualityDescription", data[0]?.qualityDescription)
+        setValue("transportAvailability", data[0]?.transportAvailability)
+      }
+    } catch (error) {
+      // toast.error("Something went wrong")
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center overflow-x-hidden overflow-y-auto bg-gray-900 bg-opacity-75">
+      <ToastContainer />
       <div className="relative w-full max-w-lg mx-auto my-6">
         <div className="relative flex flex-col w-full bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-solid border-gray-200 rounded-t">
             <h3 className="text-lg font-semibold text-gray-700">New Quotation</h3>
-            <button
+            <p className={`text-right font-bold ${status === "pending" ? "text-orange-600" : "text-white"}`}>{status} </p>
+            <p className={`text-right font-bold ${status === "accepted" ? "text-green-600" : "text-white"}`}>{status} </p>
+            <p className={`text-right font-bold ${status === "rejected" ? "text-red-600" : "text-white"}`}>{status} </p>
+
+            {/* <button
               className="p-1 text-black bg-transparent border-0 text-2xl leading-none font-semibold outline-none focus:outline-none"
               onClick={closeModal}
             >
               <FaTimes className="text-black text-lg" />
-            </button>
+            </button> */}
           </div>
           {/* Body */}
           <div className="relative flex-auto p-6">

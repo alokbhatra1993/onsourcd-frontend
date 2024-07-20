@@ -33,6 +33,7 @@ import Contact from "../component/Auth/Contact";
 import CompanyDetail from "../component/CompanyDetail";
 import { ToastContainer } from "react-bootstrap";
 import SellerRequirements from "../component/Pages/SellerRequirements";
+import RequirementQuotation from "../component/Pages/RequirementQuotation";
 
 
 
@@ -100,7 +101,7 @@ const Routing = () => {
           
           <Route path="requirements" element={<BuyerRequirementsList />} />
           <Route path="new-requirements" element={<SellerRequirements />} />
-
+          <Route path="requirement-quotations" element={<RequirementQuotation />} />
           <Route path="add-requirement" element={<AddRequirements />} />
           <Route path="company-detail" element={<CompanyDetail />} />
 

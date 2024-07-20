@@ -12,6 +12,8 @@ const SellerRequirements = () => {
     longitude: 0
   })
 
+  const [selectedRequirmentId, setSelectedRequirementId] = useState([]);
+
   const [openAddQuotation, setAddOpenQutation] = useState(false);
 
   useEffect(() => {
@@ -63,9 +65,10 @@ const SellerRequirements = () => {
 
   const handleOpenAddQuotation = (requirementId) => {
     setAddOpenQutation(true)
+    setSelectedRequirementId(requirementId)
   }
 
-  const closeModal=()=>{
+  const closeModal = () => {
     setAddOpenQutation(false)
   }
 
@@ -143,7 +146,7 @@ const SellerRequirements = () => {
 
       {
         openAddQuotation ? (
-          <AddQuotation closeModal={closeModal} />
+          <AddQuotation closeModal={closeModal} requirementId={selectedRequirmentId} />
         ) : null
       }
     </div>
