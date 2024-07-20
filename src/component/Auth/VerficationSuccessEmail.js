@@ -25,7 +25,7 @@ const VerficationSuccessEmail = () => {
         // dispatch(setUserData({... , isVerifiedEmail:true}));
         dispatch(setVerificationEmailComplete())
         if (user?.userType === "seller" || user?.userType === "buyer") {
-          navigate("/customer/add-new-address");
+          navigate("/customer/customer/company-detail");
         }
         else {
           navigate("/login")

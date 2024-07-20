@@ -1,9 +1,19 @@
 // src/components/Sidebar.js
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Sidebar.css'; // Import the CSS file for styling
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../redux/actions';
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    dispatch(setUserData({ token: null }));
+    navigate("/")
+  }
+
   return (
     <div className="sidebar">
       <ul className="sidebar-list">
@@ -14,6 +24,9 @@ const Sidebar = () => {
         <li><Link to="/admin-dashboard/orders">Orders</Link></li>
         <li><Link to="/admin-dashboard/quotation">Quotation</Link></li>
         <li><Link to="/admin-dashboard/requirements">Requirements</Link></li>
+        <li><button
+          onClick={handleClick}
+        >Logout</button></li>
       </ul>
     </div>
   );

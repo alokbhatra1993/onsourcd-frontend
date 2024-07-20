@@ -78,7 +78,6 @@ const Routing = () => {
         <Route path="contact" element={<Contact />} />
         <Route path="verify-email" element={<VerifyEmail />} />
         <Route path="verified" element={<VerficationSuccessEmail />} />
-        <Route path="company-detail" element={<CompanyDetail />} />
 
   
         {/* BUYER SELLER */}
@@ -97,6 +96,7 @@ const Routing = () => {
           
           <Route path="requirements" element={<BuyerRequirementsList />} />
           <Route path="add-requirement" element={<AddRequirements />} />
+          <Route path="company-detail" element={<CompanyDetail />} />
 
           {/* Requirements coming from buyers will be shown to seller here  */}
           

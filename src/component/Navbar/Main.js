@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { setUserData } from "../../redux/actions";
 
 
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const user = useSelector((state) => state);
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -97,6 +99,7 @@ const Navbar = () => {
                         className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
                         onClick={() => {
                           dispatch(setUserData({ token: null }));
+                          navigate("/")
                         }}
                       >
                         Logout
