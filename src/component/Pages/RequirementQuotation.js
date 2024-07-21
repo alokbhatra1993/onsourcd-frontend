@@ -11,20 +11,22 @@ const RequirementQuotation = () => {
   const [quotations, setQuotations] = useState([]);
 
   useEffect(() => {
-    const fetchQuotations = async () => {
-      try {
-        const response = await readQuotationByRequirement(location?.state?.requirementId, user?.token)
-        if (response?.ok) {
-          const data = await response.json();
-          setQuotations(data);
-        }
-      } catch (error) {
-        console.error('Error fetching quotations:', error);
-      }
-    };
 
     fetchQuotations();
   }, []);
+
+  const fetchQuotations = async () => {
+    try {
+      const response = await readQuotationByRequirement(location?.state?.requirementId, user?.token)
+      if (response?.ok) {
+        const data = await response.json();
+        setQuotations(data);
+      }
+    } catch (error) {
+      console.error('Error fetching quotations:', error);
+    }
+  };
+
 
   console.log({ quotations });
 
@@ -32,6 +34,9 @@ const RequirementQuotation = () => {
     try {
       const response = await acceptOrderApi(qId, user?.token);
       console.log({ response });
+      if (response.ok) {
+        fetchQuotations()
+      }
     } catch (error) {
       console.log({ error });
     }
@@ -88,7 +93,7 @@ const RequirementQuotation = () => {
                                 ) : (
                                   <button
                                     onClick={() => {
-                                      navigate("/customer/requirement-orders",{state:{reqId:quotation.requirementId}})
+                                      navigate("/customer/requirement-orders", { state: { reqId: quotation.requirementId } })
                                     }}
                                     className='bg-green-600'>
                                     View Orders

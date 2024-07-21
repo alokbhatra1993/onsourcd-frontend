@@ -41,7 +41,7 @@ const Login = () => {
       if (data?.userType === "seller" || data?.userType === "buyer") {
         navigate("/customer/company-detail");
       } else if (data?.userType === "admin") {
-        navigate("/admin-dashboard");
+        navigate("/admin-dashboard/products");
       }
     } else {
       console.log({ data });
