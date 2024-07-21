@@ -10,6 +10,7 @@ const AddQuotation = (props) => {
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
 
   const [status, setStatus] = useState("")
+  console.log({status});
 
 
   const onSubmit = async (data) => {
@@ -127,18 +128,35 @@ const AddQuotation = (props) => {
                 >
                   Close
                 </button>
-                <button
-                  className="px-4 py-2 mb-1 mr-1 text-sm font-bold text-white uppercase bg-yellow-500 rounded shadow hover:bg-yellow-600 focus:outline-none focus:shadow-outline"
-                  type="submit"
-                >
-                  Save Changes
-                </button>
-              </div>
-            </form>
+                {
+                  !status || status === "pending" ? (
+                    <button
+                      // disabled={status === "rejected" ? true : false}
+                      className="px-4 py-2 mb-1 mr-1 text-sm font-bold text-white uppercase bg-yellow-500 rounded shadow hover:bg-yellow-600 focus:outline-none focus:shadow-outline"
+                      type="submit"
+                    >
+                      Save Changes
+                    </button>
+                  ) : (
+                    <>
+                      {
+                        status === "accepted" ? (
+                            <button  className="px-4 py-2 mb-1 mr-1 text-sm font-bold text-white uppercase bg-green-500 rounded shadow focus:outline-none focus:shadow-outline">View Orders</button>
+                        ): (
+                            <button disabled className = "px-4 py-2 mb-1 mr-1 text-sm font-bold text-white uppercase bg-red-500 rounded shadow focus:outline-none focus:shadow-outline">Closed</button>
+
+                )
+                    }
+              </>
+              )
+                }
+
           </div>
-        </div>
+        </form>
       </div>
     </div>
+      </div >
+    </div >
   );
 };
 

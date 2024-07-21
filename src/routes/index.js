@@ -34,6 +34,7 @@ import CompanyDetail from "../component/CompanyDetail";
 import { ToastContainer } from "react-bootstrap";
 import SellerRequirements from "../component/Pages/SellerRequirements";
 import RequirementQuotation from "../component/Pages/RequirementQuotation";
+import RequirementOrders from "../component/Pages/RequirementOrders";
 
 
 
@@ -104,6 +105,8 @@ const Routing = () => {
           <Route path="requirement-quotations" element={<RequirementQuotation />} />
           <Route path="add-requirement" element={<AddRequirements />} />
           <Route path="company-detail" element={<CompanyDetail />} />
+          <Route path="requirement-orders" element={<RequirementOrders />} />
+
 
           {/* Requirements coming from buyers will be shown to seller here  */}
           

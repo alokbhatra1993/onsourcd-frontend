@@ -188,3 +188,31 @@ export const readQuotationByRequirement = async (requirementID, token) => {
   );
   return response;
 };
+
+
+export const acceptOrderApi = async (quotationId, token) => {
+  const response = await fetch(`http://localhost:5000/api/quotation/accept-order/${quotationId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    // body: JSON.stringify(formData),
+  }
+  );
+  return response;
+};
+
+
+export const ordersByRequirementId = async (requirementID, token) => {
+  const response = await fetch(`http://localhost:5000/api/quotation/requirement-orders/${requirementID}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    // body: JSON.stringify(formData),
+  }
+  );
+  return response;
+};

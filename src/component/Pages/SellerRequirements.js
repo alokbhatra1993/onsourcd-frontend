@@ -120,7 +120,12 @@ const SellerRequirements = () => {
                   <td>{haversineDistance(requirement?.latitude, requirement?.longitude)} KM</td>
 
                   <td>
-                    {
+                    <button
+                      onClick={() => {
+                        handleOpenAddQuotation(requirement?._id)
+                      }}
+                    >Add/View  Quotation</button>
+                    {/* {
                       requirement?.status === "open" ? (
                         <button
                           onClick={() => {
@@ -131,7 +136,7 @@ const SellerRequirements = () => {
                         : (
                           "Closed"
                         )
-                    }
+                    } */}
                   </td>
                 </tr>
               ))}

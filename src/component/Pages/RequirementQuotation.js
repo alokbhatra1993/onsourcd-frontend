@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { readQuotationByRequirement } from '../../services/api';
-import { useLocation } from 'react-router-dom';
+import { acceptOrderApi, readQuotationByRequirement } from '../../services/api';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const RequirementQuotation = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const user = useSelector((state) => state);
   const [quotations, setQuotations] = useState([]);
@@ -25,8 +26,17 @@ const RequirementQuotation = () => {
     fetchQuotations();
   }, []);
 
-
   console.log({ quotations });
+
+  const handleAccpetOrder = async (qId) => {
+    try {
+      const response = await acceptOrderApi(qId, user?.token);
+      console.log({ response });
+    } catch (error) {
+      console.log({ error });
+    }
+
+  }
 
   return (
     <div className="container mx-auto py-4 bg-white">
@@ -45,7 +55,6 @@ const RequirementQuotation = () => {
               <th className="py-2 px-4 border-b text-black">Created At</th>
               <th className="py-2 px-4 border-b text-black">Updated At</th>
               <th className="py-2 px-4 border-b text-black">Actions</th>
-
             </tr>
           </thead>
           <tbody>
@@ -64,12 +73,41 @@ const RequirementQuotation = () => {
                       <td className="py-2 px-4 border-b text-black">{new Date(quotation.createdAt).toLocaleString()}</td>
                       <td className="py-2 px-4 border-b text-black">{new Date(quotation.updatedAt).toLocaleString()}</td>
                       <td className="py-2 px-4 border-b text-black">
-                        <button>Accept </button>
+                        {
+                          quotation?.status === "pending" ? (
+                            <button
+                              onClick={() => {
+                                handleAccpetOrder(quotation?._id)
+                              }}
+                            >Accept </button>
+                          ) : (
+                            <>
+                              {
+                                quotation?.status == "rejected" ? (
+                                  <button disabled className='bg-red-600'>Rejected</button>
+                                ) : (
+                                  <button
+                                    onClick={() => {
+                                      navigate("/customer/requirement-orders",{state:{reqId:quotation.requirementId}})
+                                    }}
+                                    className='bg-green-600'>
+                                    View Orders
+                                  </button>
+                                )
+                              }
+                            </>
+                          )
+                        }
+
                       </td>
                     </tr>
                   ))}
                 </>
-              ) : null
+              ) : (
+                <p>
+                  No Qutation found yet
+                </p>
+              )
             }
 
           </tbody>
