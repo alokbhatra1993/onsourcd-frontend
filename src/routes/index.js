@@ -35,6 +35,7 @@ import { ToastContainer } from "react-bootstrap";
 import SellerRequirements from "../component/Pages/SellerRequirements";
 import RequirementQuotation from "../component/Pages/RequirementQuotation";
 import RequirementOrders from "../component/Pages/RequirementOrders";
+import AdminOrders from "../component/Pages/AdminOrders";
 
 
 
@@ -72,7 +73,7 @@ const Routing = () => {
   return (
     <>
       {showNavbar && <Navbar />}
-      <ToastContainer/>
+      <ToastContainer />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
@@ -85,7 +86,7 @@ const Routing = () => {
         <Route path="verified" element={<VerficationSuccessEmail />} />
 
 
-  
+
         {/* BUYER SELLER */}
         <Route
           path="/customer/*"
@@ -99,19 +100,12 @@ const Routing = () => {
         >
           <Route path="add-new-address" element={<SaveAddressForm />} />
           <Route path="savedaddress" element={<SavedAddress />} />
-          
           <Route path="requirements" element={<BuyerRequirementsList />} />
           <Route path="new-requirements" element={<SellerRequirements />} />
           <Route path="requirement-quotations" element={<RequirementQuotation />} />
           <Route path="add-requirement" element={<AddRequirements />} />
           <Route path="company-detail" element={<CompanyDetail />} />
           <Route path="requirement-orders" element={<RequirementOrders />} />
-
-
-          {/* Requirements coming from buyers will be shown to seller here  */}
-          
-          {/* <Route path="new-requirements" element={<SellerRequirements />} /> */}
-
         </Route>
 
         {/* Admin dashboard  */}
@@ -127,17 +121,8 @@ const Routing = () => {
           <Route path="faqsection" element={<FAQSection />} />
           <Route path="sellerbuyertabs" element={<SellerBuyerTabs />} />
           <Route path="B2BSection" element={<B2BSection />} />
+          <Route path="orders" element={<AdminOrders />} />
 
-   
-
-  
-
-
-      
-
-
-          {/* <Route path="add-category" element={<AddCategory />} /> */}
-          {/* <Route path="see-orders" element={<SeeOrders />} /> */}
         </Route>
       </Routes>
       {showFooter && <Footer />}

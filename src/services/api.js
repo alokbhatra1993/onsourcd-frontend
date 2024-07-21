@@ -216,3 +216,29 @@ export const ordersByRequirementId = async (requirementID, token) => {
   );
   return response;
 };
+
+export const ordersByQuotation = async (requirementID, token) => {
+  const response = await fetch(`http://localhost:5000/api/quotation/quotation-orders/${requirementID}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    // body: JSON.stringify(formData),
+  }
+  );
+  return response;
+};
+
+export const allOrdersApi = async () => {
+  const response = await fetch(`http://localhost:5000/api/quotation/admin/orders`, {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    // body: JSON.stringify(formData),
+  }
+  );
+  return response;
+};
