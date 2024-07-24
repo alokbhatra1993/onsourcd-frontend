@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { fetchNewRequirements } from "../../services/api";
 import { useSelector } from "react-redux";
 import AddQuotation from "./AddQuotation";
+import { toast, ToastContainer } from "react-toastify";
 
 const SellerRequirements = () => {
   const user = useSelector((state) => state);
@@ -30,6 +31,9 @@ const SellerRequirements = () => {
       console.error("Error loading requirements:", error);
     }
   };
+
+
+  console.log({ myRequirements });
 
   const haversineDistance = (lat1, lon1) => {
     // lat1 long1 coming fro  user
@@ -69,11 +73,14 @@ const SellerRequirements = () => {
   }
 
   const closeModal = () => {
+    // toast.success("Quotation Updated");
     setAddOpenQutation(false)
+    loadNewRequirements();
   }
 
   return (
     <div className="products">
+      <ToastContainer />
       <div className="justify-content">
         <h2>New Requirements</h2>
         {/* <Link to="/customer/add-requirement">Add Requirement</Link> */}
@@ -91,6 +98,7 @@ const SellerRequirements = () => {
             <th>Expected Start Date</th>
             <th>Expected End Date</th>
             <th>Description</th>
+            <th>Quotation Status</th>
             <th>Area Range</th>
             <th>Actions</th>
           </tr>
@@ -117,6 +125,26 @@ const SellerRequirements = () => {
                   <td>{requirement.expectedStartDate.slice(0, 10)}</td>
                   <td>{requirement.expectedEndDate.slice(0, 10)}</td>
                   <td>{requirement.description}</td>
+                  <td>
+                    {requirement?.quotations && requirement?.quotations[0] ? (
+                      <span
+                        className={
+                          requirement.quotations[0].status === 'pending'
+                            ? 'text-orange-600'
+                            : requirement.quotations[0].status === 'rejected'
+                              ? 'text-red-600'
+                              : requirement.quotations[0].status === 'accepted'
+                                ? 'text-green-600'
+                                : ''
+                        }
+                      >
+                        {requirement.quotations[0].status || 'empty'}
+                      </span>
+                    ) : (
+                      'empty'
+                    )}
+                  </td>
+
                   <td>{haversineDistance(requirement?.latitude, requirement?.longitude)} KM</td>
 
                   <td>

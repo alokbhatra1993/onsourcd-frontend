@@ -20,6 +20,9 @@ const AddQuotation = (props) => {
       const response = await addQuotation(data, user?.token, props?.requirementId);
       if (response?.ok) {
         toast.success("Quotation Updated");
+        setTimeout(() => {
+          closeModal()
+        }, 1000);
       }
     } catch (error) {
       toast.error("Something went wrong");
