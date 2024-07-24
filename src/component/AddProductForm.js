@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
 import { useForm } from "react-hook-form";
 import { fetchSubCategories, fetchCategories } from "../services/api";
 import { addProductApi } from "../services/api"; // Ensure this path is correct
@@ -8,11 +7,14 @@ import { FaSpinner } from "react-icons/fa6";
 
 export const AddProductForm = () => {
   const navigate = useNavigate();
-
-  const { handleSubmit, control, register, watch, formState: { errors } } = useForm();
+  const { handleSubmit, control, register, watch, formState: { errors } } = useForm({
+    defaultValues: {
+      commission: 0, // Set default value for commission
+    }
+  });
   const [categoriesState, setCategoriesState] = useState([]);
   const [subCategoriesState, setSubCategoriesState] = useState([]);
-  const [loading,setloading]=useState(false)
+  const [loading, setLoading] = useState(false);
   const selectedCategory = watch("category");
 
   useEffect(() => {
@@ -47,28 +49,29 @@ export const AddProductForm = () => {
 
   // Form submission handler
   const onSubmit = (data) => {
-    console.log({data})
-    setloading(true)
+    console.log({ data });
+    setLoading(true);
     const formData = new FormData();
     formData.append("name", data.productName);
     formData.append("categoryId", data.category);
     formData.append("subcategoryId", data.subcategory);
     formData.append("gst", data.gstNumber);
     formData.append("document", data.document[0]);
+    formData.append("commission", data.commission);
 
-    console.log({formData})
+    console.log({ formData });
 
     addProductApi(formData).then(response => {
       if (response.ok) {
-        navigate("/admin-dashboard/products")
+        navigate("/admin-dashboard/products");
       } else {
         console.error("Failed to add product");
       }
-      setloading(false)
+      setLoading(false);
     }).catch(error => {
       console.error("Error adding product:", error);
+      setLoading(false);
     });
-   
   };
 
   return (
@@ -83,7 +86,7 @@ export const AddProductForm = () => {
             id="productName"
             {...register("productName", { required: true })}
           />
-          {errors.productName && <p>This field is required</p>}
+          {errors.productName && <p className="text-red-600 ">This field is required</p>}
         </div>
 
         {/* Product Image Upload */}
@@ -94,18 +97,34 @@ export const AddProductForm = () => {
             id="document"
             {...register("document", { required: true })}
           />
-          {errors.document && <p>This field is required</p>}
+          {errors.document && <p className="text-red-600 "> This field is required</p>}
         </div>
 
         {/* GST Number Input */}
         <div className="form-group">
-          <label htmlFor="gstNumber">GST Number</label>
+          <label htmlFor="gstNumber">GST price</label>
           <input
+            min={0}
             type="number"
             id="gstNumber"
-            {...register("gstNumber", { required: true })}
+            {...register("gstNumber", { required: true , min:0  })}
           />
-          {errors.gstNumber && <p>This field is required</p>}
+          {errors.gstNumber && <p className="text-red-600 ">This field is required</p>}
+        </div>
+
+        {/* Commission Input */}
+        <div className="form-group">
+          <label htmlFor="commission">% Commission </label>
+          <input
+            min={0}
+            max={100}
+            type="number"
+            id="commission"
+            defaultValue={0} // Set default value to 0
+            {...register("commission", { required: true  })}
+          />
+          {errors.commission && <p className="text-red-600 ">This field is required</p>}
+
         </div>
 
         {/* Category Selection */}
@@ -122,7 +141,7 @@ export const AddProductForm = () => {
               </option>
             ))}
           </select>
-          {errors.category && <p>This field is required</p>}
+          {errors.category && <p className="text-red-600 ">This field is required</p>}
         </div>
 
         {/* Subcategory Selection */}
@@ -145,7 +164,9 @@ export const AddProductForm = () => {
         )}
 
         {/* Submit Button */}
-        <button type="submit" >  {loading?(<FaSpinner/>):" Add Product"}</button>
+        <button type="submit">
+          {loading ? (<FaSpinner />) : "Add Product"}
+        </button>
       </form>
     </div>
   );

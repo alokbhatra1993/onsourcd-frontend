@@ -38,6 +38,8 @@ const Products = () => {
             <th>Product Image</th>
             <th>Direct Category</th>
             <th>Product Subcategory</th>
+            <th>GST</th>
+            <th>Commission</th>
           </tr>
         </thead>
         <tbody>
@@ -50,6 +52,9 @@ const Products = () => {
               </td>
               <td>{product?.category?.name}</td>
               <td>{product?.subCategory?.name}</td>
+              <td>₹ {product?.gst || 0}</td>
+              <td>₹ {product?.commission || 0}</td>
+
             </tr>
           ))}
         </tbody>
