@@ -55,10 +55,11 @@ const RequirementQuotation = () => {
               <th className="py-2 px-4 border-b text-black">Estimated Price</th>
               <th className="py-2 px-4 border-b text-black">GST</th>
               <th className="py-2 px-4 border-b text-black">Quality Description</th>
+              <th className="py-2 px-4 border-b text-black">Transportation Price </th>
               <th className="py-2 px-4 border-b text-black">Transport Availability</th>
               <th className="py-2 px-4 border-b text-black">Status</th>
-              <th className="py-2 px-4 border-b text-black">Created At</th>
-              <th className="py-2 px-4 border-b text-black">Updated At</th>
+              {/* <th className="py-2 px-4 border-b text-black">Created At</th>
+              <th className="py-2 px-4 border-b text-black">Updated At</th> */}
               <th className="py-2 px-4 border-b text-black">Actions</th>
             </tr>
           </thead>
@@ -68,15 +69,20 @@ const RequirementQuotation = () => {
                 <>
                   {quotations.map((quotation) => (
                     <tr key={quotation._id}>
-                      <td className="py-2 px-4 border-b text-black">{quotation._id}</td>
-                      <td className="py-2 px-4 border-b text-black">{quotation.requirementId}</td>
-                      <td className="py-2 px-4 border-b text-black">{quotation.estimatedPrice}</td>
+                      <td className="py-2 px-4 border-b text-blue-600  cursor-pointer" title={`${quotation._id}`}>{quotation._id?.slice(0, 4)}...</td>
+                      <td
+                        className="py-2 px-4 border-b text-blue-600 cursor-pointer"
+                        title={`Go to requirement: ${quotation.requirementId}`}
+                      >
+                        {quotation.requirementId?.slice(0, 4)}...
+                      </td>                      <td className="py-2 px-4 border-b text-black">{quotation.estimatedPrice}</td>
                       <td className="py-2 px-4 border-b text-black">{quotation.gst ? 'Yes' : 'No'}</td>
                       <td className="py-2 px-4 border-b text-black">{quotation.qualityDescription}</td>
+                      <td className="py-2 px-4 border-b text-black">₹ {quotation?.transportationPrice || 0} km/ton</td>
                       <td className="py-2 px-4 border-b text-black">{quotation.transportAvailability ? 'Yes' : 'No'}</td>
                       <td className="py-2 px-4 border-b text-black">{quotation.status}</td>
-                      <td className="py-2 px-4 border-b text-black">{new Date(quotation.createdAt).toLocaleString()}</td>
-                      <td className="py-2 px-4 border-b text-black">{new Date(quotation.updatedAt).toLocaleString()}</td>
+                      {/* <td className="py-2 px-4 border-b text-black">{new Date(quotation.createdAt).toLocaleString()}</td>
+                      <td className="py-2 px-4 border-b text-black">{new Date(quotation.updatedAt).toLocaleString()}</td> */}
                       <td className="py-2 px-4 border-b text-black">
                         {
                           quotation?.status === "pending" ? (
