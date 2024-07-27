@@ -38,6 +38,7 @@ import RequirementOrders from "../component/Pages/RequirementOrders";
 import AdminOrders from "../component/Pages/AdminOrders";
 import SellerList from "../component/Pages/SellerList";
 import BuyerList from "../component/Pages/BuyerList";
+import SellerOrders from "../component/Pages/SellerOrders";
 
 
 
@@ -108,6 +109,8 @@ const Routing = () => {
           <Route path="add-requirement" element={<AddRequirements />} />
           <Route path="company-detail" element={<CompanyDetail />} />
           <Route path="requirement-orders" element={<RequirementOrders />} />
+          <Route path="seller-orders" element={<SellerOrders />} />
+
         </Route>
 
         {/* Admin dashboard  */}

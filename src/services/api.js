@@ -267,13 +267,38 @@ export const fetchBuyers = async () => {
 
 // return only those which payment received
 
-export const fetchOrdersBySeller = async (token) => {
-  const response = await fetch(`http://localhost:5000/api/seller/orders`, {
+export const fetchOrdersBySeller = async (token, sellerId) => {
+  const response = await fetch(`http://localhost:5000/api/quotation/seller/orders/${sellerId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
       // "Content-Type": "application/json",
     },
+  });
+  return response;
+};
+
+export const updateOrderStatus = async (token, status) => {
+  const response = await fetch(`http://localhost:5000/api/quotation/update/order-status`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status }),
+  });
+  return response;
+};
+
+export const updateOrderPayment = async (token, orderId) => {
+  const response = await fetch(`http://localhost:5000/api/quotation/update/order-payment/${orderId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // "Content-Type": "application/json",
+    },
+    // body: JSON.stringify({ paymentProgress }),
+
   });
   return response;
 };
