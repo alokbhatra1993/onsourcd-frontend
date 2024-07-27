@@ -107,7 +107,7 @@ const Navbar = () => {
                         className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
                         onClick={() => {
                           dispatch(setUserData({ token: null }));
-                          navigate("/")
+                          navigate("/login")
                         }}
                       >
                         Logout
