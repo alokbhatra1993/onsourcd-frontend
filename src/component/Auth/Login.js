@@ -30,15 +30,12 @@ const Login = () => {
     if (response.ok) {
       dispatch(setUserData(data));
 
-      console.log({ data, v: data?.isVerifiedEmail })
-      
       if (!data?.isVerifiedEmail) {
-        console.log("VERIFY EMail")
         navigate("/verify-email", { state: { email: data?.email } })
         return;
       }
 
-      if (data?.userType === "seller" || data?.userType === "buyer") {
+      if (data?.userType === "seller" || data?.userType === "buyer" || data?.userType === "manufacturer") {
         navigate("/customer/company-detail");
       } else if (data?.userType === "admin") {
         navigate("/admin-dashboard/products");
@@ -51,7 +48,7 @@ const Login = () => {
   };
 
 
-  const handleOnChange=()=>{
+  const handleOnChange = () => {
     setLoginError(" ")
   }
 

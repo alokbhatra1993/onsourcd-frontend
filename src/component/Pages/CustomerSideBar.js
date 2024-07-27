@@ -72,6 +72,20 @@ const CustomerSideBar = () => {
             ) : null
           }
 
+          {
+            user?.userType === "buyer" ? (
+              <Link
+                to="/customer/company-detail"
+                className="flex items-center p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition duration-300"
+              >
+                <FaTags className="text-yellow-400 text-lg mr-3" />
+                <span className="text-white font-medium">
+                  Company Details
+                </span>
+              </Link>
+            ) : null
+          }
+
           <MdKeyboardArrowDown className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-white transition duration-300" />
         </li>
       </ul>

@@ -94,7 +94,7 @@ const CompanyDetail = () => {
     <div className="container mx-auto p-4 lg:p-8">
       <ToastContainer />
       <div className="bg-white shadow-xl rounded-lg p-6 lg:p-8">
-        <h2 className="text-2xl lg:text-3xl font-bold mb-6 text-gray-900">Company Details</h2>
+        {/* <h2 className="text-2xl lg:text-3xl font-bold mb-6 text-gray-900">Company Details</h2> */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="flex flex-col">
@@ -132,7 +132,7 @@ const CompanyDetail = () => {
 
             <div className="flex flex-col">
               <label className="block mb-2 text-sm font-medium text-gray-900">Occupation</label>
-              <div className="space-y-2">
+              <div className="space-y-2  space-x-2 flex w-1/2">
                 {['farmer', 'biomass manufacturer', 'traderBiogas', 'aggregator', 'end consumer'].map(occupation => (
                   <div key={occupation} className="flex items-center">
                     <input
