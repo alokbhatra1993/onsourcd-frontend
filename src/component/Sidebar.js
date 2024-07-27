@@ -19,11 +19,13 @@ const Sidebar = () => {
       <ul className="sidebar-list">
         <li><Link to="/admin-dashboard/products"> Products</Link></li>
         <li><Link to="/admin-dashboard/categories">Categories</Link></li>
-        <li><Link to="/admin-dashboard/seller-list">Seller List</Link></li>
-        <li><Link to="/admin-dashboard/buyer-list">Buyer List</Link></li>
+        <li><Link to="/admin-dashboard/sellers">Seller List</Link></li>
+        <li><Link to="/admin-dashboard/buyers">Buyer List</Link></li>
         <li><Link to="/admin-dashboard/orders">Orders</Link></li>
         <li><Link to="/admin-dashboard/quotation">Quotation</Link></li>
         <li><Link to="/admin-dashboard/requirements">Requirements</Link></li>
+        <li><Link to="/admin-dashboard/requirements">Requirements</Link></li>
+
         <li><button
           onClick={handleClick}
         >Logout</button></li>

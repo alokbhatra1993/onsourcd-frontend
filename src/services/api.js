@@ -242,3 +242,25 @@ export const allOrdersApi = async () => {
   );
   return response;
 };
+
+export const fetchSellers = async () => {
+  const response = await fetch(`http://localhost:5000/api/users/sellers`, {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${token}`,
+      // "Content-Type": "application/json",
+    },
+  });
+  return response;
+};
+
+export const fetchBuyers = async () => {
+  const response = await fetch(`http://localhost:5000/api/users/buyers`, {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${token}`,
+      // "Content-Type": "application/json",
+    },
+  });
+  return response;
+};

@@ -17,8 +17,6 @@ const OrdersTable = () => {
         setOrders(data);
     };
 
-    console.log({ orders });
-
     return (
         <div className=" mx-auto my-10 w-full">
             {/* <div className="mb-4 flex space-x-4">

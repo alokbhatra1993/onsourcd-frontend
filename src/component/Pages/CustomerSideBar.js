@@ -16,11 +16,14 @@ const CustomerSideBar = () => {
           {user && user?.userType === "buyer" ? "My Requirements" : "New Requirements"}
         </Link></li>
         <li><Link to="/customer/orders">Orders</Link></li>
-        <li><Link to="/customer/quotations">
-          {user && user?.userType === "buyer" ? "New Quotations" : "My Quotations"}
-        </Link></li>
+        {user && user?.userType === "seller" ? (
+          < li > <Link to="/customer/quotations">
+            My Quotations
+          </Link></li>
+        ) : null
+        }
       </ul>
-    </div>
+    </div >
   )
 }
 

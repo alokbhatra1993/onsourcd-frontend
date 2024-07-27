@@ -24,7 +24,7 @@ const CompanyDetail = () => {
   const [location, setLocation] = useState(center);
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'YOUR_GOOGLE_MAPS_API_KEY' // Replace with your Google Maps API key
+    googleMapsApiKey: 'AIzaSyCL_QSk4NjKCD376dCE3LM93zIkn234Yrs' // Replace with your Google Maps API key
   });
 
   const [loading, setLoading] = useState(false);

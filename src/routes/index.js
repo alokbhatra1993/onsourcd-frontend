@@ -36,6 +36,8 @@ import SellerRequirements from "../component/Pages/SellerRequirements";
 import RequirementQuotation from "../component/Pages/RequirementQuotation";
 import RequirementOrders from "../component/Pages/RequirementOrders";
 import AdminOrders from "../component/Pages/AdminOrders";
+import SellerList from "../component/Pages/SellerList";
+import BuyerList from "../component/Pages/BuyerList";
 
 
 
@@ -122,7 +124,8 @@ const Routing = () => {
           <Route path="sellerbuyertabs" element={<SellerBuyerTabs />} />
           <Route path="B2BSection" element={<B2BSection />} />
           <Route path="orders" element={<AdminOrders />} />
-
+          <Route path="sellers" element={<SellerList />} />
+          <Route path="buyers" element={<BuyerList />} />
         </Route>
       </Routes>
       {showFooter && <Footer />}
