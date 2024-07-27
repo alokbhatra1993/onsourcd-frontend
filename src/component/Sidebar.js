@@ -34,14 +34,14 @@ const Sidebar = () => {
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaUserTie className="mr-3" />
-            <Link to="/admin-dashboard/seller-list" className="flex-1 hover:text-gray-400">Seller List</Link>
+            <Link to="/admin-dashboard/sellers" className="flex-1 hover:text-gray-400">Seller List</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaUser className="mr-3" />
-            <Link to="/admin-dashboard/buyer-list" className="flex-1 hover:text-gray-400">Buyer List</Link>
+            <Link to="/admin-dashboard/buyers" className="flex-1 hover:text-gray-400">Buyer List</Link>
           </div>
           <FaArrowRight />
         </li>
