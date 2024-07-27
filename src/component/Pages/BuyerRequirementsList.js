@@ -26,7 +26,7 @@ const BuyerRequirementsList = () => {
   return (
     <div className="products">
       <div className="justify-content">
-        <h2>My Requirements</h2>
+        {/* <h2>My Requirements</h2> */}
         <Link to="/customer/add-requirement">Add Requirement</Link>
       </div>
 

@@ -20,8 +20,8 @@ const BuyerList = () => {
   };
 
   return (
-    <div className="container mx-auto my-10 p-4">
-      <h1 className="text-3xl font-bold text-center mb-6 text-gray-700">Buyer List</h1>
+    <div className="container mx-auto  p-4">
+      {/* <h1 className="text-3xl font-bold text-center mb-6 text-gray-700">Buyer List</h1> */}
       <div className="overflow-x-auto shadow-lg rounded-lg">
         <table className="min-w-full bg-white border border-gray-200">
           <thead>

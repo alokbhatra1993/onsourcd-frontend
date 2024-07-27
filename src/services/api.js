@@ -302,3 +302,17 @@ export const updateOrderPayment = async (token, orderId) => {
   });
   return response;
 };
+
+
+export const getAllQuotations = async (token) => {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // "Content-Type": "application/json",
+    },
+    // body: JSON.stringify({ paymentProgress }),
+
+  });
+  return response;
+};

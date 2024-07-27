@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../redux/actions';
 import { FaBox, FaList, FaUserTie, FaUser, FaClipboardList, FaFileInvoice, FaClipboard, FaSignOutAlt, FaArrowRight } from 'react-icons/fa';
@@ -8,11 +8,16 @@ import './Sidebar.css'; // Import the CSS file for additional styling
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleClick = () => {
     dispatch(setUserData({ token: null }));
     navigate("/");
   };
+
+  const getLinkClass = (path) => (
+    location.pathname === path ? 'flex-1 hover:text-gray-400 text-black bg-yellow-400' : 'flex-1 hover:text-gray-400 text-white'
+  );
 
   return (
     <div className="sidebar bg-gray-800 text-white w-64 min-h-screen flex flex-col justify-between">
@@ -20,49 +25,49 @@ const Sidebar = () => {
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaBox className="mr-3" />
-            <Link to="/admin-dashboard/products" className="flex-1 hover:text-gray-400 text-white">Products</Link>
+            <Link to="/admin-dashboard/products" className={getLinkClass("/admin-dashboard/products")}>Products</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaList className="mr-3" />
-            <Link to="/admin-dashboard/categories" className="flex-1 hover:text-gray-400 text-white">Categories</Link>
+            <Link to="/admin-dashboard/categories" className={getLinkClass("/admin-dashboard/categories")}>Categories</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaUserTie className="mr-3" />
-            <Link to="/admin-dashboard/sellers" className="flex-1 hover:text-gray-400 text-white">Seller List</Link>
+            <Link to="/admin-dashboard/sellers" className={getLinkClass("/admin-dashboard/sellers")}>Seller List</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaUser className="mr-3" />
-            <Link to="/admin-dashboard/buyers" className="flex-1 hover:text-gray-400 text-white">Buyer List</Link>
+            <Link to="/admin-dashboard/buyers" className={getLinkClass("/admin-dashboard/buyers")}>Buyer List</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaClipboardList className="mr-3" />
-            <Link to="/admin-dashboard/orders" className="flex-1 hover:text-gray-400 text-white">Orders</Link>
+            <Link to="/admin-dashboard/orders" className={getLinkClass("/admin-dashboard/orders")}>Orders</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaFileInvoice className="mr-3" />
-            <Link to="/admin-dashboard/quotation" className="flex-1 hover:text-gray-400 text-white">Quotation</Link>
+            <Link to="/admin-dashboard/quotation" className={getLinkClass("/admin-dashboard/quotation")}>Quotation</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaClipboard className="mr-3" />
-            <Link to="/admin-dashboard/requirements" className="flex-1 hover:text-gray-400 text-white">Requirements</Link>
+            <Link to="/admin-dashboard/requirements" className={getLinkClass("/admin-dashboard/requirements")}>Requirements</Link>
           </div>
           <FaArrowRight />
         </li>
