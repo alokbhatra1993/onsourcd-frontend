@@ -363,7 +363,7 @@ const AddRequirements = () => {
           <div className="mb-4">
             <button
               type="button"
-              className="w-full mt-2 p-2 bg-blue-500 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-center items-center"
+              className="w-full mt-2 p-2 bg-[#f6b60d] text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-center items-center"
               onClick={detectLocation}
               disabled={detectLocationLoading}
             >
@@ -375,7 +375,7 @@ const AddRequirements = () => {
         <div className="flex justify-end">
           <button
             type="submit"
-            className="w-full md:w-auto bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full md:w-auto bg-[#f6b60d] text-black py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
             disabled={loading}
           >
             {loading ? <FaSpinner className="animate-spin" /> : "Submit"}

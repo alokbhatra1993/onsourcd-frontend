@@ -75,99 +75,109 @@ export const AddProductForm = () => {
   };
 
   return (
-    <div className="add-product-form">
-      <h2>Add Product Form</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        {/* Product Name */}
-        <div className="form-group">
-          <label htmlFor="productName">Product Name</label>
-          <input
-            type="text"
-            id="productName"
-            {...register("productName", { required: true })}
-          />
-          {errors.productName && <p className="text-red-600 ">This field is required</p>}
-        </div>
-
-        {/* Product Image Upload */}
-        <div className="form-group">
-          <label htmlFor="document">Product Image</label>
-          <input
-            type="file"
-            id="document"
-            {...register("document", { required: true })}
-          />
-          {errors.document && <p className="text-red-600 "> This field is required</p>}
-        </div>
-
-        {/* GST Number Input */}
-        <div className="form-group">
-          <label htmlFor="gstNumber">GST price</label>
-          <input
-            min={0}
-            type="number"
-            id="gstNumber"
-            {...register("gstNumber", { required: true , min:0  })}
-          />
-          {errors.gstNumber && <p className="text-red-600 ">This field is required</p>}
-        </div>
-
-        {/* Commission Input */}
-        <div className="form-group">
-          <label htmlFor="commission">% Commission </label>
-          <input
-            min={0}
-            max={100}
-            type="number"
-            id="commission"
-            defaultValue={0} // Set default value to 0
-            {...register("commission", { required: true  })}
-          />
-          {errors.commission && <p className="text-red-600 ">This field is required</p>}
-
-        </div>
-
-        {/* Category Selection */}
-        <div className="form-group">
-          <label htmlFor="category">Choose Category:</label>
-          <select
-            id="category"
-            {...register("category", { required: true })}
-          >
-            <option value="">Select Category</option>
-            {categoriesState.map((category) => (
-              <option key={category._id} value={category._id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-          {errors.category && <p className="text-red-600 ">This field is required</p>}
-        </div>
-
-        {/* Subcategory Selection */}
-        {selectedCategory && (
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 p-4">
+      <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl w-full mx-auto">
+        <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Add Product Form</h2>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+          {/* Product Name */}
           <div className="form-group">
-            <label htmlFor="subcategory">Choose Subcategory:</label>
+            <label htmlFor="productName" className="block text-sm font-medium text-gray-700">Product Name</label>
+            <input
+              type="text"
+              id="productName"
+              {...register("productName", { required: true })}
+              className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
+            />
+            {errors.productName && <p className="text-red-600 text-xs">This field is required</p>}
+          </div>
+
+          {/* Product Image Upload */}
+          <div className="form-group">
+            <label htmlFor="document" className="block text-sm font-medium text-gray-700">Product Image</label>
+            <input
+              type="file"
+              id="document"
+              {...register("document", { required: true })}
+              className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
+            />
+            {errors.document && <p className="text-red-600 text-xs">This field is required</p>}
+          </div>
+
+          {/* GST Number Input */}
+          <div className="form-group">
+            <label htmlFor="gstNumber" className="block text-sm font-medium text-gray-700">GST Price</label>
+            <input
+              min={0}
+              type="number"
+              id="gstNumber"
+              {...register("gstNumber", { required: true, min: 0 })}
+              className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
+            />
+            {errors.gstNumber && <p className="text-red-600 text-xs">This field is required</p>}
+          </div>
+
+          {/* Commission Input */}
+          <div className="form-group">
+            <label htmlFor="commission" className="block text-sm font-medium text-gray-700">% Commission</label>
+            <input
+              min={0}
+              max={100}
+              type="number"
+              id="commission"
+              defaultValue={0} // Set default value to 0
+              {...register("commission", { required: true })}
+              className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
+            />
+            {errors.commission && <p className="text-red-600 text-xs">This field is required</p>}
+          </div>
+
+          {/* Category Selection */}
+          <div className="form-group">
+            <label htmlFor="category" className="block text-sm font-medium text-gray-700">Choose Category:</label>
             <select
-              id="subcategory"
-              {...register("subcategory", { required: true })}
+              id="category"
+              {...register("category", { required: true })}
+              className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
             >
-              <option value="">Select Subcategory</option>
-              {subCategoriesState.map((subcategory) => (
-                <option key={subcategory._id} value={subcategory._id}>
-                  {subcategory.name}
+              <option value="">Select Category</option>
+              {categoriesState.map((category) => (
+                <option key={category._id} value={category._id}>
+                  {category.name}
                 </option>
               ))}
             </select>
-            {errors.subcategory && <p>This field is required</p>}
+            {errors.category && <p className="text-red-600 text-xs">This field is required</p>}
           </div>
-        )}
 
-        {/* Submit Button */}
-        <button type="submit">
-          {loading ? (<FaSpinner />) : "Add Product"}
-        </button>
-      </form>
+          {/* Subcategory Selection */}
+          {selectedCategory && (
+            <div className="form-group">
+              <label htmlFor="subcategory" className="block text-sm font-medium text-gray-700">Choose Subcategory:</label>
+              <select
+                id="subcategory"
+                {...register("subcategory", { required: true })}
+                className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
+              >
+                <option value="">Select Subcategory</option>
+                {subCategoriesState.map((subcategory) => (
+                  <option key={subcategory._id} value={subcategory._id}>
+                    {subcategory.name}
+                  </option>
+                ))}
+              </select>
+              {errors.subcategory && <p className="text-red-600 text-xs">This field is required</p>}
+            </div>
+          )}
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="w-full py-2 px-4 bg-yellow-500 text-black font-semibold rounded-lg shadow-md hover:bg-yellow-600 transition duration-300 flex items-center justify-center"
+          >
+            {loading ? <FaSpinner className="animate-spin" /> : "Add Product"}
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

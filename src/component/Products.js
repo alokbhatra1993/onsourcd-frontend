@@ -12,10 +12,8 @@ const Products = () => {
   const loadProducts = async () => {
     try {
       const response = await fetchProductApi();
-      if (response ) {
-        const data = await response.json()
-        // console.log("data",data);
-
+      if (response) {
+        const data = await response.json();
         setProducts(data?.products);
       }
     } catch (error) {
@@ -24,41 +22,55 @@ const Products = () => {
   };
 
   return (
-    <div className="products">
-      <div className="justify-content">
-        <h2>Product List</h2>
-        <Link to="/admin-dashboard/add-product">Add Product</Link>
+    <div className="products p-8 bg-gray-100 min-h-screen">
+      <div className="flex justify-between items-center mb-8">
+        <h2 className="text-3xl font-bold text-gray-800">Product List</h2>
+        <Link
+          to="/admin-dashboard/add-product"
+          className="bg-[#f6b60d] text-black px-6 py-2 rounded-lg shadow hover:bg-yellow-600 transition duration-300"
+        >
+          Add Product
+        </Link>
       </div>
 
-      <table className="product-table">
-        <thead>
-          <tr>
-            <th>Index</th>
-            <th>Product Name</th>
-            <th>Product Image</th>
-            <th>Direct Category</th>
-            <th>Product Subcategory</th>
-            <th>GST</th>
-            <th>Commission</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product, index) => (
-            <tr key={product._id}>
-              <td>{index + 1}</td>
-              <td>{product.name}</td>
-              <td>
-                <img src={product.image} alt={product.name} style={{ maxWidth: '100px' }} />
-              </td>
-              <td>{product?.category?.name}</td>
-              <td>{product?.subCategory?.name}</td>
-              <td>₹ {product?.gst || 0}</td>
-              <td>₹ {product?.commission || 0}</td>
-
+      <div className="overflow-x-auto">
+        <table className="min-w-full bg-white border border-gray-200">
+          <thead className="bg-[#f6b60d]">
+            <tr>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-black uppercase tracking-wider">Index</th>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-black uppercase tracking-wider">Product Name</th>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-black uppercase tracking-wider">Product Image</th>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-black uppercase tracking-wider">Direct Category</th>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-black uppercase tracking-wider">Product Subcategory</th>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-black uppercase tracking-wider">GST</th>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-black uppercase tracking-wider">Commission</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {products.length > 0 ? (
+              products.map((product, index) => (
+                <tr key={product._id} className="hover:bg-gray-50 transition duration-300">
+                  <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm font-medium text-gray-900">{index + 1}</td>
+                  <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">{product.name}</td>
+                  <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">
+                    <img src={product.image} alt={product.name} className="max-w-full h-auto" style={{ maxWidth: '100px' }} />
+                  </td>
+                  <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">{product?.category?.name}</td>
+                  <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">{product?.subCategory?.name}</td>
+                  <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">₹ {product?.gst || 0}</td>
+                  <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">₹ {product?.commission || 0}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="7" className="px-6 py-4 text-center text-gray-500">
+                  No products found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
