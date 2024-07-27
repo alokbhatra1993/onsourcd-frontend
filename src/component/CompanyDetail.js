@@ -22,10 +22,6 @@ const CompanyDetail = () => {
   const [map, setMap] = useState(null);
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const [location, setLocation] = useState(center);
-  // const { isLoaded } = useJsApiLoader({
-  //   id: 'google-map-script',
-  //   googleMapsApiKey: 'AIzaSyCL_QSk4NjKCD376dCE3LM93zIkn234Yrs' // Replace with your Google Maps API key
-  // });
 
   const [loading, setLoading] = useState(false);
 
@@ -177,23 +173,23 @@ const CompanyDetail = () => {
 
           <div className="flex flex-col space-y-4">
             <label className="block mb-2 text-sm font-medium text-gray-900">Select Location</label>
-            {isLoaded ? (
-              <div className="flex-grow h-80 lg:h-96">
-                <LoadScript googleMapsApiKey="AIzaSyCL_QSk4NjKCD376dCE3LM93zIkn234Yrs">
-                  <GoogleMap
-                    mapContainerStyle={containerStyle}
-                    center={markerPosition}
-                    zoom={10}
-                    onLoad={onLoad}
-                  >
-                    <Marker
-                      position={markerPosition}
-                      draggable
-                    />
-                  </GoogleMap>
-                </LoadScript>
-              </div>
-            ) : <p>Loading...</p>}
+            {/* {isLoaded ? ( */}
+            <div className="flex-grow h-80 lg:h-96">
+              <LoadScript googleMapsApiKey="AIzaSyCL_QSk4NjKCD376dCE3LM93zIkn234Yrs">
+                <GoogleMap
+                  mapContainerStyle={containerStyle}
+                  center={markerPosition}
+                  zoom={10}
+                  onLoad={onLoad}
+                >
+                  <Marker
+                    position={markerPosition}
+                    draggable
+                  />
+                </GoogleMap>
+              </LoadScript>
+            </div>
+            {/* ) : <p>Loading...</p>} */}
             <div>
               {/* Optionally show latitude and longitude */}
             </div>

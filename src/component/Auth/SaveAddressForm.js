@@ -87,7 +87,7 @@ const SaveAddressForm = () => {
     <div className="saved-address-container ">
       {/* <h2>Add New Address</h2> */}
       <div className="map-container">
-        <LoadScript googleMapsApiKey="AIzaSyCL_QSk4NjKCD376dCE3LM93zIkn234Yrs">
+        {/* <LoadScript googleMapsApiKey="AIzaSyCL_QSk4NjKCD376dCE3LM93zIkn234Yrs">
           <GoogleMap
             mapContainerStyle={containerStyle}
             center={center}
@@ -100,7 +100,7 @@ const SaveAddressForm = () => {
             // onDragEnd={onMarkerDragEnd}
             />
           </GoogleMap>
-        </LoadScript>
+        </LoadScript> */}
       </div>
       <div className="address-form">
         <h3>Add New Address</h3>
