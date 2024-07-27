@@ -20,56 +20,56 @@ const Sidebar = () => {
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaBox className="mr-3" />
-            <Link to="/admin-dashboard/products" className="flex-1 hover:text-gray-400">Products</Link>
+            <Link to="/admin-dashboard/products" className="flex-1 hover:text-gray-400 text-white">Products</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaList className="mr-3" />
-            <Link to="/admin-dashboard/categories" className="flex-1 hover:text-gray-400">Categories</Link>
+            <Link to="/admin-dashboard/categories" className="flex-1 hover:text-gray-400 text-white">Categories</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaUserTie className="mr-3" />
-            <Link to="/admin-dashboard/sellers" className="flex-1 hover:text-gray-400">Seller List</Link>
+            <Link to="/admin-dashboard/sellers" className="flex-1 hover:text-gray-400 text-white">Seller List</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaUser className="mr-3" />
-            <Link to="/admin-dashboard/buyers" className="flex-1 hover:text-gray-400">Buyer List</Link>
+            <Link to="/admin-dashboard/buyers" className="flex-1 hover:text-gray-400 text-white">Buyer List</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaClipboardList className="mr-3" />
-            <Link to="/admin-dashboard/orders" className="flex-1 hover:text-gray-400">Orders</Link>
+            <Link to="/admin-dashboard/orders" className="flex-1 hover:text-gray-400 text-white">Orders</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaFileInvoice className="mr-3" />
-            <Link to="/admin-dashboard/quotation" className="flex-1 hover:text-gray-400">Quotation</Link>
+            <Link to="/admin-dashboard/quotation" className="flex-1 hover:text-gray-400 text-white">Quotation</Link>
           </div>
           <FaArrowRight />
         </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaClipboard className="mr-3" />
-            <Link to="/admin-dashboard/requirements" className="flex-1 hover:text-gray-400">Requirements</Link>
+            <Link to="/admin-dashboard/requirements" className="flex-1 hover:text-gray-400 text-white">Requirements</Link>
           </div>
           <FaArrowRight />
         </li>
       </ul>
       <div className="p-4">
         <button
-          className="bg-[#f6b60d] text-black flex items-center w-full text-center hover:text-gray-400"
+          className="bg-[#f6b60d] text-black flex items-center w-full text-center hover:text-gray-400 text-white"
           onClick={handleClick}
         >
           <FaSignOutAlt className="mr-3" />
