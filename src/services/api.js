@@ -1,6 +1,6 @@
 export const fetchCategories = async () => {
   const response = await fetch(
-    `http://localhost:5000/api/products/categories`,
+    `https://onsourcd-backend.vercel.app/api/products/categories`,
     {
       method: "GET",
       headers: {
@@ -12,7 +12,7 @@ export const fetchCategories = async () => {
 };
 
 export const addCategories = async (name) => {
-  const response = await fetch(`http://localhost:5000/api/products/category`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/products/category`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -24,7 +24,7 @@ export const addCategories = async (name) => {
 
 export const addSubCategories = async (name, categoryId) => {
   const response = await fetch(
-    `http://localhost:5000/api/products/subcategory`,
+    `https://onsourcd-backend.vercel.app/api/products/subcategory`,
     {
       method: "POST",
       headers: {
@@ -38,7 +38,7 @@ export const addSubCategories = async (name, categoryId) => {
 
 export const fetchSubCategories = async (categoryId) => {
   const response = await fetch(
-    `http://localhost:5000/api/products/subcategories-by-categoryId?category=${categoryId}`,
+    `https://onsourcd-backend.vercel.app/api/products/subcategories-by-categoryId?category=${categoryId}`,
     {
       method: "GET",
       headers: {
@@ -51,7 +51,7 @@ export const fetchSubCategories = async (categoryId) => {
 
 export const addProductApi = async (formData) => {
   // console.log("ADD PRODUTC API" , formData);
-  const response = await fetch(`http://localhost:5000/api/products/`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/products/`, {
     method: "POST",
     headers: {
       // "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export const addProductApi = async (formData) => {
 };
 
 export const addRequirement = async (formData, token) => {
-  const response = await fetch(`http://localhost:5000/api/requirments/`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/requirments/`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -74,7 +74,7 @@ export const addRequirement = async (formData, token) => {
 };
 
 export const fetchMyRequirements = async (token) => {
-  const response = await fetch(`http://localhost:5000/api/requirments/my-requirements`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/requirments/my-requirements`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -85,7 +85,7 @@ export const fetchMyRequirements = async (token) => {
 };
 
 export const fetchNewRequirements = async (token) => {
-  const response = await fetch(`http://localhost:5000/api/requirments`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/requirments`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -96,7 +96,7 @@ export const fetchNewRequirements = async (token) => {
 };
 
 export const fetchProductApi = async () => {
-  const response = await fetch(`http://localhost:5000/api/products/`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/products/`, {
     method: "GET",
     headers: {
       // "Content-Type": "application/json",
@@ -106,7 +106,7 @@ export const fetchProductApi = async () => {
 };
 
 export const sendVerifyEmail = async (token) => {
-  const response = await fetch(`http://localhost:5000/api/users/send-verify-email`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/users/send-verify-email`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -116,7 +116,7 @@ export const sendVerifyEmail = async (token) => {
 };
 
 export const verifyEmailApi = async (token) => {
-  const response = await fetch(`http://localhost:5000/api/users/verify-email`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/users/verify-email`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -127,7 +127,7 @@ export const verifyEmailApi = async (token) => {
 
 
 export const saveCompanyDetails = async (formData, token) => {
-  const response = await fetch(`http://localhost:5000/api/company/register`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/company/register`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -141,7 +141,7 @@ export const saveCompanyDetails = async (formData, token) => {
 };
 
 export const getCompanyDetails = async (token) => {
-  const response = await fetch(`http://localhost:5000/api/company/details`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/company/details`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -151,7 +151,7 @@ export const getCompanyDetails = async (token) => {
 };
 
 export const addQuotation = async (formData, token, requirementId) => {
-  const response = await fetch(`http://localhost:5000/api/quotation/${requirementId}`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/${requirementId}`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -164,7 +164,7 @@ export const addQuotation = async (formData, token, requirementId) => {
 };
 
 export const readQuotationByRequirementAndUser = async (requirementID, token) => {
-  const response = await fetch(`http://localhost:5000/api/quotation/user-requirement/${requirementID}`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/user-requirement/${requirementID}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -177,7 +177,7 @@ export const readQuotationByRequirementAndUser = async (requirementID, token) =>
 };
 
 export const readQuotationByRequirement = async (requirementID, token) => {
-  const response = await fetch(`http://localhost:5000/api/quotation/requirement/${requirementID}`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/requirement/${requirementID}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -191,7 +191,7 @@ export const readQuotationByRequirement = async (requirementID, token) => {
 
 
 export const acceptOrderApi = async (quotationId, token) => {
-  const response = await fetch(`http://localhost:5000/api/quotation/accept-order/${quotationId}`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/accept-order/${quotationId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -205,7 +205,7 @@ export const acceptOrderApi = async (quotationId, token) => {
 
 
 export const ordersByRequirementId = async (requirementID, token) => {
-  const response = await fetch(`http://localhost:5000/api/quotation/requirement-orders/${requirementID}`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/requirement-orders/${requirementID}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -218,7 +218,7 @@ export const ordersByRequirementId = async (requirementID, token) => {
 };
 
 export const ordersByQuotation = async (requirementID, token) => {
-  const response = await fetch(`http://localhost:5000/api/quotation/quotation-orders/${requirementID}`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/quotation-orders/${requirementID}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -231,7 +231,7 @@ export const ordersByQuotation = async (requirementID, token) => {
 };
 
 export const allOrdersApi = async () => {
-  const response = await fetch(`http://localhost:5000/api/quotation/admin/orders`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/admin/orders`, {
     method: "GET",
     headers: {
       // Authorization: `Bearer ${token}`,
@@ -244,7 +244,7 @@ export const allOrdersApi = async () => {
 };
 
 export const fetchSellers = async () => {
-  const response = await fetch(`http://localhost:5000/api/users/sellers`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/users/sellers`, {
     method: "GET",
     headers: {
       // Authorization: `Bearer ${token}`,
@@ -255,7 +255,7 @@ export const fetchSellers = async () => {
 };
 
 export const fetchBuyers = async () => {
-  const response = await fetch(`http://localhost:5000/api/users/buyers`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/users/buyers`, {
     method: "GET",
     headers: {
       // Authorization: `Bearer ${token}`,
@@ -268,7 +268,7 @@ export const fetchBuyers = async () => {
 // return only those which payment received
 
 export const fetchOrdersBySeller = async (token, sellerId) => {
-  const response = await fetch(`http://localhost:5000/api/quotation/seller/orders/${sellerId}`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/seller/orders/${sellerId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -279,7 +279,7 @@ export const fetchOrdersBySeller = async (token, sellerId) => {
 };
 
 export const updateOrderStatus = async (token, status) => {
-  const response = await fetch(`http://localhost:5000/api/quotation/update/order-status`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/update/order-status`, {
     method: "POST",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -291,7 +291,7 @@ export const updateOrderStatus = async (token, status) => {
 };
 
 export const updateOrderPayment = async (token, orderId) => {
-  const response = await fetch(`http://localhost:5000/api/quotation/update/order-payment/${orderId}`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/update/order-payment/${orderId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
