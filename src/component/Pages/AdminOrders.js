@@ -28,15 +28,13 @@ const OrdersTable = () => {
                             {[
                                 'Order ID',
                                 'Requirement ID',
+                                'Quotation ID',
+                                'Product ID',
                                 'Estimated Price',
                                 'Seller',
                                 'Buyer',
-                                'Product ID',
-                                'Quotation ID',
                                 'Expected Date',
                                 'Status',
-                                'Expected Start Date',
-                                'Expected End Date'
                             ].map((header) => (
                                 <th key={header} className="py-3 px-5 text-left text-white font-semibold border border-gray-300">
                                     {header}
@@ -48,23 +46,23 @@ const OrdersTable = () => {
                         {orders.length > 0 ? (
                             orders.map((order) => (
                                 <tr key={order._id} className="hover:bg-gray-200 transition duration-300">
-                                    <td className="py-3 px-5 border border-gray-300 text-black">{order?._id}</td>
-                                    <td className="py-3 px-5 border border-gray-300 text-black">{order?.requirementId}</td>
+                                    <td className="py-3 px-5 border border-gray-300 text-blue-500 underline" title={order?._id}>{order?._id.slice(0,3)}...</td>
+                                    <td className="py-3 px-5 border border-gray-300 text-blue-500 underline" title={order?.requirementId}>{order?.requirementId.slice(0,3)}...</td>
+                                    <td className="py-3 px-5 border border-gray-300 text-blue-500">{order.quotationId.slice(0,3)}...</td>
                                     <td className="py-3 px-5 border border-gray-300 text-black">{order?.estimatedPrice}</td>
-                                    <td className="py-3 px-5 border border-gray-300 text-black">{order?.sellerId?.email}</td>
+                                    <td className="py-3 px-5 border border-gray-300 text-black" title={order}>{order?.sellerId?.email.slice(0,4)}...</td>
                                     <td className="py-3 px-5 border border-gray-300 text-black">{order.buyerId?.email}</td>
                                     <td className="py-3 px-5 border border-gray-300 text-black">
                                         <img src={order.productId?.image} alt="Product" className="h-10 w-10 rounded-full object-cover" />
                                     </td>
-                                    <td className="py-3 px-5 border border-gray-300 text-black">{order.quotationId}</td>
-                                    <td className="py-3 px-5 border border-gray-300 text-black">{order.expectedDate}</td>
+                                    <td className="py-3 px-5 border border-gray-300 text-black">{order?.expectedDate?.slice(0, 10)}</td>
                                     <td className="py-3 px-5 border border-gray-300 text-black">
                                         <span className={`px-3 py-1 rounded-full text-sm ${order.status === 'Completed' ? 'bg-green-500 text-white' : 'bg-red-500 text-white'}`}>
                                             {order.status}
                                         </span>
                                     </td>
-                                    <td className="py-3 px-5 border border-gray-300 text-black">{order.expectedStartDate}</td>
-                                    <td className="py-3 px-5 border border-gray-300 text-black">{order.expectedEndDate}</td>
+                                    {/* <td className="py-3 px-5 border border-gray-300 text-black">{order.expectedStartDate}</td>
+                                    <td className="py-3 px-5 border border-gray-300 text-black">{order.expectedEndDate}</td> */}
                                 </tr>
                             ))
                         ) : (

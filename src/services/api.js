@@ -264,3 +264,16 @@ export const fetchBuyers = async () => {
   });
   return response;
 };
+
+// return only those which payment received
+
+export const fetchOrdersBySeller = async (token) => {
+  const response = await fetch(`http://localhost:5000/api/seller/orders`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // "Content-Type": "application/json",
+    },
+  });
+  return response;
+};

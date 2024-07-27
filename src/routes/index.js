@@ -126,6 +126,8 @@ const Routing = () => {
           <Route path="orders" element={<AdminOrders />} />
           <Route path="sellers" element={<SellerList />} />
           <Route path="buyers" element={<BuyerList />} />
+          <Route path="orders" element={<AdminOrders />} />
+
         </Route>
       </Routes>
       {showFooter && <Footer />}
