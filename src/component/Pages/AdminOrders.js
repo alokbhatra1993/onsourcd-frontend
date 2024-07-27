@@ -82,7 +82,7 @@ const OrdersTable = () => {
                                 'Product',
                                 'Expected Date',
                                 'Status',
-                                'Payment progress',
+                                'Payment',
                             ].map((header) => (
                                 <th key={header} className="py-3 px-1 text-left text-white font-semibold border border-gray-300">
                                     {header}

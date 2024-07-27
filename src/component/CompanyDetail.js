@@ -22,10 +22,10 @@ const CompanyDetail = () => {
   const [map, setMap] = useState(null);
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const [location, setLocation] = useState(center);
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyCL_QSk4NjKCD376dCE3LM93zIkn234Yrs' // Replace with your Google Maps API key
-  });
+  // const { isLoaded } = useJsApiLoader({
+  //   id: 'google-map-script',
+  //   googleMapsApiKey: 'AIzaSyCL_QSk4NjKCD376dCE3LM93zIkn234Yrs' // Replace with your Google Maps API key
+  // });
 
   const [loading, setLoading] = useState(false);
 
@@ -179,7 +179,7 @@ const CompanyDetail = () => {
             <label className="block mb-2 text-sm font-medium text-gray-900">Select Location</label>
             {isLoaded ? (
               <div className="flex-grow h-80 lg:h-96">
-                <LoadScript googleMapsApiKey="YOUR_GOOGLE_MAPS_API_KEY">
+                <LoadScript googleMapsApiKey="AIzaSyCL_QSk4NjKCD376dCE3LM93zIkn234Yrs">
                   <GoogleMap
                     mapContainerStyle={containerStyle}
                     center={markerPosition}
