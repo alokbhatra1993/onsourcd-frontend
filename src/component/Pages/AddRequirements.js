@@ -318,11 +318,18 @@ const AddRequirements = () => {
             <label htmlFor="expectedStartDate" className="block text-gray-700 font-medium mb-2">Quantity in metric ton</label>
             <input
               id="expectedStartDate"
-              {...register("quantity", { required: true })}
+              {...register("quantity", {
+                required: "Quantity  is required",
+                min: { value: 0, message: "Quantity cannot be negative" }
+              })}
               type="number"
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.quantity && <span className="text-red-500 text-sm">Quantity is requred</span>}
+            {errors.quantity && <span className="text-red-500 text-sm">
+              {
+                errors?.quantity?.message
+              }
+            </span>}
           </div>
         </div>
 
