@@ -113,6 +113,7 @@ const OrdersTable = () => {
                                             <option value="pending" disabled>Pending</option>
                                             <option value="dispatched">Dispatch</option>
                                             <option value="delivered">Delivered</option>
+                                            <option value="cancelled">Cancel</option>
                                         </select>
                                     </td>
                                     <td className="py-3 px-1 border border-gray-300 text-black">

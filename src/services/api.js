@@ -329,3 +329,28 @@ export const deleteProductApi = async (token, productID) => {
   });
   return response;
 };
+
+
+export const fetchOrdersByBuyer= async (token, buyerId) => {
+  const response = await fetch(`http://localhost:5000/api/quotation/buyer/orders/${buyerId}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  return response;
+};
+
+export const allQuotationsApi= async ( ) => {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation`, {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    // body: JSON.stringify(formData),
+  }
+  );
+  return response;
+};

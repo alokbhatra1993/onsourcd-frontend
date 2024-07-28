@@ -39,7 +39,7 @@ const CustomerSideBar = () => {
         </li>
         <li className="relative group">
           <Link
-            to={user?.userType ? "/customer/seller-orders" : "/customer/orders"}
+            to={user?.userType==="seller" ? "/customer/seller-orders" : "/customer/orders"}
             className={`flex items-center p-3 rounded-lg ${isActive('/customer/seller-orders') || isActive('/customer/orders') ? 'bg-yellow-900' : 'bg-gray-800'
               } hover:bg-yellow-900 transition duration-300`}
           >

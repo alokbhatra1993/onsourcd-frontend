@@ -41,6 +41,8 @@ import BuyerList from "../component/Pages/BuyerList";
 import SellerOrders from "../component/Pages/SellerOrders";
 import SellerProducts from "../component/Pages/SellerProducts";
 import CustomerProducts from "../component/Pages/CustomerProducts";
+import AdminQuotation from "../component/Pages/AdminQuotation";
+import BuyerOrders from "../component/Pages/BuyerOrders";
 
 
 
@@ -113,6 +115,7 @@ const Routing = () => {
           <Route path="requirement-orders" element={<RequirementOrders />} />
           <Route path="seller-orders" element={<SellerOrders />} />
           <Route path="seller-products" element={<SellerProducts />} />
+          <Route path="orders" element={<BuyerOrders />} />
           <Route path="customer-products" element={<CustomerProducts />} />
 
 
@@ -135,6 +138,7 @@ const Routing = () => {
           <Route path="sellers" element={<SellerList />} />
           <Route path="buyers" element={<BuyerList />} />
           <Route path="orders" element={<AdminOrders />} />
+          <Route path="quotation" element={<AdminQuotation />} />
 
         </Route>
       </Routes>
