@@ -110,7 +110,7 @@ export const AddProductForm = () => {
               min={0}
               type="number"
               id="gstNumber"
-              {...register("gstNumber", { required: true, min: 0 })}
+              {...register("gstNumber", { required: true, min: 0 , max:100 })}
               className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:ring-yellow-500 focus:border-yellow-500 sm:text-sm"
             />
             {errors.gstNumber && <p className="text-red-600 text-xs">This field is required</p>}

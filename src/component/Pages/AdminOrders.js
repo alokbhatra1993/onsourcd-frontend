@@ -121,7 +121,7 @@ const OrdersTable = () => {
                                             value={order?.paymentProgress}
                                             onChange={() => showModal(order?._id, 'payment')}
                                         >
-                                            <option value="in-transit">In-Transit</option>
+                                            <option value="in-transit">Pending</option>
                                             <option value="received">Received</option>
                                         </select>
                                     </td>

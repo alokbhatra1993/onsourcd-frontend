@@ -92,7 +92,7 @@ const SellerRequirements = () => {
             <th>Index</th>
             <th>Product Name</th>
             <th>Product Image</th>
-            <th>Quantity</th>
+            <th>Quantity <br/> (MT)</th>
             <th>Frequency</th>
             <th>Total Orders</th>
             <th>Expected Start Date</th>
@@ -118,7 +118,7 @@ const SellerRequirements = () => {
                     />
                   </td>
 
-                  <td>{requirement.quantity}</td>
+                  <td>{requirement.quantity} </td>
 
                   <td>{requirement.frequency}</td>
                   <td>{requirement.totalOrders}</td>
