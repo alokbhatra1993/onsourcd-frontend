@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { fetchProductApi } from '../services/api';
+import { deleteProductApi, fetchProductApi } from '../services/api';
+import { FaDeleteLeft, FaTrash } from 'react-icons/fa6';
+import { useSelector } from 'react-redux';
+import { toast, ToastContainer } from 'react-toastify';
 
 const Products = () => {
+  const user = useSelector((state) => state);
+
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -21,8 +26,24 @@ const Products = () => {
     }
   };
 
+
+  const deleteProduct = async (productID) => {
+    try {
+
+      const response = await deleteProductApi(user?.token, productID)
+
+      if (response?.status === 200) {
+        toast.success("Product deleted")
+        loadProducts()
+      }
+    } catch (error) {
+      toast.success("Something went wrong")
+    }
+  }
+
   return (
     <div className="products p-8 bg-gray-100 min-h-screen">
+      <ToastContainer />
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-3xl font-bold text-gray-800">Product List</h2>
         <Link
@@ -44,6 +65,8 @@ const Products = () => {
               <th className="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-black uppercase tracking-wider">Product Subcategory</th>
               <th className="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-black uppercase tracking-wider">GST</th>
               <th className="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-black uppercase tracking-wider">Commission</th>
+              <th className="px-6 py-3 border-b border-gray-200 text-left text-xs font-medium text-black uppercase tracking-wider">Action</th>
+
             </tr>
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
@@ -59,6 +82,12 @@ const Products = () => {
                   <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">{product?.subCategory?.name}</td>
                   <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">₹ {product?.gst || 0}</td>
                   <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">₹ {product?.commission || 0}</td>
+                  <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">
+                    <button
+                      onClick={() => deleteProduct(product?._id)}
+                    ><FaTrash /></button>
+                  </td>
+
                 </tr>
               ))
             ) : (

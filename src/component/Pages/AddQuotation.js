@@ -75,10 +75,13 @@ const AddQuotation = (props) => {
                 <input
                   id="estimatedPrice"
                   type="number"
-                  {...register("estimatedPrice", { required: true })}
+                  {...register("estimatedPrice", {
+                    required: "Estimated Price amount is required",
+                    min: { value: 0, message: "Estimated price cannot be negative" }
+                  })}
                   className="w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline"
                 />
-                {errors.estimatedPrice && <p className="text-red-500 text-xs italic">Estimated Price is required.</p>}
+                {errors.estimatedPrice && <p className="text-red-500 text-xs italic">{errors?.estimatedPrice?.message}</p>}
               </div>
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center">
@@ -98,11 +101,19 @@ const AddQuotation = (props) => {
                 <input
                   id="transportationPrice"
                   type="number"
-                  {...register("transportationPrice", { required: transportAvailability })}
-                  className={`w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline ${!transportAvailability && "bg-gray-200 cursor-not-allowed"}`}
+                  {...register("transportationPrice", {
+                    required: transportAvailability && {
+                      value: true,
+                      message: "Transportation price is required",
+                    },
+                    min: {
+                      value: 0,
+                      message: "Transportation price must be at least 0",
+                    },
+                  })} className={`w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline ${!transportAvailability && "bg-gray-200 cursor-not-allowed"}`}
                   disabled={!transportAvailability}
                 />
-                {errors.transportationPrice && <p className="text-red-500 text-xs italic">Transportation Price is required if transport is available.</p>}
+                {errors.transportationPrice && <p className="text-red-500 text-xs italic">{errors?.transportationPrice?.message}</p>}
               </div>
               <div className="mb-4">
                 <label className="block mb-2 text-sm font-bold text-gray-700" htmlFor="qualityDescription">

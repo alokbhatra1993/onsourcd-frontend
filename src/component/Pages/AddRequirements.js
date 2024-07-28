@@ -5,7 +5,7 @@ import { addRequirement, fetchProductApi, fetchCategories } from "../../services
 import { useSelector } from "react-redux";
 import { fetchAddress } from "../../services/googleApi";
 import { FaSpinner } from "react-icons/fa6";
-import { Toast, ToastBody, ToastContainer } from "react-bootstrap";
+import { Toast, ToastBody, ToastContainer } from "react-toastify";
 import { toast } from "react-toastify";
 
 const AddRequirements = () => {
@@ -19,10 +19,13 @@ const AddRequirements = () => {
   const [endDate, setEndDate] = useState("");
   const [totalOrders, setTotalOrders] = useState(0);
 
+  const [locationError, setErrorLocation] = useState("")
+
   const {
     register,
     handleSubmit,
     setValue,
+    setError,
     getValues,
     formState: { errors },
   } = useForm();
@@ -62,6 +65,7 @@ const AddRequirements = () => {
 
   const detectLocation = async () => {
     setDetectLocationLoading(true);
+    setErrorLocation("")
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
@@ -70,18 +74,21 @@ const AddRequirements = () => {
           const { address_components } = locationAddress;
           setValue("latitude", latitude);
           setValue("longitude", longitude);
-          setValue("deliveryState", address_components[4].long_name);
+          setValue("deliveryState", address_components[6].long_name);
           setValue("deliveryCity", address_components[2].long_name);
-          setValue("deliveryZipCode", address_components[6].long_name);
+          setValue("deliveryZipCode", address_components[8].long_name);
           setDetectLocationLoading(false);
         },
         (error) => {
           setDetectLocationLoading(false);
-          console.log({ error });
+          setErrorLocation(error?.message)
+
         }
       );
     } else {
-      Toast.error("Something went wrong");
+      setDetectLocationLoading(false);
+      setErrorLocation("Error in location detect")
+
     }
   };
 
@@ -111,7 +118,7 @@ const AddRequirements = () => {
             totalOrders = 0;
         }
         setTotalOrders(totalOrders);
-        setValue("totalOrders",totalOrders)
+        setValue("totalOrders", totalOrders)
       } else {
         setTotalOrders(0);
       }
@@ -120,13 +127,22 @@ const AddRequirements = () => {
     }
   };
 
-  console.log({totalOrders});
+  const [minError, setMinError] = useState("")
 
   const onSubmit = async (data) => {
     try {
-      console.log({data});
+      console.log({ data });
+      if (parseInt(data?.minimumAmount) > parseInt(data?.maximumAmount)) {
+        toast.error("Minimum Amount can not bigger than maximum amount")
+        return
+      }
 
-       setLoading(true);
+      // if (new Date(data?.expectedStartDate) > new Date(data?.expectedEndDate)) {
+      //   toast.error("Expected start date cannot be later than the expected end date");
+      //   return;
+      // }
+
+      setLoading(true);
       const saveRequirementResponse = await addRequirement(data, user?.token);
       if (saveRequirementResponse?.ok) {
         setLoading(false);
@@ -136,11 +152,11 @@ const AddRequirements = () => {
         toast.error("Something went wrong")
       }
       setLoading(false)
-      
+
     } catch (error) {
-      
+
     }
-   
+
   };
 
   const handleStartDateChange = (e) => {
@@ -165,7 +181,7 @@ const AddRequirements = () => {
 
   return (
     <div className="w-full mx-auto p-6 bg-white shadow-lg rounded-lg pl-20 ">
-      <ToastContainer />
+      <ToastContainer theme="dark" />
       {/* <h2 className="text-3xl font-bold text-center mb-6">Add Requirements</h2> */}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
@@ -221,22 +237,36 @@ const AddRequirements = () => {
             <label htmlFor="minimumAmount" className="block text-gray-700 font-medium mb-2">Minimum Amount</label>
             <input
               id="minimumAmount"
-              {...register("minimumAmount", { required: true })}
+              {...register("minimumAmount", {
+                required: "Minimum amount is required",
+                min: { value: 0, message: "Minimum amount cannot be negative" }
+              })}
+              min={0}
               type="number"
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.minimumAmount && <span className="text-red-500 text-sm">Minimum amount is required</span>}
+            {errors.minimumAmount && <span className="text-red-500 text-sm">
+              {
+                errors?.minimumAmount?.message
+              }
+            </span>}
           </div>
 
           <div className="mb-4">
             <label htmlFor="maximumAmount" className="block text-gray-700 font-medium mb-2">Maximum Amount</label>
             <input
               id="maximumAmount"
-              {...register("maximumAmount", { required: true })}
-              type="number"
+              {...register("maximumAmount", {
+                required: "Maximum amount is required",
+                min: { value: 0, message: "Maximum amount cannot be negative" }
+              })} type="number"
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            {errors.maximumAmount && <span className="text-red-500 text-sm">Maximum amount is required</span>}
+            {errors.maximumAmount && <span className="text-red-500 text-sm">
+              {
+                errors?.maximumAmount?.message
+              }
+            </span>}
           </div>
 
           <div className="mb-4">
@@ -369,6 +399,15 @@ const AddRequirements = () => {
             >
               {detectLocationLoading ? <FaSpinner className="animate-spin" /> : "Detect Location"}
             </button>
+            {
+              locationError ? (
+                <p className="text-lg  text-red-600">
+                  {
+                    locationError
+                  }
+                </p>
+              ) : null
+            }
           </div>
         </div>
 

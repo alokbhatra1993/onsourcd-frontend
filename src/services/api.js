@@ -316,3 +316,16 @@ export const getAllQuotations = async (token) => {
   });
   return response;
 };
+
+export const deleteProductApi = async (token, productID) => {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/products/delete/${productID}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // "Content-Type": "application/json",
+    },
+    // body: JSON.stringify({ paymentProgress }),
+
+  });
+  return response;
+};
