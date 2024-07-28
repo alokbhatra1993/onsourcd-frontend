@@ -80,7 +80,7 @@ const BuyerRequirementsList = () => {
                 <td>{requirement.quantity}</td>
                 <td>{requirement.minimumAmount}</td>
                 <td>{requirement.maximumAmount}</td>
-                <td>{requirement.frequency.slice(0, 1)}</td>
+                <td>{requirement.frequency}</td>
                 <td>{requirement.totalOrders}</td>
                 <td>
                   {requirement.expectedStartDate.slice(0, 10)}-
@@ -99,14 +99,21 @@ const BuyerRequirementsList = () => {
                 <td>
                   <span
                     data-tooltip-id={`address-tooltip-${requirement._id}`}
-                    data-tooltip-content={
-                      requirement.deliveryAddress +
-                      " ," + requirement.deliveryCity + ","
-                      + requirement.deliveryState + "," +
-                      requirement.deliveryZipCode
+                    data-tooltip-html={
+                      `  <div>
+                     ${requirement.deliveryAddress} 
+                                           </div>
+                        <div>
+                                              ${requirement.deliveryCity} ,                      ${requirement.deliveryState}
+
+
+                        </div>
+                      ${requirement.deliveryZipCode}
+                      `
+
                     }
                   >
-                    {requirement.deliveryAddress.slice(0, 20)}...
+                   <p className="cursor-pointer"> {requirement.deliveryAddress.slice(0, 20)}...</p>
                   </span>
                   <Tooltip id={`address-tooltip-${requirement._id}`} place="top" clickable={true} />
                 </td>

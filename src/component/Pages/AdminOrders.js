@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { allOrdersApi, updateOrderPayment } from '../../services/api';
 import { useSelector } from 'react-redux';
+import { Tooltip } from 'react-tooltip';
+import 'react-tooltip/dist/react-tooltip.css';
 
 const OrdersTable = () => {
     const user = useSelector((state) => state);
@@ -98,8 +100,32 @@ const OrdersTable = () => {
                                     <td className="py-3 px-1 border border-gray-300 text-blue-500 underline cursor-pointer" title={order?.requirementId}>{order?.requirementId.slice(0, 3)}...</td>
                                     <td className="py-3 px-1 border border-gray-300 text-blue-500">{order.quotationId.slice(0, 3)}...</td>
                                     <td className="py-3 px-1 border border-gray-300 text-black">Rs.{order?.estimatedPrice}</td>
-                                    <td className="py-3 px-1 border border-gray-300 text-black">{order?.sellerId?.email}</td>
-                                    <td className="py-3 px-1 border border-gray-300 text-black">{order.buyerId?.email}</td>
+                                    <td className="py-3 px-1 border border-gray-300 text-black"
+                                        data-tooltip-id={`seller-email-${order.id}`}
+                                        data-tooltip-html={`
+                                        <div>
+                                        <strong>Name:</strong> ${order?.sellerId?.name}<br />
+                                        <strong>Phone:</strong> ${order?.sellerId?.phone}<br />
+                                       <strong>Email:</strong> ${order?.sellerId?.email}
+                                        </div>
+                                    `}>
+                                        <p className='text-blue-500 underline cursor-pointer'>
+                                            {order.sellerId?.email}
+                                        </p>
+                                        <Tooltip id={`seller-email-${order.id}`} place="top" effect="solid" className="custom-tooltip" />
+                                    </td>
+                                    <td className="py-3 px-1 border border-gray-300 text-black" data-tooltip-id={`buyer-email-${order.id}`} data-tooltip-html={`
+                                        <div>
+                                        <strong>Name:</strong> ${order?.buyerId?.name}<br />
+                                        <strong>Phone:</strong> ${order?.buyerId?.phone}<br />
+                                       <strong>Email:</strong> ${order?.buyerId?.email}
+                                        </div>
+                                    `}>
+                                        <p className='text-blue-500 underline cursor-pointer'>
+                                            {order.buyerId?.email}
+                                        </p>
+                                        <Tooltip id={`buyer-email-${order.id}`} place="top" effect="solid" className="custom-tooltip" />
+                                    </td>
                                     <td className="py-3 px-1 border border-gray-300 text-black">
                                         <img src={order.productId?.image} alt="Product" className="h-10 w-10 rounded-full object-cover" />
                                     </td>
