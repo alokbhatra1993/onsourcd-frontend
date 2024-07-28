@@ -72,10 +72,11 @@ const AddRequirements = () => {
           const { latitude, longitude } = position.coords;
           const locationAddress = (await fetchAddress(latitude, longitude)) || "";
           const { address_components } = locationAddress;
+          console.log({address_components});
           setValue("latitude", latitude);
           setValue("longitude", longitude);
           setValue("deliveryState", address_components[6].long_name);
-          setValue("deliveryCity", address_components[2].long_name);
+          setValue("deliveryCity", address_components[4].long_name);
           setValue("deliveryZipCode", address_components[8].long_name);
           setDetectLocationLoading(false);
         },
