@@ -83,6 +83,7 @@ const OrdersTable = () => {
                                 'Buyer',
                                 'Product',
                                 'Expected Date',
+                                'Address',
                                 'Status',
                                 'Payment',
                             ].map((header) => (
@@ -97,7 +98,7 @@ const OrdersTable = () => {
                             orders.map((order) => (
                                 <tr key={order._id} className="hover:bg-gray-200 transition duration-300">
                                     <td className="py-3 px-1 border border-gray-300 text-blue-500 underline cursor-pointer" title={order?._id}>{order?._id.slice(0, 3)}...</td>
-                                    <td className="py-3 px-1 border border-gray-300 text-blue-500 underline cursor-pointer" title={order?.requirementId}>{order?.requirementId.slice(0, 3)}...</td>
+                                    <td className="py-3 px-1 border border-gray-300 text-blue-500 underline cursor-pointer" title={order?.requirementId}>{order?.requirementId?._id?.slice(0, 3)}...</td>
                                     <td className="py-3 px-1 border border-gray-300 text-blue-500">{order.quotationId.slice(0, 3)}...</td>
                                     <td className="py-3 px-1 border border-gray-300 text-black">Rs.{order?.estimatedPrice}</td>
                                     <td className="py-3 px-1 border border-gray-300 text-black"
@@ -130,6 +131,24 @@ const OrdersTable = () => {
                                         <img src={order.productId?.image} alt="Product" className="h-10 w-10 rounded-full object-cover" />
                                     </td>
                                     <td className="py-3 px-1 border border-gray-300 text-black">{order?.expectedDate?.slice(0, 10)}</td>
+                                    <td>
+                                        <span
+                                            data-tooltip-id={`address-tooltip-${order._id}`}
+                                            data-tooltip-html={
+                                                `<div>
+                                                   ${order?.requirementId?.deliveryAddress} 
+                                           </div>
+                                              <div>
+                                              ${order?.requirementId?.deliveryCity},${order?.requirementId?.deliveryState}
+                                             </div>
+                                           ${order?.requirementId?.deliveryZipCode} `
+
+                                            }
+                                        >
+                                            <p className="cursor-pointer text-black"> {order?.requirementId?.deliveryAddress?.slice(0, 20)}...</p>
+                                        </span>
+                                        <Tooltip id={`address-tooltip-${order._id}`} place="top" clickable={true} />
+                                    </td>
                                     <td className="py-3 px-1 border border-gray-300 text-black">
                                         <select
                                             className="px-3 py-1 rounded text-sm bg-white border border-gray-300"
@@ -152,6 +171,7 @@ const OrdersTable = () => {
                                             <option value="received">Received</option>
                                         </select>
                                     </td>
+
                                 </tr>
                             ))
                         ) : (

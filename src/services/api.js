@@ -332,7 +332,7 @@ export const deleteProductApi = async (token, productID) => {
 
 
 export const fetchOrdersByBuyer= async (token, buyerId) => {
-  const response = await fetch(`http://localhost:5000/api/quotation/buyer/orders/${buyerId}`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/buyer/orders/${buyerId}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

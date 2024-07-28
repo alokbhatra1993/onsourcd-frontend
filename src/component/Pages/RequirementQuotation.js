@@ -53,7 +53,7 @@ const RequirementQuotation = () => {
               <th className="py-2 px-4 border-b text-black">ID</th>
               <th className="py-2 px-4 border-b text-black">Requirement ID</th>
               <th className="py-2 px-4 border-b text-black">Estimated Price</th>
-              <th className="py-2 px-4 border-b text-black">GST</th>
+              {/* <th className="py-2 px-4 border-b text-black">GST</th> */}
               <th className="py-2 px-4 border-b text-black">Quality Description</th>
               <th className="py-2 px-4 border-b text-black">Transportation Price </th>
               <th className="py-2 px-4 border-b text-black">Transport Availability</th>
@@ -76,7 +76,7 @@ const RequirementQuotation = () => {
                       >
                         {quotation.requirementId?.slice(0, 4)}...
                       </td>                      <td className="py-2 px-4 border-b text-black">{quotation.estimatedPrice}</td>
-                      <td className="py-2 px-4 border-b text-black">{quotation.gst ? 'Yes' : 'No'}</td>
+                      {/* <td className="py-2 px-4 border-b text-black">{quotation.gst ? 'Yes' : 'No'}</td> */}
                       <td className="py-2 px-4 border-b text-black">{quotation.qualityDescription}</td>
                       <td className="py-2 px-4 border-b text-black">₹ {quotation?.transportationPrice || 0} km/ton</td>
                       <td className="py-2 px-4 border-b text-black">{quotation.transportAvailability ? 'Yes' : 'No'}</td>

@@ -4,6 +4,7 @@ import { fetchNewRequirements } from "../../services/api";
 import { useSelector } from "react-redux";
 import AddQuotation from "./AddQuotation";
 import { toast, ToastContainer } from "react-toastify";
+import { Tooltip } from "react-tooltip";
 
 const SellerRequirements = () => {
   const user = useSelector((state) => state);
@@ -89,10 +90,10 @@ const SellerRequirements = () => {
       <table className="product-table">
         <thead>
           <tr>
-            <th>Index</th>
+            <th>Requirement Id </th>
             <th>Product Name</th>
             <th>Product Image</th>
-            <th>Quantity <br/> (MT)</th>
+            <th>Quantity <br /> (MT)</th>
             <th>Frequency</th>
             <th>Total Orders</th>
             <th>Expected Start Date</th>
@@ -108,7 +109,17 @@ const SellerRequirements = () => {
             <>
               {myRequirements.map((requirement, index) => (
                 <tr key={requirement._id}>
-                  <td>{index + 1}</td>
+                  <td className="text-blue-500 underline cursor-pointer ">
+                    <span
+                      data-tooltip-id={`address-tooltip-${requirement._id}`}
+                      data-tooltip-content={requirement._id}
+
+                    >
+                      <p className="cursor-pointer">{requirement._id.slice(0, 4)}...</p>
+                    </span>
+                    <Tooltip id={`address-tooltip-${requirement._id}`} place="top" clickable={true} />
+
+                  </td>
                   <td>{requirement.productId.name}</td>
                   <td>
                     <img
@@ -182,7 +193,7 @@ const SellerRequirements = () => {
           <AddQuotation closeModal={closeModal} requirementId={selectedRequirmentId} />
         ) : null
       }
-    </div>
+    </div >
   );
 };
 
