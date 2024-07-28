@@ -59,7 +59,12 @@ const CompanyDetail = () => {
 
   const onSubmit = async (data) => {
     try {
+      if (!data?.latitude || data?.longitude) {
+        toast.error("You need to allow location detecttion for saving the data")
+        return
+      }
       setLoading(true);
+
       const response = await saveCompanyDetails(data, user?.token);
       if (response?.ok) {
         toast.success("Details Updated");
@@ -92,7 +97,7 @@ const CompanyDetail = () => {
 
   return (
     <div className="container mx-auto p-4 lg:p-8">
-      <ToastContainer />
+      <ToastContainer theme='dark' />
       <div className="bg-white shadow-xl rounded-lg p-6 lg:p-8">
         {/* <h2 className="text-2xl lg:text-3xl font-bold mb-6 text-gray-900">Company Details</h2> */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -123,7 +128,7 @@ const CompanyDetail = () => {
               <label htmlFor="gstNumber" className="block mb-2 text-sm font-medium text-gray-900">GST Number</label>
               <input
                 id="gstNumber"
-                {...register('gstNumber')}
+                {...register('gstNumber', { required: 'Gst  is required' })}
                 type="text"
                 className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500"
               />
