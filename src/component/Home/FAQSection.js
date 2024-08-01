@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { FiChevronUp, FiChevronDown } from "react-icons/fi";
 
 const faqs = [
-  { question: "What is ONSOURCD?", answer: "ONSOURCD is a platform designed to facilitate the trading and utilization of agro waste." },
-  { question: "How does ONSOURCD work?", answer: "ONSOURCD connects sellers and buyers of agro waste, enabling efficient and sustainable waste management." },
-  { question: "Who can benefit from using ONSOURCD?", answer: "Farmers, traders, aggregators, and industries involved in agro waste management can benefit from ONSOURCD." },
-  { question: "What types of agro waste can be traded on ONSOURCD?", answer: "Various types of agro waste including crop residues, husks, and other by-products can be traded." },
-  { question: "How do I register on ONSOURCD?", answer: "You can register on ONSOURCD by visiting our website and clicking on the 'Register' button." },
-  { question: "Is there a fee to use ONSOURCD?", answer: "Please visit our website for detailed information on any applicable fees." },
+  { question: "What is OnSourcd?", answer: "OnSourcd is a platform designed to facilitate the trading and utilization of waste." },
+  { question: "How does OnSourcd work?", answer: "OnSourcd connects sellers and buyers of waste, enabling efficient and sustainable waste management." },
+  { question: "Who can benefit from using OnSourcd?", answer: "Farmers, traders, aggregators, and industries involved in waste management can benefit from OnSourcd." },
+  { question: "What types of waste can be listed on OnSourcd?", answer: "Various types of waste including crop residues, industrial waste, and other by-products can be listed." },
+  { question: "How do I register on OnSourcd?", answer: "You can register on OnSourcd by clicking on the 'Register Now' button." },
+  { question: "Is there a fee to use OnSourcd?", answer: "OnSourcd provides its services without any subscription or product listing charges. Reach out to us for more information." },
 ];
 
 const FAQSection = () => {

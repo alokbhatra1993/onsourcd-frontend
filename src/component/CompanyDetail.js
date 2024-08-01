@@ -1,11 +1,12 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { GoogleMap, useJsApiLoader, Marker, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
 import { useSelector } from 'react-redux';
 import { fetchAddress } from '../services/googleApi';
 import { getCompanyDetails, saveCompanyDetails } from '../services/api';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { FaTractor, FaLeaf, FaExchangeAlt, FaUsers, FaIndustry } from 'react-icons/fa';
 
 const containerStyle = {
   width: '100%',
@@ -22,9 +23,7 @@ const CompanyDetail = () => {
   const [map, setMap] = useState(null);
   const { register, handleSubmit, formState: { errors }, setValue } = useForm();
   const [location, setLocation] = useState(center);
-
   const [loading, setLoading] = useState(false);
-
   const user = useSelector((state) => state);
 
   useEffect(() => {
@@ -60,8 +59,8 @@ const CompanyDetail = () => {
   const onSubmit = async (data) => {
     try {
       if (!data?.latitude || data?.longitude) {
-        toast.error("You need to allow location detecttion for saving the data")
-        return
+        toast.error("You need to allow location detection for saving the data");
+        return;
       }
       setLoading(true);
 
@@ -99,29 +98,29 @@ const CompanyDetail = () => {
     <div className="container mx-auto p-4 lg:p-8">
       <ToastContainer theme='dark' />
       <div className="bg-white shadow-xl rounded-lg p-6 lg:p-8">
-        {/* <h2 className="text-2xl lg:text-3xl font-bold mb-6 text-gray-900">Company Details</h2> */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-            <div className="flex flex-col">
-              <label htmlFor="companyName" className="block mb-2 text-sm font-medium text-gray-900">Company Name</label>
-              <input
-                id="companyName"
-                {...register('companyName', { required: 'Company Name is required' })}
-                type="text"
-                className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500"
-              />
-              {errors.companyName && <p className="mt-2 text-sm text-red-600">{errors.companyName.message}</p>}
-            </div>
-
-            <div className="flex flex-col">
-              <label htmlFor="companyAddress" className="block mb-2 text-sm font-medium text-gray-900">Company Address</label>
-              <input
-                id="companyAddress"
-                {...register('companyAddress', { required: 'Company Address is required' })}
-                type="text"
-                className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500"
-              />
-              {errors.companyAddress && <p className="mt-2 text-sm text-red-600">{errors.companyAddress.message}</p>}
+            <div className="flex space-x-4">
+              <div className="w-1/2">
+                <label htmlFor="companyName" className="block mb-2 text-sm font-medium text-gray-900">Company Name</label>
+                <input
+                  id="companyName"
+                  {...register('companyName', { required: 'Company Name is required' })}
+                  type="text"
+                  className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500"
+                />
+                {errors.companyName && <p className="mt-2 text-sm text-red-600">{errors.companyName.message}</p>}
+              </div>
+              <div className="w-1/2">
+                <label htmlFor="companyAddress" className="block mb-2 text-sm font-medium text-gray-900">Company Address</label>
+                <input
+                  id="companyAddress"
+                  {...register('companyAddress', { required: 'Company Address is required' })}
+                  type="text"
+                  className="block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-yellow-500 focus:border-yellow-500"
+                />
+                {errors.companyAddress && <p className="mt-2 text-sm text-red-600">{errors.companyAddress.message}</p>}
+              </div>
             </div>
 
             <div className="flex flex-col">
@@ -137,19 +136,37 @@ const CompanyDetail = () => {
 
             <div className="flex flex-col">
               <label className="block mb-2 text-sm font-medium text-gray-900">Occupation</label>
-              <div className="space-y-2  space-x-2 flex w-1/2">
-                {['farmer', 'biomass manufacturer', 'traderBiogas', 'aggregator', 'end consumer'].map(occupation => (
-                  <div key={occupation} className="flex items-center">
-                    <input
-                      id={`occupation-${occupation}`}
-                      {...register('occupation', { required: 'Occupation is required' })}
-                      type="radio"
-                      value={occupation}
-                      className="h-4 w-4 text-yellow-600 border-gray-300 focus:ring-yellow-500"
-                    />
-                    <label htmlFor={`occupation-${occupation}`} className="ml-2 text-sm text-gray-700">{occupation}</label>
-                  </div>
-                ))}
+              <div className="space-y-2">
+                <div className="flex items-center space-x-2 card-new">
+                  <input {...register('occupation', { required: 'Occupation is required' })} type="radio" id="farmer" value="farmer" />
+                  <label htmlFor="farmer" className="flex items-center text-xl">
+                    <FaTractor className="mr-2" /> Farmer
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2 card-new">
+                  <input {...register('occupation', { required: 'Occupation is required' })} type="radio" id="biomassManufacturer" value="biomass manufacturer" />
+                  <label htmlFor="biomassManufacturer" className="flex items-center text-xl">
+                    <FaLeaf className="mr-2" /> Biomass Manufacturer
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2 card-new">
+                  <input {...register('occupation', { required: 'Occupation is required' })} type="radio" id="traderBiogas" value="traderBiogas" />
+                  <label htmlFor="traderBiogas" className="flex items-center text-xl">
+                    <FaExchangeAlt className="mr-2" /> Trader Biogas
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2 card-new">
+                  <input {...register('occupation', { required: 'Occupation is required' })} type="radio" id="aggregator" value="aggregator" />
+                  <label htmlFor="aggregator" className="flex items-center text-xl">
+                    <FaUsers className="mr-2" /> Aggregator
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2 card-new">
+                  <input {...register('occupation', { required: 'Occupation is required' })} type="radio" id="endConsumer" value="end consumer" />
+                  <label htmlFor="endConsumer" className="flex items-center text-xl">
+                    <FaIndustry className="mr-2" /> End Consumer
+                  </label>
+                </div>
               </div>
               {errors.occupation && <p className="mt-2 text-sm text-red-600">{errors.occupation.message}</p>}
             </div>
@@ -159,7 +176,7 @@ const CompanyDetail = () => {
                 id="terms"
                 {...register('terms', { required: 'You must accept the terms and privacy policy' })}
                 type="checkbox"
-                className="h-4 w-4 text-yellow-600 border-gray-300 rounded focus:ring-yellow-500"
+                className="h-4 w-4 border-gray-300 rounded focus:ring-yellow-500"
               />
               <label htmlFor="terms" className="ml-2 text-sm text-gray-700">I accept the terms and privacy policy</label>
               {errors.terms && <p className="mt-2 text-sm text-red-600">{errors.terms.message}</p>}
@@ -175,29 +192,17 @@ const CompanyDetail = () => {
               </button>
             </div>
           </form>
-
-          <div className="flex flex-col space-y-4">
-            <label className="block mb-2 text-sm font-medium text-gray-900">Select Location</label>
-            {/* {isLoaded ? ( */}
-            <div className="flex-grow h-80 lg:h-96">
-              <LoadScript googleMapsApiKey="AIzaSyCL_QSk4NjKCD376dCE3LM93zIkn234Yrs">
-                <GoogleMap
-                  mapContainerStyle={containerStyle}
-                  center={markerPosition}
-                  zoom={10}
-                  onLoad={onLoad}
-                >
-                  <Marker
-                    position={markerPosition}
-                    draggable
-                  />
-                </GoogleMap>
-              </LoadScript>
-            </div>
-            {/* ) : <p>Loading...</p>} */}
-            <div>
-              {/* Optionally show latitude and longitude */}
-            </div>
+          <div className="relative">
+            <LoadScript googleMapsApiKey="AIzaSyCL_QSk4NjKCD376dCE3LM93zIkn234Yrs">
+              <GoogleMap
+                mapContainerStyle={containerStyle}
+                center={markerPosition}
+                zoom={10}
+                onLoad={onLoad}
+              >
+                {markerPosition && <Marker position={markerPosition} />}
+              </GoogleMap>
+            </LoadScript>
           </div>
         </div>
       </div>

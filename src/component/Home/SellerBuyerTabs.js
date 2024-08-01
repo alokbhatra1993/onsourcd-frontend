@@ -106,14 +106,14 @@ const SellerBuyerTabs = () => {
                       htmlFor="quantity"
                       className="text-sm font-medium text-gray-700"
                     >
-                      Quantity
+                     Available Quantity
                     </label>
                     <input
                       type="number"
                       id="quantity"
                       name="quantity"
                       className="border-gray-300 border rounded-md py-2 px-3 mt-1 focus:outline-none focus:ring focus:ring-yellow-500 focus:border-yellow-500 w-full"
-                      placeholder="Enter Quantity"
+                      placeholder="Enter Available Quantity"
                     />
                   </div>
 

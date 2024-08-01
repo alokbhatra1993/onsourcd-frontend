@@ -11,7 +11,6 @@ import "slick-carousel/slick/slick-theme.css";
 import PartnerSection from "./PartnerSection";
 import B2BSection from "../Home/B2BSection";
 
-
 const Main = () => {
   // Video data with three videos
   const videos = [
@@ -19,19 +18,19 @@ const Main = () => {
       id: 1,
       src: "https://videos.pexels.com/video-files/8333973/8333973-uhd_2732_1440_25fps.mp4",
       title: "Your B2B Sourcing Solutions",
-      description: "India's most significant B2B platform for Agro Waste",
+      description: "India's most significant B2B platform for Waste Procurement",
     },
     {
       id: 2,
       src: "https://videos.pexels.com/video-files/15313009/15313009-uhd_2560_1440_30fps.mp4",
       title: "Your B2B Sourcing Solutions",
-      description: "India's most significant B2B platform for Agro Waste",
+      description: "India's most significant B2B platform for Waste Procurement",
     },
     {
       id: 3,
       src: "https://videos.pexels.com/video-files/4280455/4280455-uhd_2560_1440_30fps.mp4",
       title: "Your B2B Sourcing Solutions",
-      description: "India's most significant B2B platform for Agro Waste",
+      description: "India's most significant B2B platform for Waste Procurement",
     },
   ];
 
@@ -39,7 +38,7 @@ const Main = () => {
   const sliderSettings = {
     dots: true,
     infinite: true,
-    speed: 1000, // Adjust speed for smoother autoplay
+    speed: 1000,
     slidesToShow: 1,
     slidesToScroll: 1,
     autoplay: true,
@@ -65,7 +64,7 @@ const Main = () => {
       },
     ],
     customPaging: function (i) {
-      return <div className="dot"></div>; // Custom paging dots
+      return <div className="dot"></div>;
     },
   };
 
@@ -74,13 +73,19 @@ const Main = () => {
       <Slider {...sliderSettings} className="overflow-hidden">
         {videos.map((video) => (
           <div key={video.id} className="relative w-full h-100 md:h-120">
-            {/* Video */}
-            <video src={video.src} className="w-full h-100 object-cover" autoPlay loop muted />
-            {/* Text content */}
-            <div className="absolute inset-0 flex items-center text-white justify-center text-center">
-              <div className="p-4 rounded-lg max-w-1xl mx-auto bg-opacity-70 text-white">
-                <h3 className="text-4xl md:text-7xl font-bold mb-2 md:mb-4 text-white">{video.title}</h3>
-                <p className="text-lg md:text-xl">{video.description}</p>
+            <video
+              src={video.src}
+              className="w-full h-100 object-cover"
+              autoPlay
+              loop
+              muted
+            />
+            <div className="absolute inset-0 flex items-center justify-center text-center text-white">
+              <div className="p-4 bg-opacity-70 rounded-lg max-w-1xl mx-auto">
+                <h3 className="text-4xl text-white md:text-7xl font-bold mb-2 md:mb-4">
+                  {video.title}
+                </h3>
+                <p className="text-lg text-white md:text-xl">{video.description}</p>
               </div>
             </div>
           </div>
@@ -91,11 +96,9 @@ const Main = () => {
       <SustainabilityGoals />
       <BlogSection />
       <PartnerSection />
-      <B2BSection/>
+      <B2BSection />
       <SellerBuyerTabs />
-    
       <FAQSection />
-    
     </section>
   );
 };

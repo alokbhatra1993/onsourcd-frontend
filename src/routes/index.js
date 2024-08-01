@@ -43,6 +43,8 @@ import SellerProducts from "../component/Pages/SellerProducts";
 import CustomerProducts from "../component/Pages/CustomerProducts";
 import AdminQuotation from "../component/Pages/AdminQuotation";
 import BuyerOrders from "../component/Pages/BuyerOrders";
+import TermsOfUse from "../component/Home/TermsOfUse";
+import PrivacyPolicy from "../component/Home/PrivacyPolicy";
 
 
 
@@ -91,6 +93,8 @@ const Routing = () => {
         <Route path="contact" element={<Contact />} />
         <Route path="verify-email" element={<VerifyEmail />} />
         <Route path="verified" element={<VerficationSuccessEmail />} />
+        <Route path="termsofuse" element={<TermsOfUse />} />
+        <Route path="privacypolicy" element={<PrivacyPolicy />} />
 
 
 
@@ -117,6 +121,7 @@ const Routing = () => {
           <Route path="seller-products" element={<SellerProducts />} />
           <Route path="orders" element={<BuyerOrders />} />
           <Route path="customer-products" element={<CustomerProducts />} />
+
 
 
         </Route>

@@ -48,7 +48,7 @@ const PartnerSection = () => {
   return (
     <section className="py-12 bg-gradient-to-b from-[#e8f1f2] to-[#f6f9fa]">
       <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold mb-8 text-center text-[#372800] animate__animated animate__fadeInDown">Our Partners</h2>
+        <h2 className="text-4xl font-bold mb-8 text-center text-[#372800] animate__animated animate__fadeInDown">Our Recognitions</h2>
         <Slider {...settings}>
           {partners.map((partner, index) => (
             <div key={index} className="p-4 animate__animated animate__fadeInUp animate__delay-1s">

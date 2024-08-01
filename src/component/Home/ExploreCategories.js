@@ -120,12 +120,12 @@ const ExploreCategories = () => {
                       <div className="p-4">
                         <h3 className="text-xl font-semibold mb-2">{product?.name}</h3>
                         {/* <p className="text-sm text-gray-600 mb-4">{product?.category}</p> */}
-                        <Link
+                        {/* <Link
                           to="/signup"
                           className="block w-full bg-yellow-800 hover:bg-yellow-600 text-white px-4 py-2 rounded-md transition duration-300 text-center"
                         >
                           Register Now
-                        </Link>
+                        </Link> */}
                       </div>
                     </div>
                   </div>

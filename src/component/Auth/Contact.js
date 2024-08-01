@@ -15,14 +15,15 @@ const Contact = () => {
             <div className="flex items-center mb-6">
               <FaMapMarkerAlt className="text-gray-700 mr-4" size={24} />
               <div className="text-base text-gray-700 leading-relaxed">
-                203 Second Floor Apartments<br />
-                Pratap Nagar, Jaipur, Rajasthan
+               Jaipur Rajasthan<br />
+             
               </div>
             </div>
             <div className="flex items-center mb-6">
               <FaPhoneAlt className="text-gray-700 mr-4" size={24} />
               <div className="text-base text-gray-700 leading-relaxed">
-                +91 9257 6464 69
+                +91-9257646469,
+                +91-8360656569
               </div>
             </div>
             <div className="flex items-center mb-6">

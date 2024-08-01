@@ -9,7 +9,7 @@ const PlatformFeatures = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-8 md:mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white animate__animated animate__bounceInDown">
-            Get Quotes
+          Platform Features
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
@@ -21,7 +21,7 @@ const PlatformFeatures = () => {
               </div>
               <h3 className="text-lg md:text-xl lg:text-2xl font-semibold">Competitive Pricing</h3>
             </div>
-            <p className="text-sm md:text-base text-gray-700">Get competitive pricing from suppliers to minimize your procurement costs.</p>
+            <p className="text-sm  text-gray-700">Get competitive pricing from suppliers to minimize your procurement costs.</p>
           </div>
 
           {/* Card 2: Customized Solutions */}
@@ -32,7 +32,7 @@ const PlatformFeatures = () => {
               </div>
               <h3 className="text-lg md:text-xl lg:text-2xl font-semibold">Customized Solutions</h3>
             </div>
-            <p className="text-sm md:text-base text-gray-700">Tailored solutions to meet your specific needs.</p>
+            <p className="text-sm  text-gray-700">Tailored solutions to meet your specific needs.</p>
           </div>
 
           {/* Card 3: Logistics */}
@@ -43,7 +43,7 @@ const PlatformFeatures = () => {
               </div>
               <h3 className="text-lg md:text-xl lg:text-2xl font-semibold">Logistics</h3>
             </div>
-            <p className="text-sm md:text-base text-gray-700">Efficient and reliable logistics support.</p>
+            <p className="text-sm  text-gray-700">Efficient and reliable logistics support.</p>
           </div>
 
           {/* Card 4: Frequency */}
@@ -54,7 +54,7 @@ const PlatformFeatures = () => {
               </div>
               <h3 className="text-lg md:text-xl lg:text-2xl font-semibold">Frequency</h3>
             </div>
-            <p className="text-sm md:text-base text-gray-700">Regular updates and communication frequency.</p>
+            <p className="text-sm  text-gray-700">Automate Orders with daily,weekly or monthly frequency options.</p>
           </div>
         </div>
 

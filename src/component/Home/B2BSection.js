@@ -53,14 +53,14 @@ const B2BSection = () => {
           {activeTab === "buyer" && (
             <>
               {/* Buyer Card 1: Get Lowest Price */}
-              <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 transform hover:scale-105">
+              <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow durfooteration-300 transform hover:scale-105">
                 <div className="p-6 flex flex-col justify-center items-center h-full text-center">
                   <div className="bg-yellow-500 p-4 rounded-full mb-4">
                     <FiDollarSign className="text-3xl text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 text-gray-900">Get Lowest Price</h3>
+                  <h3 className="text-lg font-semibold mb-2 text-gray-900">No Subscription Fees</h3>
                   <p className="text-sm text-gray-700">
-                    Get rates at least 1% lower than the existing market rates.
+                   Generate Quotes without any Subscription Charges
                   </p>
                 </div>
               </div>
@@ -71,9 +71,9 @@ const B2BSection = () => {
                   <div className="bg-yellow-500 p-4 rounded-full mb-4">
                     <FiCreditCard className="text-3xl text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 text-gray-900">Get Credit</h3>
+                  <h3 className="text-lg font-semibold mb-2 text-gray-900">Get Lowest Prices</h3>
                   <p className="text-sm text-gray-700">
-                    Do not worry about working capital. Grow with our credit.
+                   Choose the most Competitive Prices from our Sellers.
                   </p>
                 </div>
               </div>
@@ -84,9 +84,9 @@ const B2BSection = () => {
                   <div className="bg-yellow-500 p-4 rounded-full mb-4">
                     <FiUsers className="text-3xl text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 text-gray-900">Additional Buyer Card</h3>
+                  <h3 className="text-lg font-semibold mb-2 text-gray-900">Quality Assurance</h3>
                   <p className="text-sm text-gray-700">
-                    Additional content for the buyer tab.
+                   Ensure Quality with Products that are thoroughly verified.
                   </p>
                 </div>
               </div>
@@ -97,9 +97,9 @@ const B2BSection = () => {
                   <div className="bg-yellow-500 p-4 rounded-full mb-4">
                     <FiShoppingCart className="text-3xl text-white" />
                   </div>
-                  <h3 className="text-lg font-semibold mb-2 text-gray-900">Another Buyer Card</h3>
+                  <h3 className="text-lg font-semibold mb-2 text-gray-900">Logistics Support</h3>
                   <p className="text-sm text-gray-700">
-                    More content for the buyer tab.
+                   Simplify your Operations with our Logistics Support.
                   </p>
                 </div>
               </div>
