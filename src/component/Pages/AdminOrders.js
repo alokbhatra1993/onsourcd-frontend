@@ -44,18 +44,26 @@ const OrdersTable = () => {
     const handleStatus = async (orderId) => {
         try {
             // Add your status update logic here
-            
+
             console.log('Status update logic for orderId:', orderId);
+            try {
+                const response = await updateOrderStatus(user?.token, orderId, selectetStatus);
+                console.log({ response });
+                // Reload orders after updating payment status
+                loadOrders();
+            } catch (error) {
+                console.error('Failed to update payment status:', error);
+            }
         } catch (error) {
             console.error('Failed to update status:', error);
         }
     };
 
-    const showModal = (orderId, type ,status ) => {
+    const showModal = (orderId, type, status) => {
         setSelectedOrderId(orderId);
         setActionType(type);
-        if(status)
-        setSelectedStatus(status)
+        if (status)
+            setSelectedStatus(status)
         setModalVisible(true);
     };
 
@@ -68,7 +76,7 @@ const OrdersTable = () => {
         setModalVisible(false);
     };
 
-    
+
 
     const handleCancelAction = () => {
         setModalVisible(false);
@@ -76,16 +84,7 @@ const OrdersTable = () => {
         setActionType('');
     };
 
-    const handleStatusUpdate = async (orderId , status) => {
-        try {
-            const response = await updateOrderStatus(user?.token, orderId , status);
-            console.log({ response });
-            // Reload orders after updating payment status
-            loadOrders();
-        } catch (error) {
-            console.error('Failed to update payment status:', error);
-        }
-    };
+
 
     return (
         <div className="my-10 w-full">
@@ -172,7 +171,7 @@ const OrdersTable = () => {
                                         <select
                                             className="px-3 py-1 rounded text-sm bg-white border border-gray-300"
                                             value={order?.status}
-                                            onChange={() => showModal(order?._id, 'status' , e.target.value)}
+                                            onChange={(e) => showModal(order?._id, 'status', e.target.value)}
                                         >
                                             <option value="pending" disabled>Pending</option>
                                             <option value="dispatched">Dispatch</option>
@@ -184,7 +183,7 @@ const OrdersTable = () => {
                                         <select
                                             className="px-3 py-1 rounded text-sm bg-white border border-gray-300"
                                             value={order?.paymentProgress}
-                                            onChange={() => showModal(order?._id, 'payment',null)}
+                                            onChange={() => showModal(order?._id, 'payment', null)}
                                         >
                                             <option value="in-transit">Pending</option>
                                             <option value="received">Received</option>
