@@ -3,6 +3,7 @@ import { allOrdersApi, updateOrderPayment, updateOrderStatus } from '../../servi
 import { useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 const OrdersTable = () => {
     const user = useSelector((state) => state);
@@ -45,11 +46,17 @@ const OrdersTable = () => {
         try {
             // Add your status update logic here
 
-            console.log('Status update logic for orderId:', orderId);
+            console.log('Status update logic for orderId:', orderId ,selectetStatus);
             try {
                 const response = await updateOrderStatus(user?.token, orderId, selectetStatus);
                 console.log({ response });
                 // Reload orders after updating payment status
+                if(response?.status===200){
+                        toast.success(`Order  ${selectetStatus}`)
+                }
+                else{
+                    toast.error("Failed to update status")
+                }
                 loadOrders();
             } catch (error) {
                 console.error('Failed to update payment status:', error);
@@ -60,6 +67,8 @@ const OrdersTable = () => {
     };
 
     const showModal = (orderId, type, status) => {
+        console.log({status});
+        
         setSelectedOrderId(orderId);
         setActionType(type);
         if (status)
@@ -88,6 +97,7 @@ const OrdersTable = () => {
 
     return (
         <div className="my-10 w-full">
+            <ToastContainer/>
             <div className="overflow-x-auto max-h-[800px] overflow-y-scroll shadow-lg rounded-lg">
                 <table className="min-w-full bg-white rounded-lg overflow-hidden border border-gray-300">
                     <thead className="bg-yellow-500">

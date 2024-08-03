@@ -145,7 +145,7 @@ const AddQuotation = (props) => {
                 ) : (
                   <>
                     {status === "accepted" ? (
-                      <button className="px-4 py-2 mb-1 mr-1 text-sm font-bold text-white uppercase bg-green-500 rounded shadow focus:outline-none focus:shadow-outline">View Orders</button>
+                      null
                     ) : (
                       <button disabled className="px-4 py-2 mb-1 mr-1 text-sm font-bold text-white uppercase bg-red-500 rounded shadow focus:outline-none focus:shadow-outline">Closed</button>
                     )}
