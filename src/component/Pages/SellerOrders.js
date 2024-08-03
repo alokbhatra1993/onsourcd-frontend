@@ -75,6 +75,12 @@ const SellerOrders = () => {
 
                                         ) : null}
 
+                                    <td className='text-green-500 font-bold'>
+                                        {
+                                            order?.paymentProgress
+                                        }
+                                    </td>
+
                                 </tr>
                             ))}
                         </>
