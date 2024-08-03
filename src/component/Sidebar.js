@@ -22,6 +22,13 @@ const Sidebar = () => {
   return (
     <div className="sidebar bg-gray-800 text-white w-64 min-h-screen flex flex-col justify-between">
       <ul className="sidebar-list p-4 space-y-4">
+      <li className="flex items-center justify-between">
+          <div className="flex items-center">
+            <FaUser className="mr-3" />
+            <Link to="/admin-dashboard/order-dashboard" className={getLinkClass("/admin-dashboard/order-dashboard")}>Dashboard</Link>
+          </div>
+          <FaArrowRight />
+        </li>
         <li className="flex items-center justify-between">
           <div className="flex items-center">
             <FaBox className="mr-3" />

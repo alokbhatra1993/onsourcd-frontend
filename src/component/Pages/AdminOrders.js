@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { allOrdersApi, updateOrderPayment } from '../../services/api';
+import { allOrdersApi, updateOrderPayment, updateOrderStatus } from '../../services/api';
 import { useSelector } from 'react-redux';
 import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
@@ -11,6 +11,9 @@ const OrdersTable = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedOrderId, setSelectedOrderId] = useState(null);
     const [actionType, setActionType] = useState('');
+
+    const [selectetStatus, setSelectedStatus] = useState();
+
 
     useEffect(() => {
         loadOrders();
@@ -41,15 +44,18 @@ const OrdersTable = () => {
     const handleStatus = async (orderId) => {
         try {
             // Add your status update logic here
+            
             console.log('Status update logic for orderId:', orderId);
         } catch (error) {
             console.error('Failed to update status:', error);
         }
     };
 
-    const showModal = (orderId, type) => {
+    const showModal = (orderId, type ,status ) => {
         setSelectedOrderId(orderId);
         setActionType(type);
+        if(status)
+        setSelectedStatus(status)
         setModalVisible(true);
     };
 
@@ -62,10 +68,23 @@ const OrdersTable = () => {
         setModalVisible(false);
     };
 
+    
+
     const handleCancelAction = () => {
         setModalVisible(false);
         setSelectedOrderId(null);
         setActionType('');
+    };
+
+    const handleStatusUpdate = async (orderId , status) => {
+        try {
+            const response = await updateOrderStatus(user?.token, orderId , status);
+            console.log({ response });
+            // Reload orders after updating payment status
+            loadOrders();
+        } catch (error) {
+            console.error('Failed to update payment status:', error);
+        }
     };
 
     return (
@@ -153,7 +172,7 @@ const OrdersTable = () => {
                                         <select
                                             className="px-3 py-1 rounded text-sm bg-white border border-gray-300"
                                             value={order?.status}
-                                            onChange={() => showModal(order?._id, 'status')}
+                                            onChange={() => showModal(order?._id, 'status' , e.target.value)}
                                         >
                                             <option value="pending" disabled>Pending</option>
                                             <option value="dispatched">Dispatch</option>
@@ -165,7 +184,7 @@ const OrdersTable = () => {
                                         <select
                                             className="px-3 py-1 rounded text-sm bg-white border border-gray-300"
                                             value={order?.paymentProgress}
-                                            onChange={() => showModal(order?._id, 'payment')}
+                                            onChange={() => showModal(order?._id, 'payment',null)}
                                         >
                                             <option value="in-transit">Pending</option>
                                             <option value="received">Received</option>

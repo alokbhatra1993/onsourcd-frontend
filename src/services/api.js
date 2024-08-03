@@ -278,17 +278,7 @@ export const fetchOrdersBySeller = async (token, sellerId) => {
   return response;
 };
 
-export const updateOrderStatus = async (token, status) => {
-  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/update/order-status`, {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ status }),
-  });
-  return response;
-};
+
 
 export const updateOrderPayment = async (token, orderId) => {
   const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/update/order-payment/${orderId}`, {
@@ -303,6 +293,18 @@ export const updateOrderPayment = async (token, orderId) => {
   return response;
 };
 
+export const updateOrderStatus= async (token, orderId ,status) => {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/update/order-status/${orderId}`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ status }),
+
+  });
+  return response;
+};
 
 export const getAllQuotations = async (token) => {
   const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation`, {
