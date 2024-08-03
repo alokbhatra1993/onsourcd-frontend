@@ -45,6 +45,7 @@ import AdminQuotation from "../component/Pages/AdminQuotation";
 import BuyerOrders from "../component/Pages/BuyerOrders";
 import TermsOfUse from "../component/Home/TermsOfUse";
 import PrivacyPolicy from "../component/Home/PrivacyPolicy";
+import ForgotPassword from "../component/Auth/ForgotPassword";
 
 
 
@@ -95,6 +96,8 @@ const Routing = () => {
         <Route path="verified" element={<VerficationSuccessEmail />} />
         <Route path="termsofuse" element={<TermsOfUse />} />
         <Route path="privacypolicy" element={<PrivacyPolicy />} />
+        <Route path="forgot-password" element={<ForgotPassword />} />
+
 
 
 

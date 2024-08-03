@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserData } from "../../redux/actions";
 import { useForm } from "react-hook-form";
@@ -100,7 +100,7 @@ const Login = () => {
               {loginError && <span className="text-red-500 mt-2 block">{loginError}</span>}
 
               <div className="mt-2 text-right">
-                <a href="#" className="text-sm text-yellow-500">Forgot password?</a>
+                <Link to={"/forgot-password"} className="text-sm text-yellow-500">Forgot password?</Link>
               </div>
 
               <div className="mt-4">
