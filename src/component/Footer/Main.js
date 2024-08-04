@@ -109,7 +109,7 @@ const Footer = () => {
               <div className="footer-widget">
                 <div className="f-widget-title mb-4">
                   <h2 className="text-white animate__animated animate__fadeInUp">
-                    Privacy Policies
+                     Policies
                   </h2>
                 </div>
                 <div className="footer-link">
@@ -146,9 +146,15 @@ const Footer = () => {
                     </li>
                  
                   
+                  
                     <li className="animate__animated animate__fadeInUp">
                       <a href="/contact-us" className="text-white">
-                        Contact Us
+                        Blogs
+                      </a>
+                    </li>
+                    <li className="animate__animated animate__fadeInUp">
+                      <a href="/contact-us" className="text-white">
+                       Products
                       </a>
                     </li>
                  
