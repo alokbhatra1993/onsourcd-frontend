@@ -95,6 +95,18 @@ export const fetchNewRequirements = async (token) => {
   return response;
 };
 
+
+export const fetchNewRequirementsForAdmin = async (token) => {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/requirments/admin`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // "Content-Type": "application/json",
+    },
+  });
+  return response;
+};
+
 export const fetchProductApi = async () => {
   const response = await fetch(`https://onsourcd-backend.vercel.app/api/products/`, {
     method: "GET",
@@ -354,5 +366,17 @@ export const allQuotationsApi = async () => {
     // body: JSON.stringify(formData),
   }
   );
+  return response;
+};
+
+
+export const fetchOrdersDashboard = async () => {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/admin/orders-dashboard`, {
+    method: "GET",
+    headers: {
+      // Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
   return response;
 };

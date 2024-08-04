@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { fetchOrdersDashboard } from '../../services/api';
 
 const OrderDashboard = () => {
     const [data, setData] = useState({
@@ -9,19 +10,33 @@ const OrderDashboard = () => {
     });
 
     useEffect(() => {
-        // Replace with your actual API endpoint
-        fetch('https://api.example.com/dashboard-data')
-            .then(response => response.json())
-            .then(data => {
-                setData({
-                    pendingOrders: data.pendingOrders,
-                    completedOrders: data.completedOrders,
-                    quotesPending: data.quotesPending,
-                    quotesAccepted: data.quotesAccepted
-                });
-            })
-            .catch(error => console.error('Error fetching data:', error));
+        loadData()
     }, []);
+
+    const loadData = async () => {
+        try {
+
+            const response = await fetchOrdersDashboard()
+            console.log({ response });
+
+            if(response?.status===200){
+                const myData = await response.json();
+                console.log({myData});
+                
+                setData({
+                    pendingOrders: myData?.pendingorders,
+                    completedOrders: myData?.completedOrders ,
+                    quotesPending: myData?.quotationPending ,
+                    quotesAccepted: myData?.quotationAccepted
+                })
+
+            }
+
+
+        } catch (error) {
+            throw error;
+        }
+    }
 
     return (
         <div className="p-8 bg-gradient-to-r from-blue-50 to-blue-100 min-h-screen w-full">

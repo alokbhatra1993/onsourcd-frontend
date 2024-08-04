@@ -47,6 +47,7 @@ import TermsOfUse from "../component/Home/TermsOfUse";
 import PrivacyPolicy from "../component/Home/PrivacyPolicy";
 import ForgotPassword from "../component/Auth/ForgotPassword";
 import OrderDashboard from "../component/Pages/OrdersDashboard";
+import AdminRequirements from "../component/Pages/AdminRequirements";
 
 
 
@@ -149,6 +150,8 @@ const Routing = () => {
           <Route path="orders" element={<AdminOrders />} />
           <Route path="quotation" element={<AdminQuotation />} />
           <Route path="order-dashboard" element={<OrderDashboard />} />
+          <Route path="requirements" element={<AdminRequirements />} />
+
         </Route>
       </Routes>
       {showFooter && <Footer />}
