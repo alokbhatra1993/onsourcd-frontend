@@ -50,7 +50,7 @@ const ExploreCategories = () => {
     slidesToShow: 4, // Display four slides at a time
     slidesToScroll: 1,
     autoplay: true, // Autoplay enabled
-    autoplaySpeed: 3000, // Autoplay interval in milliseconds
+    autoplaySpeed: 1000, // Autoplay interval in milliseconds
     responsive: [
       {
         breakpoint: 768,

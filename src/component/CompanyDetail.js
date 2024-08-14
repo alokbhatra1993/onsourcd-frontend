@@ -8,6 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaTractor, FaLeaf, FaExchangeAlt, FaUsers, FaIndustry } from 'react-icons/fa';
 
+
 const containerStyle = {
   width: '100%',
   height: '100%'

@@ -39,7 +39,7 @@ const Navbar = () => {
               <img src="assets/img/logo/logo.png" alt="logo" className="h-10" />
             </Link>
           </div>
-          <div className="hidden lg:flex items-center space-x-4">
+          <div className="hidden lg:flex items-center space-x-8">
             {!user?.token ? (
               <>
                 <Link
@@ -115,8 +115,8 @@ const Navbar = () => {
       <nav className="bg-[#f6b60d] text-black shadow-lg">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-2">
-            <div className="hidden lg:flex items-center space-x-8">
-              <nav className="flex space-x-8">
+            <div className="hidden lg:flex items-center space-x-12"> {/* Increased space between items */}
+              <nav className="flex space-x-12"> {/* Increased space between items */}
                 <Link to="/" className="hover:text-gray-800">
                   Home
                 </Link>
@@ -134,7 +134,7 @@ const Navbar = () => {
             <div className="hidden lg:flex items-center relative flex-grow justify-end">
               <form
                 className="flex items-center border border-gray-300 rounded-full px-2 py-1 bg-white shadow-md"
-                style={{ width: "calc(100% - 80px)" }} // Adjusted width to better fit the larger icon
+                style={{ width: "calc(70% - 100px)" }} // Adjusted width to better fit the larger icon
                 onSubmit={handleSearchSubmit}
               >
                 <input
@@ -148,7 +148,7 @@ const Navbar = () => {
                   type="submit"
                   className="btn-search text-white bg-[#f6b60d] hover:bg-[#e5a63a] rounded-r-full px-4 py-2 transition duration-300 text-sm flex items-center justify-center"
                 >
-                  <i className="fas fa-search text-2xl"></i> {/* Increased size */}
+                  <i className="fas fa-search text-xl"></i> {/* Increased size */}
                 </button>
               </form>
               {searchQuery && (

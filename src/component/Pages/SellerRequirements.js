@@ -4,6 +4,7 @@ import { fetchNewRequirements } from "../../services/api";
 import { useSelector } from "react-redux";
 import AddQuotation from "./AddQuotation";
 import { toast, ToastContainer } from "react-toastify";
+import DataTable from "react-data-table-component";
 
 const SellerRequirements = () => {
   const user = useSelector((state) => state);
@@ -15,10 +16,6 @@ const SellerRequirements = () => {
   });
   const [selectedRequirmentId, setSelectedRequirementId] = useState([]);
   const [openAddQuotation, setAddOpenQutation] = useState(false);
-
-  // Pagination state
-  const [currentPage, setCurrentPage] = useState(1);
-  const requirementsPerPage = 5;
 
   // Search and filter state
   const [searchId, setSearchId] = useState("");
@@ -67,7 +64,6 @@ const SellerRequirements = () => {
     }
 
     setFilteredRequirements(filtered);
-    setCurrentPage(1); // Reset to the first page on filtering
   };
 
   const haversineDistance = (lat1, lon1) => {
@@ -110,175 +106,177 @@ const SellerRequirements = () => {
     loadNewRequirements();
   };
 
-  // Pagination Logic
-  const indexOfLastRequirement = currentPage * requirementsPerPage;
-  const indexOfFirstRequirement = indexOfLastRequirement - requirementsPerPage;
-  const currentRequirements = filteredRequirements.slice(
-    indexOfFirstRequirement,
-    indexOfLastRequirement
-  );
-
-  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+  // Define columns for DataTable
+  const columns = [
+    {
+      name: 'Requirement Id',
+      selector: row => row._id,
+      cell: row => (
+        <span
+          data-tooltip-id={`id-tooltip-${row._id}`}
+          data-tooltip-content={row._id}
+          className="text-gray-600 underline cursor-pointer"
+        >
+          {row._id.slice(0, 4)}...
+          <Tooltip id={`id-tooltip-${row._id}`} place="top" clickable={true} />
+        </span>
+      ),
+    },
+    {
+      name: 'Product Name',
+      selector: row => row.productId.name,
+    },
+    {
+      name: 'Product Image',
+      cell: row => (
+        <img
+          src={row.productId.image}
+          alt={row.productId.name}
+          className="w-24 h-24 object-cover"
+        />
+      ),
+    },
+    {
+      name: 'Quantity (MT)',
+      selector: row => row.quantity,
+    },
+    {
+      name: 'Frequency',
+      selector: row => row.frequency,
+    },
+    {
+      name: 'Total Orders',
+      selector: row => row.totalOrders,
+    },
+    {
+      name: 'Expected Start Date',
+      selector: row => row.expectedStartDate.slice(0, 10),
+    },
+    {
+      name: 'Expected End Date',
+      selector: row => row.expectedEndDate.slice(0, 10),
+    },
+    {
+      name: 'Description',
+      cell: row => (
+        <span
+          data-tooltip-id={`desc-tooltip-${row._id}`}
+          data-tooltip-content={row.description}
+        >
+          {row.description.slice(0, 20)}...
+          <Tooltip id={`desc-tooltip-${row._id}`} place="top" clickable={true} />
+        </span>
+      ),
+    },
+    {
+      name: 'Quotation Status',
+      cell: row => (
+        <span
+          className={
+            row.quotations && row.quotations[0]
+              ? row.quotations[0].status === "pending"
+                ? "text-orange-600"
+                : row.quotations[0].status === "accepted"
+                ? "text-green-600"
+                : "text-red-600"
+              : "text-gray-500"
+          }
+        >
+          {row.quotations && row.quotations[0] ? row.quotations[0].status : "No quotation"}
+        </span>
+      ),
+    },
+    {
+      name: 'Area Range',
+      cell: row => `${haversineDistance(row.latitude, row.longitude)} km`,
+    },
+    {
+      name: 'Actions',
+      cell: row => (
+        <button
+          onClick={() => handleOpenAddQuotation(row._id)}
+          className="bg-yellow-500 text-white px-4 py-2 rounded shadow-md hover:bg-yellow-600 transition"
+        >
+          Add/View Quotation
+        </button>
+      ),
+    },
+  ];
 
   return (
-    <div className="products">
+    <div className="p-4">
       <ToastContainer />
-      <div className="flex justify-between ">
-        <h2 className="text-xl font-bold">New Requirements</h2>
+      <div className="mb-4 flex justify-between items-center">
+        <h2 className="text-2xl font-bold text-gray-700">New Requirements</h2>
       </div>
 
-      <div className="flex justify-between mb-1">
-        <div className="flex space-x-4">
-          <input
-            type="text"
-            placeholder="Search by ID"
-            value={searchId}
-            onChange={(e) => setSearchId(e.target.value)}
-            className="border rounded p-2"
+      <div className="mb-4 flex space-x-4 items-center">
+        <input
+          type="text"
+          placeholder="Search by ID"
+          value={searchId}
+          onChange={(e) => setSearchId(e.target.value)}
+          className="border border-gray-300 rounded p-2 w-1/4"
+        />
+        <input
+          type="date"
+          value={startDate}
+          onChange={(e) => setStartDate(e.target.value)}
+          className="border border-gray-300 rounded p-2"
+        />
+        <input
+          type="date"
+          value={endDate}
+          onChange={(e) => setEndDate(e.target.value)}
+          className="border border-gray-300 rounded p-2"
+        />
+        <button
+          onClick={applyFilters}
+          className="bg-yellow-500 text-white px-4 py-2 rounded shadow-md hover:bg-yellow-600 transition"
+        >
+          Apply Filters
+        </button>
+      </div>
+
+      <div className="overflow-x-auto">
+        <div className="min-w-full">
+          <DataTable
+            columns={columns}
+            data={filteredRequirements}
+            pagination
+            paginationPerPage={5}
+            paginationRowsPerPageOptions={[5, 10, 20]}
+            highlightOnHover
+            responsive
+            striped
+            customStyles={{
+              headRow: {
+                style: {
+                  backgroundColor: '#f1f1f1',
+                  fontWeight: 'bold',
+                },
+              },
+              rows: {
+                style: {
+                  fontSize: '14px',
+                  minWidth: '200px', // Minimum width for columns
+                },
+              },
+              table: {
+                style: {
+                  minWidth: '800px', // Ensure table can scroll horizontally if needed
+                },
+              },
+            }}
           />
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="border rounded p-2"
-          />
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="border rounded p-2"
-          />
-          <button onClick={applyFilters} className="bg-blue-500 text-white p-2 rounded">
-            Apply Filters
-          </button>
         </div>
       </div>
 
-      <table className="min-w-full bg-white border">
-        <thead>
-          <tr>
-            <th className="py-2">Requirement Id </th>
-            <th className="py-2">Product Name</th>
-            <th className="py-2">Product Image</th>
-            <th className="py-2">Quantity (MT)</th>
-            <th className="py-2">Frequency</th>
-            <th className="py-2">Total Orders</th>
-            <th className="py-2">Expected Start Date</th>
-            <th className="py-2">Expected End Date</th>
-            <th className="py-2">Description</th>
-            <th className="py-2">Quotation Status</th>
-            <th className="py-2">Area Range</th>
-            <th className="py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentRequirements.length > 0 ? (
-            <>
-              {currentRequirements.map((requirement) => (
-                <tr key={requirement._id}>
-                  <td className="text-blue-500 underline cursor-pointer">
-                    <span
-                      data-tooltip-id={`address-tooltip-${requirement._id}`}
-                      data-tooltip-content={requirement._id}
-                    >
-                      <p className="cursor-pointer">
-                        {requirement._id.slice(0, 4)}...
-                      </p>
-                    </span>
-                    <Tooltip
-                      id={`address-tooltip-${requirement._id}`}
-                      place="top"
-                      clickable={true}
-                    />
-                  </td>
-                  <td>{requirement.productId.name}</td>
-                  <td>
-                    <img
-                      src={requirement.productId.image}
-                      alt={requirement.productId.name}
-                      style={{ maxWidth: "100px" }}
-                    />
-                  </td>
-                  <td>{requirement.quantity} </td>
-                  <td>{requirement.frequency}</td>
-                  <td>{requirement.totalOrders}</td>
-                  <td>{requirement.expectedStartDate.slice(0, 10)}</td>
-                  <td>{requirement.expectedEndDate.slice(0, 10)}</td>
-                  <td>{requirement.description}</td>
-                  <td>
-                    {requirement?.quotations && requirement?.quotations[0] ? (
-                      <span
-                        className={
-                          requirement.quotations[0].status === "pending"
-                            ? "text-orange-600"
-                            : requirement.quotations[0].status === "rejected"
-                            ? "text-red-600"
-                            : requirement.quotations[0].status === "accepted"
-                            ? "text-green-600"
-                            : ""
-                        }
-                      >
-                        {requirement.quotations[0].status || "empty"}
-                      </span>
-                    ) : (
-                      "empty"
-                    )}
-                  </td>
-                  <td>
-                    {haversineDistance(
-                      requirement?.latitude,
-                      requirement?.longitude
-                    )}{" "}
-                    KM
-                  </td>
-                  <td>
-                    <button
-                      onClick={() => {
-                        handleOpenAddQuotation(requirement?._id);
-                      }}
-                    >
-                      Add/View Quotation
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </>
-          ) : (
-            <tr>
-              <td colSpan="12" className="text-center py-4">
-                No requirements found.
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
-
-      {/* Pagination */}
-      <div className="flex justify-center mt-4">
-        <nav>
-          <ul className="inline-flex items-center">
-            {Array.from({
-              length: Math.ceil(filteredRequirements.length / requirementsPerPage),
-            }).map((_, index) => (
-              <li key={index}>
-                <button
-                  onClick={() => paginate(index + 1)}
-                  className={`px-3 py-2 mx-1 ${
-                    currentPage === index + 1
-                      ? "bg-blue-500 text-white"
-                      : "bg-white text-blue-500 border border-blue-500"
-                  } rounded`}
-                >
-                  {index + 1}
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
-
       {openAddQuotation && (
-        <AddQuotation closeModal={closeModal} requirementId={selectedRequirmentId} />
+        <AddQuotation
+          closeModal={closeModal}
+          requirementId={selectedRequirmentId}
+        />
       )}
     </div>
   );

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const PlatformFeatures = () => {
   return (
-    <section className="py-8 md:py-20 bg-cover bg-center animate__animated animate__fadeIn" style={{ backgroundImage: 'url("https://images.pexels.com/photos/3083008/pexels-photo-3083008.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")' }}>
+    <section className="py-8 md:py-20 bg-cover bg-center animate__animated animate__fadeIn" style={{ backgroundImage: 'url("https://images.pexels.com/photos/849403/pexels-photo-849403.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")' }}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-8 md:mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white animate__animated animate__bounceInDown">
@@ -62,7 +62,7 @@ const PlatformFeatures = () => {
 <div className="flex justify-center mt-8 md:mt-12">
   <Link 
     to="/signup" 
-    className="px-4 md:px-6 w-40 py-2 bg-[#f6b60d] text-black rounded-md hover:bg-yellow-600 transition duration-300 animate__animated animate__pulse animate__infinite text-center"
+    className="px-4 md:px-6 w-40 py-2 bg-[#f6b60d] text-black rounded-md hover:bg-yellow-600 transition duration-300 text-center"
   >
     Register Now
   </Link>
