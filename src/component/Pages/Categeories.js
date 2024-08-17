@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { fetchCategories, addCategory, fetchSubCategories } from "../../services/api";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const Categories = () => {
   const [categoriesState, setCategoriesState] = useState([]);
@@ -44,7 +44,7 @@ const Categories = () => {
     }
 
     const response = await fetch(
-      `http://localhost:5000/api/products/sub-category`,
+      `https://onsourcd-backend.vercel.app/api/products/sub-category`,
       {
         method: "POST",
         headers: {
@@ -63,8 +63,34 @@ const Categories = () => {
     }
   };
 
+  const deleteCategory = async (categoryId) => {
+    try {
+      const response = await fetch(
+        `https://onsourcd-backend.vercel.app/api/products/category/${categoryId}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response.ok) {
+        toast.success("Category deleted");
+        loadCategories()
+      } else {
+        toast.error("Failed to add subcategory");
+      }
+
+    } catch (error) {
+      toast.error("Failed to add subcategory");
+
+    }
+  }
+
   return (
     <div className="categories p-8 bg-gray-100 min-h-screen w-full">
+      <ToastContainer />
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-3xl font-bold text-gray-800">Category List</h2>
         <button
@@ -102,7 +128,11 @@ const Categories = () => {
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">{category.name}</td>
                   <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-500">
                     <div className="flex space-x-2">
-                      <button className="bg-red-500 text-white px-2 py-1 text-xs rounded-lg shadow-md hover:bg-red-600 transition duration-300">
+                      <button
+                        onClick={() => {
+                          deleteCategory(category?._id)
+                        }}
+                        className="bg-red-500 text-white px-2 py-1 text-xs rounded-lg shadow-md hover:bg-red-600 transition duration-300">
                         Delete
                       </button>
                     </div>

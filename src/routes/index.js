@@ -52,11 +52,11 @@ import UndeliveredShipment from "../component/Home/UndeliveredShipment";
 import ReturnShipments from "../component/Home/ReturnShipments";
 import ProductListingPolicy from "../component/Home/ProductListingPolicy";
 import InfringementPolicy from "../component/Home/InfringementPolicy";
+import PrivateRoute from "./privateRoute";
 
 const Routing = () => {
   const user = useSelector((state) => state);
-
-  console.log("ROUTE", { user });
+  const isAuthenticated = user?.token && user?.isVerifiedEmail
 
   const [showNavbar, setShowNavbar] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
@@ -74,8 +74,8 @@ const Routing = () => {
       "/customer",
     ];
 
-    if (adminPaths.some((path) => location.pathname.startsWith(path)) || 
-        customerPaths.some((path) => location.pathname.startsWith(path))) {
+    if (adminPaths.some((path) => location.pathname.startsWith(path)) ||
+      customerPaths.some((path) => location.pathname.startsWith(path))) {
       setShowNavbar(false);
       setShowFooter(false);
     } else {
@@ -108,7 +108,7 @@ const Routing = () => {
         <Route path="returnshipments" element={<ReturnShipments />} />
         <Route path="productlistingpolicy" element={<ProductListingPolicy />} />
         <Route path="infringementpolicy" element={<InfringementPolicy />} />
-      
+
         <Route path="forgot-password" element={<ForgotPassword />} />
 
         {/* BUYER SELLER */}
@@ -122,18 +122,18 @@ const Routing = () => {
             )
           }
         >
-          <Route path="add-new-address" element={<SaveAddressForm />} />
-          <Route path="savedaddress" element={<SavedAddress />} />
-          <Route path="requirements" element={<BuyerRequirementsList />} />
-          <Route path="new-requirements" element={<SellerRequirements />} />
-          <Route path="requirement-quotations" element={<RequirementQuotation />} />
-          <Route path="add-requirement" element={<AddRequirements />} />
-          <Route path="company-detail" element={<CompanyDetail />} />
-          <Route path="requirement-orders" element={<RequirementOrders />} />
-          <Route path="seller-orders" element={<SellerOrders />} />
-          <Route path="seller-products" element={<SellerProducts />} />
-          <Route path="orders" element={<BuyerOrders />} />
-          <Route path="customer-products" element={<CustomerProducts />} />
+          <Route path="add-new-address" element={<PrivateRoute element={SaveAddressForm} isAuthenticated={isAuthenticated} />} />
+          <Route path="savedaddress" element={<PrivateRoute element={SavedAddress} isAuthenticated={isAuthenticated} />} />
+          <Route path="requirements" element={<PrivateRoute element={BuyerRequirementsList} isAuthenticated={isAuthenticated} />} />
+          <Route path="new-requirements" element={<PrivateRoute element={SellerRequirements} isAuthenticated={isAuthenticated} />} />
+          <Route path="requirement-quotations" element={<PrivateRoute element={RequirementQuotation} isAuthenticated={isAuthenticated} />} />
+          <Route path="add-requirement" element={<PrivateRoute element={AddRequirements} isAuthenticated={isAuthenticated} />} />
+          <Route path="company-detail" element={<PrivateRoute element={CompanyDetail} isAuthenticated={isAuthenticated} />} />
+          <Route path="requirement-orders" element={<PrivateRoute element={RequirementOrders} isAuthenticated={isAuthenticated} />} />
+          <Route path="seller-orders" element={<PrivateRoute element={SellerOrders} isAuthenticated={isAuthenticated} />} />
+          <Route path="seller-products" element={<PrivateRoute element={SellerProducts} isAuthenticated={isAuthenticated} />} />
+          <Route path="orders" element={<PrivateRoute element={BuyerOrders} isAuthenticated={isAuthenticated} />} />
+          <Route path="customer-products" element={<PrivateRoute element={CustomerProducts} isAuthenticated={isAuthenticated} />} />
         </Route>
 
         {/* Admin dashboard  */}

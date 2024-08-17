@@ -20,6 +20,8 @@ const AddRequirements = () => {
   const [totalOrders, setTotalOrders] = useState(0);
 
   const [locationError, setErrorLocation] = useState("")
+  const [hideExpectedEndDate, setHideExpectedEndDate] = useState(false)
+
 
   const {
     register,
@@ -73,7 +75,7 @@ const AddRequirements = () => {
           const locationAddress = (await fetchAddress(latitude, longitude)) || "";
           const { address_components } = locationAddress;
           setDetectLocationLoading(false);
-          console.log({address_components});
+          console.log({ address_components });
           setValue("latitude", latitude);
           setValue("longitude", longitude);
           setValue("deliveryState", address_components[6]?.long_name);
@@ -178,6 +180,12 @@ const AddRequirements = () => {
   const handleFrequencyChange = (e) => {
     const value = e.target.value;
     setValue("frequency", value);
+    if (value === "OneTime") {
+      setHideExpectedEndDate(true)
+    }
+    else {
+      setHideExpectedEndDate(false)
+    }
     calculateTotalOrders(startDate, endDate, value);
   };
 
@@ -296,6 +304,7 @@ const AddRequirements = () => {
               id="expectedStartDate"
               {...register("expectedStartDate", { required: true })}
               type="date"
+              min={new Date().toISOString().split('T')[0]}
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               onChange={handleStartDateChange}
             />
@@ -303,18 +312,24 @@ const AddRequirements = () => {
           </div>
 
 
+          {
+            !hideExpectedEndDate ? (
+              <div className="mb-4">
+                <label htmlFor="expectedEndDate" className="block text-gray-700 font-medium mb-2">Expected End Date</label>
+                <input
+                  id="expectedEndDate"
+                  {...register("expectedEndDate", { required: true })}
+                  type="date"
+                  min={new Date().toISOString().split('T')[0]}
+                  className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  onChange={handleEndDateChange}
+                />
+                {errors.expectedEndDate && <span className="text-red-500 text-sm">End date is required</span>}
+              </div>
+            ) : null
+          }
 
-          <div className="mb-4">
-            <label htmlFor="expectedEndDate" className="block text-gray-700 font-medium mb-2">Expected End Date</label>
-            <input
-              id="expectedEndDate"
-              {...register("expectedEndDate", { required: true })}
-              type="date"
-              className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              onChange={handleEndDateChange}
-            />
-            {errors.expectedEndDate && <span className="text-red-500 text-sm">End date is required</span>}
-          </div>
+
 
           <div className="mb-4">
             <label htmlFor="expectedStartDate" className="block text-gray-700 font-medium mb-2">Quantity in metric ton</label>

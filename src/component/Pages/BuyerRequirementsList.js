@@ -5,12 +5,12 @@ import { useSelector } from "react-redux";
 import { Tooltip } from "react-tooltip";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 
-
 const BuyerRequirementsList = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state);
   const [myRequirements, setMyRequirements] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState(""); // Step 1: Add search state
   const itemsPerPage = 5;
 
   useEffect(() => {
@@ -33,9 +33,14 @@ const BuyerRequirementsList = () => {
     setCurrentPage(page);
   };
 
-  const totalPages = Math.ceil(myRequirements.length / itemsPerPage);
+  // Step 2: Filter requirements based on search query
+  const filteredRequirements = myRequirements.filter((requirement) =>
+    requirement.productId?.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const totalPages = Math.ceil(filteredRequirements.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const currentItems = myRequirements.slice(startIndex, startIndex + itemsPerPage);
+  const currentItems = filteredRequirements.slice(startIndex, startIndex + itemsPerPage);
 
   return (
     <div className="products">
@@ -44,6 +49,8 @@ const BuyerRequirementsList = () => {
           type="text"
           placeholder="Search Product name"
           className="mr-2 p-1 border rounded w-1/2"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)} // Step 1: Update search state
         />
         <Link className="bg-yellow-500 p-2" to="/customer/add-requirement"> Add Requirement</Link>
       </div>
@@ -66,78 +73,77 @@ const BuyerRequirementsList = () => {
           </tr>
         </thead>
         <tbody>
-  {currentItems.length > 0 ? (
-    currentItems.map((requirement, index) => (
-      <tr key={requirement._id}>
-        <td>{startIndex + index + 1}</td>
-        <td>{requirement.productId?.name || 'N/A'}</td>
-        <td>
-          {requirement.productId?.image ? (
-            <img
-              src={requirement.productId.image}
-              alt={requirement.productId.name}
-              style={{ maxWidth: "100px" }}
-            />
+          {currentItems.length > 0 ? (
+            currentItems.map((requirement, index) => (
+              <tr key={requirement._id}>
+                <td>{startIndex + index + 1}</td>
+                <td>{requirement.productId?.name || 'N/A'}</td>
+                <td>
+                  {requirement.productId?.image ? (
+                    <img
+                      src={requirement.productId.image}
+                      alt={requirement.productId.name}
+                      style={{ maxWidth: "100px" }}
+                    />
+                  ) : (
+                    'No Image'
+                  )}
+                </td>
+                <td>{requirement.quantity}</td>
+                <td>{requirement.minimumAmount}</td>
+                <td>{requirement.maximumAmount}</td>
+                <td>{requirement.frequency}</td>
+                <td>{requirement.totalOrders}</td>
+                <td>
+                  {requirement.expectedStartDate?.slice(0, 10)}-
+                  {requirement.expectedEndDate?.slice(0, 10)}
+                </td>
+                <td>
+                  <span
+                    data-tooltip-id={`desc-tooltip-${requirement._id}`}
+                    data-tooltip-content={requirement.description}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    {requirement.description?.slice(0, 10)}...
+                  </span>
+                  <Tooltip id={`desc-tooltip-${requirement._id}`} place="top" clickable={true} />
+                </td>
+                <td>
+                  <span
+                    data-tooltip-id={`address-tooltip-${requirement._id}`}
+                    data-tooltip-html={
+                      `  <div>
+                          ${requirement.deliveryAddress} 
+                        </div>
+                        <div>
+                          ${requirement.deliveryCity} , ${requirement.deliveryState}
+                        </div>
+                        ${requirement.deliveryZipCode}`
+                    }
+                  >
+                    <p className="cursor-pointer">{requirement.deliveryAddress?.slice(0, 20)}...</p>
+                  </span>
+                  <Tooltip id={`address-tooltip-${requirement._id}`} place="top" clickable={true} />
+                </td>
+
+                <td>
+                  <button
+                    onClick={() => {
+                      console.log({ requirement });
+                      navigate("/customer/requirement-quotations", { state: { requirementId: requirement?._id } });
+                    }}
+                  >
+                    Quotations
+                  </button>
+                </td>
+              </tr>
+            ))
           ) : (
-            'No Image'
+            <tr>
+              <td colSpan="12">No requirements found.</td>
+            </tr>
           )}
-        </td>
-        <td>{requirement.quantity}</td>
-        <td>{requirement.minimumAmount}</td>
-        <td>{requirement.maximumAmount}</td>
-        <td>{requirement.frequency}</td>
-        <td>{requirement.totalOrders}</td>
-        <td>
-          {requirement.expectedStartDate.slice(0, 10)}-
-          {requirement.expectedEndDate.slice(0, 10)}
-        </td>
-        <td>
-          <span
-            data-tooltip-id={`desc-tooltip-${requirement._id}`}
-            data-tooltip-content={requirement.description}
-            style={{ cursor: 'pointer' }}
-          >
-            {requirement.description.slice(0, 10)}...
-          </span>
-          <Tooltip id={`desc-tooltip-${requirement._id}`} place="top" clickable={true} />
-        </td>
-        <td>
-          <span
-            data-tooltip-id={`address-tooltip-${requirement._id}`}
-            data-tooltip-html={
-              `  <div>
-                ${requirement.deliveryAddress} 
-              </div>
-              <div>
-                ${requirement.deliveryCity} , ${requirement.deliveryState}
-              </div>
-              ${requirement.deliveryZipCode}`
-            }
-          >
-            <p className="cursor-pointer">{requirement.deliveryAddress.slice(0, 20)}...</p>
-          </span>
-          <Tooltip id={`address-tooltip-${requirement._id}`} place="top" clickable={true} />
-        </td>
-
-        <td>
-          <button
-            onClick={() => {
-              console.log({ requirement });
-              navigate("/customer/requirement-quotations", { state: { requirementId: requirement?._id } });
-            }}
-          >
-            Quotations
-          </button>
-        </td>
-      </tr>
-    ))
-  ) : (
-    <tr>
-      <td colSpan="12">No requirements found.</td>
-    </tr>
-  )}
-</tbody>
-
+        </tbody>
       </table>
 
       <div className="pagination flex items-center space-x-2">
@@ -167,7 +173,6 @@ const BuyerRequirementsList = () => {
           <FaChevronRight />
         </button>
       </div>
-
     </div>
   );
 };
