@@ -3,10 +3,10 @@ import React from 'react';
 const PrivacyPolicy = () => {
   return (
     <div className="p-8 max-w-7xl mx-auto bg-white shadow-lg rounded-lg">
-      <h1 className="text-4xl font-bold mb-6">Privacy Policy</h1>
+      <h1 className="text-4xl font-bold mb-6 text-left">Privacy Policy</h1>
 
       <section className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
-        <h2 className="text-2xl font-semibold mb-4">Introduction</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-left">Introduction</h2>
         <p className="text-gray-700 leading-relaxed">
           The website <a href="https://www.onsourcd.com" className="text-blue-500">www.onsourcd.com</a> provides a platform for sellers to list and sell their products to various buyers without intervention from OnSourcd. Recognizing the importance of privacy and confidentiality, OnSourcd is committed to safeguarding personal information. This Privacy Policy applies to all OnSourcd products and services, outlining how information may be collected, used, and disclosed in relation to Platform Users.
         </p>
@@ -19,7 +19,7 @@ const PrivacyPolicy = () => {
       </section>
 
       <section className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
-        <h2 className="text-2xl font-semibold mb-4">Information Collection</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-left">Information Collection</h2>
         <p className="text-gray-700 leading-relaxed">
           Respecting user privacy is a core value at OnSourcd, and we've implemented measures to ensure we only collect necessary information to deliver our services and safeguard user accounts.
         </p>
@@ -44,7 +44,7 @@ const PrivacyPolicy = () => {
       </section>
 
       <section className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
-        <h2 className="text-2xl font-semibold mb-4">User Data Usage</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-left">User Data Usage</h2>
         <p className="text-gray-700 leading-relaxed">
           If you provide any User Data to OnSourcd, you are deemed to have authorized OnSourcd to collect, retain, and utilize that User Data for various purposes:
         </p>
@@ -61,7 +61,7 @@ const PrivacyPolicy = () => {
       </section>
 
       <section className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
-        <h2 className="text-2xl font-semibold mb-4">User Data Disclosure</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-left">User Data Disclosure</h2>
         <p className="text-gray-700 leading-relaxed">
           User(s) acknowledge and consent that OnSourcd may disclose and transfer User(s) Data to third-party service providers (including, but not limited to, data entry, database management, promotions, products and services alerts, delivery services, payment extension services, authentication and verification services, and logistics services) ("Service Providers"). These Service Providers are bound by a duty of confidentiality to OnSourcd and are solely authorized to utilize User(s) Data for the purposes specified in clause 2 above.
         </p>
@@ -83,36 +83,16 @@ const PrivacyPolicy = () => {
       </section>
 
       <section className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
-        <h2 className="text-2xl font-semibold mb-4">Right to Update User Data</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-left">Right to Update User Data</h2>
         <p className="text-gray-700 leading-relaxed">
-          In accordance with applicable laws, Users retain the right to access personal information held by OnSourcd and to request updates or corrections to any inaccuracies. Users may also choose to withdraw or modify their consent for OnSourcd to use their data. However, this may affect the ability to access certain services on the platform.
+          In accordance with applicable laws, Users retain the right to access personal information held by OnSourcd and to request corrections or updates. Users can access, review, or update their personal information by logging into the Platform and making changes directly.
         </p>
       </section>
 
       <section className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
-        <h2 className="text-2xl font-semibold mb-4">Security Measures</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-left">User Data Deletion</h2>
         <p className="text-gray-700 leading-relaxed">
-          OnSourcd employs reasonable and appropriate technical and organizational measures to protect User Data against unauthorized access, disclosure, or destruction. While OnSourcd strives to safeguard User Data, no method of transmission over the internet or electronic storage is completely secure. Users acknowledge and accept the inherent risks associated with data transmission and storage.
-        </p>
-      </section>
-
-      <section className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
-        <h2 className="text-2xl font-semibold mb-4">Changes to Privacy Policy</h2>
-        <p className="text-gray-700 leading-relaxed">
-          OnSourcd reserves the right to update or modify this Privacy Policy from time to time. Users will be notified of significant changes through the platform or other appropriate channels. Continued use of the platform following changes to the Privacy Policy signifies acceptance of the updated terms.
-        </p>
-      </section>
-
-      <section className="mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200 shadow-sm">
-        <h2 className="text-2xl font-semibold mb-4">Contact Us</h2>
-        <p className="text-gray-700 leading-relaxed">
-          For any questions, concerns, or feedback regarding this Privacy Policy, please contact us at:
-        </p>
-        <p className="text-gray-700 leading-relaxed mt-4">
-          <strong>OnSourcd</strong><br />
-          [Your Contact Email]<br />
-          [Your Contact Phone Number]<br />
-          [Your Contact Address]
+          Users can request the deletion of their personal data from the platform by contacting OnSourcd's customer support. Upon verifying the identity of the user and confirming the deletion request, OnSourcd will proceed to remove the data from the platform, in compliance with applicable laws.
         </p>
       </section>
     </div>

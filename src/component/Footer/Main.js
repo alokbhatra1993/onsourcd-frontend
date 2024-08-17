@@ -1,5 +1,6 @@
 import React from "react";
 import "animate.css"; // Import animate.css styles
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -17,13 +18,11 @@ const Footer = () => {
             <div className="col-lg-3 col-md-6 mb-4 animate__animated animate__fadeInUp">
               <div className="footer-widget">
                 <div className="f-widget-title mb-4">
-                  <img
-                    src="assets/img/logo/logo.png"
-                    alt="logo"
-                    className="animate__animated animate__fadeInUp"
-                  />
+                <Link to="/">
+              <img src="assets/img/logo/logo.png" alt="logo" className="h-8" />
+            </Link>
                   <h2 className="footer-heading mt-3 text-white animate__animated animate__fadeInUp">
-                 Your Partner in Sourcing
+                    Your Partner in Sourcing
                   </h2>
                   <p className="footer-text text-white animate__animated animate__fadeInUp">
                     We provide comprehensive B2B solutions for sourcing, supply
@@ -77,14 +76,19 @@ const Footer = () => {
                 </div>
                 <div className="f-contact">
                   <ul className="list-unstyled">
-                    <li className="mb-2 flex items-center animate__animated animate__fadeInUp">
-                      <i className="icon fal fa-phone text-white mr-2"></i>
-                      <span className="text-white">+91-9257-6464-69</span>
-                    </li>
-                    <li className="mb-2 flex items-center animate__animated animate__fadeInUp">
-                      <i className="icon fal fa-phone text-white mr-2"></i>
-                      <span className="text-white">+91-8360656569</span>
-                    </li>
+                  <li className="mb-2 flex items-center animate__animated animate__fadeInUp">
+  <i className="icon fal fa-phone text-white mr-2" style={{ transform: "rotate(180deg)" }}></i>
+  <a href="tel:+919257646469" className="text-white">
+    +91-9257646469
+  </a>
+</li>
+<li className="mb-2 flex items-center animate__animated animate__fadeInUp">
+  <i className="icon fal fa-phone text-white mr-2" style={{ transform: "rotate(180deg)" }}></i>
+  <a href="tel:+918360656569" className="text-white">
+    +91-8360656569
+  </a>
+</li>
+
                     <li className="mb-2 flex items-center animate__animated animate__fadeInUp">
                       <i className="icon fal fa-envelope text-white mr-2"></i>
                       <a
@@ -97,7 +101,7 @@ const Footer = () => {
                     <li className="flex items-center animate__animated animate__fadeInUp">
                       <i className="icon fal fa-map-marker-check text-white mr-2"></i>
                       <span className="text-white">
-                       Jaipur, Rajasthan
+                        Jaipur, Rajasthan
                       </span>
                     </li>
                   </ul>
@@ -109,7 +113,7 @@ const Footer = () => {
               <div className="footer-widget">
                 <div className="f-widget-title mb-4">
                   <h2 className="text-white animate__animated animate__fadeInUp">
-                     Policies
+                    Policies
                   </h2>
                 </div>
                 <div className="footer-link">
@@ -144,20 +148,16 @@ const Footer = () => {
                         About Us
                       </a>
                     </li>
-                 
-                  
-                  
                     <li className="animate__animated animate__fadeInUp">
-                      <a href="/contact-us" className="text-white">
+                      <a href="/blogs" className="text-white">
                         Blogs
                       </a>
                     </li>
                     <li className="animate__animated animate__fadeInUp">
                       <a href="/contact-us" className="text-white">
-                       Products
+                        Products
                       </a>
                     </li>
-                 
                   </ul>
                 </div>
               </div>
@@ -170,7 +170,7 @@ const Footer = () => {
           <div className="row">
             <div className="col-lg-12 text-center">
               <p className="mb-0 text-black animate__animated animate__fadeInUp">
-                &copy; {new Date().getFullYear()} All rights  reserved with Onjubilant Services India Pvt Ltd | All logos and Trademarks registered with their respective owners. 
+                &copy; {new Date().getFullYear()} All rights reserved with Onjubilant Services India Pvt Ltd | All logos and Trademarks registered with their respective owners. 
               </p>
             </div>
           </div>

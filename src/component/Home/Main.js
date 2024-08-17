@@ -17,19 +17,19 @@ const Main = () => {
     {
       id: 1,
       src: "https://videos.pexels.com/video-files/8333973/8333973-uhd_2732_1440_25fps.mp4",
-      title: "Your B2B Sourcing Solutions",
+      title: "Your Partner in Sourcing",
       description: "India's most significant B2B platform for Waste Procurement",
     },
     {
       id: 2,
       src: "https://videos.pexels.com/video-files/15313009/15313009-uhd_2560_1440_30fps.mp4",
-      title: "Your B2B Sourcing Solutions",
+      title: "Your Partner in Sourcing",
       description: "India's most significant B2B platform for Waste Procurement",
     },
     {
       id: 3,
       src: "https://videos.pexels.com/video-files/4280455/4280455-uhd_2560_1440_30fps.mp4",
-      title: "Your B2B Sourcing Solutions",
+      title: "Your Partner in Sourcing",
       description: "India's most significant B2B platform for Waste Procurement",
     },
   ];

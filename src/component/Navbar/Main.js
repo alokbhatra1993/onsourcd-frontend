@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { setUserData } from "../../redux/actions";
@@ -8,7 +8,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [profileDropdownOpen, setProfileDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
   const path = location.pathname;
@@ -26,9 +25,13 @@ const Navbar = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  const toggleProfileDropdown = () => {
-    setProfileDropdownOpen(!profileDropdownOpen);
-  };
+  // Close mobile menu when path changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [path]);
+
+  // Helper function to determine if the link is active
+  const isActiveLink = (linkPath) => path === linkPath;
 
   return (
     <header className="sticky top-0 z-50">
@@ -36,7 +39,7 @@ const Navbar = () => {
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="flex items-center">
             <Link to="/">
-              <img src="assets/img/logo/logo.png" alt="logo" className="h-10" />
+              <img src="assets/img/logo/logo.png" alt="logo" className="h-8" />
             </Link>
           </div>
           <div className="hidden lg:flex items-center space-x-8">
@@ -56,44 +59,40 @@ const Navbar = () => {
                 </Link>
               </>
             ) : (
-              <div className="relative">
-                <div
-                  className="profile-icon cursor-pointer text-lg"
-                  onClick={toggleProfileDropdown}
-                >
+              <div className="relative group"> {/* Added 'group' class */}
+                <div className="profile-icon cursor-pointer text-lg">
                   <i className="fas fa-user"></i>
                 </div>
-                {profileDropdownOpen && (
-                  <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50">
-                    <li>
-                      <Link
-                        to="customer/company-detail"
-                        className="block px-4 py-2 hover:bg-gray-100 text-black"
-                      >
-                        Company Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        to="/profile"
-                        className="block px-4 py-2 hover:bg-gray-100 text-black"
-                      >
-                        Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <button
-                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
-                        onClick={() => {
-                          dispatch(setUserData({ token: null }));
-                          navigate("/login")
-                        }}
-                      >
-                        Logout
-                      </button>
-                    </li>
-                  </ul>
-                )}
+                <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50 opacity-0 group-hover:opacity-100 group-hover:block transition-opacity duration-200 hidden">
+                  {/* Updated dropdown behavior */}
+                  <li>
+                    <Link
+                      to="customer/company-detail"
+                      className="block px-4 py-2 hover:bg-gray-100 text-black"
+                    >
+                      Company Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/profile"
+                      className="block px-4 py-2 hover:bg-gray-100 text-black"
+                    >
+                      Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <button
+                      className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
+                      onClick={() => {
+                        dispatch(setUserData({ token: null }));
+                        navigate("/login");
+                      }}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
               </div>
             )}
           </div>
@@ -115,18 +114,30 @@ const Navbar = () => {
       <nav className="bg-[#f6b60d] text-black shadow-lg">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-2">
-            <div className="hidden lg:flex items-center space-x-12"> {/* Increased space between items */}
-              <nav className="flex space-x-12"> {/* Increased space between items */}
-                <Link to="/" className="hover:text-gray-800">
+            <div className="hidden lg:flex items-center space-x-12">
+              <nav className="flex space-x-12 items-center">
+                <Link
+                  to="/"
+                  className={`hover:text-gray-800 ${isActiveLink("/") ? "text-white bg-[#372800] rounded-md px-3 py-2" : ""}`}
+                >
                   Home
                 </Link>
-                <Link to="/blogs" className="hover:text-gray-800">
+                <Link
+                  to="/blogs"
+                  className={`hover:text-gray-800 ${isActiveLink("/blogs") ? "text-white bg-[#372800] rounded-md px-3 py-2" : ""}`}
+                >
                   Blogs
                 </Link>
-                <Link to="/productdetail" className="hover:text-gray-800">
+                <Link
+                  to="/productdetail"
+                  className={`hover:text-gray-800 ${isActiveLink("/productdetail") ? "text-white bg-[#372800] rounded-md px-3 py-2" : ""}`}
+                >
                   Products
                 </Link>
-                <Link to="/contact" className="hover:text-gray-800">
+                <Link
+                  to="/contact"
+                  className={`hover:text-gray-800 ${isActiveLink("/contact") ? "text-white bg-[#372800] rounded-md px-3 py-2" : ""}`}
+                >
                   Contact Us
                 </Link>
               </nav>
@@ -134,7 +145,7 @@ const Navbar = () => {
             <div className="hidden lg:flex items-center relative flex-grow justify-end">
               <form
                 className="flex items-center border border-gray-300 rounded-full px-2 py-1 bg-white shadow-md"
-                style={{ width: "calc(70% - 100px)" }} // Adjusted width to better fit the larger icon
+                style={{ width: "calc(70% - 100px)" }}
                 onSubmit={handleSearchSubmit}
               >
                 <input
@@ -148,7 +159,7 @@ const Navbar = () => {
                   type="submit"
                   className="btn-search text-white bg-[#f6b60d] hover:bg-[#e5a63a] rounded-r-full px-4 py-2 transition duration-300 text-sm flex items-center justify-center"
                 >
-                  <i className="fas fa-search text-xl"></i> {/* Increased size */}
+                  <i className="fas fa-search text-xl"></i>
                 </button>
               </form>
               {searchQuery && (
@@ -161,16 +172,28 @@ const Navbar = () => {
           {mobileMenuOpen && (
             <div className="lg:hidden bg-[#f6b60d] text-black">
               <nav className="p-4 space-y-2">
-                <Link to="/" className="block hover:text-gray-800 ml-4">
+                <Link
+                  to="/"
+                  className={`block hover:text-gray-800 ml-4 ${isActiveLink("/") ? "text-white bg-[#372800] rounded-md px-3 py-2" : ""}`}
+                >
                   Home
                 </Link>
-                <Link to="/blogs" className="block hover:text-gray-800">
+                <Link
+                  to="/blogs"
+                  className={`block hover:text-gray-800 ${isActiveLink("/blogs") ? "text-white bg-[#372800] rounded-md px-3 py-2" : ""}`}
+                >
                   Blogs
                 </Link>
-                <Link to="/productdetail" className="block hover:text-gray-800">
+                <Link
+                  to="/productdetail"
+                  className={`block hover:text-gray-800 ${isActiveLink("/productdetail") ? "text-white bg-[#372800] rounded-md px-3 py-2" : ""}`}
+                >
                   Products
                 </Link>
-                <Link to="/service" className="block hover:text-gray-800">
+                <Link
+                  to="/contact"
+                  className={`block hover:text-gray-800 ${isActiveLink("/contact") ? "text-white bg-[#372800] rounded-md px-3 py-2" : ""}`}
+                >
                   Contact Us
                 </Link>
                 {!user?.token ? (
@@ -189,72 +212,43 @@ const Navbar = () => {
                     </Link>
                   </>
                 ) : (
-                  <div className="relative">
-                    <div
-                      className="cursor-pointer text-2xl"
-                      onClick={toggleProfileDropdown}
-                    >
+                  <div className="relative group"> {/* Added 'group' class */}
+                    <div className="cursor-pointer text-2xl">
                       <i className="fas fa-user"></i>
                     </div>
-                    {profileDropdownOpen && (
-                      <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50">
-                        <li>
-                          <Link
-                            to="/settings"
-                            className="block px-4 py-2 hover:bg-gray-100 text-black"
-                          >
-                            Settings
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to="/savedaddress"
-                            className="block px-4 py-2 hover:bg-gray-100 text-black"
-                          >
-                            Saved Address
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            to="/profile"
-                            className="block px-4 py-2 hover:bg-gray-100 text-black"
-                          >
-                            Profile
-                          </Link>
-                        </li>
-                        <li>
-                          <button
-                            className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
-                            onClick={() => {
-                              dispatch(setUserData({ token: null }));
-                            }}
-                          >
-                            Logout
-                          </button>
-                        </li>
-                      </ul>
-                    )}
+                    <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50 opacity-0 group-hover:opacity-100 group-hover:block transition-opacity duration-200 hidden">
+                      {/* Updated dropdown behavior */}
+                      <li>
+                        <Link
+                          to="customer/company-detail"
+                          className="block px-4 py-2 hover:bg-gray-100 text-black"
+                        >
+                          Company Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          to="/profile"
+                          className="block px-4 py-2 hover:bg-gray-100 text-black"
+                        >
+                          Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <button
+                          className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
+                          onClick={() => {
+                            dispatch(setUserData({ token: null }));
+                            navigate("/login");
+                          }}
+                        >
+                          Logout
+                        </button>
+                      </li>
+                    </ul>
                   </div>
                 )}
               </nav>
-              <form
-                className="flex items-center border border-gray-300 rounded-full px-2 py-1 bg-white shadow-md w-full mt-4 max-w-lg"
-                onSubmit={handleSearchSubmit}
-              >
-                <input
-                  type="text"
-                  className="form-input outline-none px-4 py-2 w-full rounded-l-full"
-                  placeholder="Search for Products"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                />
-                <button
-                  type="submit"
-                  className="btn-search text-white bg-[#f6b60d] hover:bg-[#e5a63a] rounded-r-full px-4 py-2 transition duration-300 text-sm flex items-center justify-center"
-                >
-                  <i className="fas fa-search text-xl"></i> {/* Adjusted size for mobile */}
-                </button>
-              </form>
             </div>
           )}
         </div>

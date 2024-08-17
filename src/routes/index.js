@@ -48,10 +48,10 @@ import PrivacyPolicy from "../component/Home/PrivacyPolicy";
 import ForgotPassword from "../component/Auth/ForgotPassword";
 import OrderDashboard from "../component/Pages/OrdersDashboard";
 import AdminRequirements from "../component/Pages/AdminRequirements";
-
-
-
-
+import UndeliveredShipment from "../component/Home/UndeliveredShipment";
+import ReturnShipments from "../component/Home/ReturnShipments";
+import ProductListingPolicy from "../component/Home/ProductListingPolicy";
+import InfringementPolicy from "../component/Home/InfringementPolicy";
 
 const Routing = () => {
   const user = useSelector((state) => state);
@@ -69,7 +69,13 @@ const Routing = () => {
       "/admin-dashboard/add-category",
       "/admin-dashboard/see-orders",
     ];
-    if (adminPaths.some((path) => location.pathname.startsWith(path))) {
+
+    const customerPaths = [
+      "/customer",
+    ];
+
+    if (adminPaths.some((path) => location.pathname.startsWith(path)) || 
+        customerPaths.some((path) => location.pathname.startsWith(path))) {
       setShowNavbar(false);
       setShowFooter(false);
     } else {
@@ -98,10 +104,12 @@ const Routing = () => {
         <Route path="verified" element={<VerficationSuccessEmail />} />
         <Route path="termsofuse" element={<TermsOfUse />} />
         <Route path="privacypolicy" element={<PrivacyPolicy />} />
+        <Route path="undeliveredshipment" element={<UndeliveredShipment />} />
+        <Route path="returnshipments" element={<ReturnShipments />} />
+        <Route path="productlistingpolicy" element={<ProductListingPolicy />} />
+        <Route path="infringementpolicy" element={<InfringementPolicy />} />
+      
         <Route path="forgot-password" element={<ForgotPassword />} />
-
-
-
 
         {/* BUYER SELLER */}
         <Route
@@ -126,9 +134,6 @@ const Routing = () => {
           <Route path="seller-products" element={<SellerProducts />} />
           <Route path="orders" element={<BuyerOrders />} />
           <Route path="customer-products" element={<CustomerProducts />} />
-
-
-
         </Route>
 
         {/* Admin dashboard  */}
@@ -151,7 +156,6 @@ const Routing = () => {
           <Route path="quotation" element={<AdminQuotation />} />
           <Route path="order-dashboard" element={<OrderDashboard />} />
           <Route path="requirements" element={<AdminRequirements />} />
-
         </Route>
       </Routes>
       {showFooter && <Footer />}
