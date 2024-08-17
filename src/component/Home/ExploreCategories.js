@@ -6,8 +6,11 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import 'animate.css';
 import { fetchProductApi } from "../../services/api";
+import { useSelector } from "react-redux";
 
 const ExploreCategories = () => {
+  const user = useSelector((state) => state);
+
   const [products, setProducts] = useState([
     {
       id: 1,
@@ -118,13 +121,16 @@ const ExploreCategories = () => {
           )}
         </div>
         {/* Register Now button outside the slider */}
-        <div className="text-center mt-8 w-30 mx-auto flex justify-center">
-          <Link to="/signup">
-            <button className="bg-yellow-500 text-white py-2 px-4 rounded">
-              Register Now
-            </button>
-          </Link>
-        </div>
+        {!user?.token ? (
+          <div className="text-center mt-8 w-30 mx-auto flex justify-center">
+            <Link to="/signup">
+              <button className="bg-yellow-500 text-white py-2 px-4 rounded">
+                Register Now
+              </button>
+            </Link>
+          </div>
+        ) : null}
+
       </div>
     </section>
   );

@@ -11,7 +11,7 @@ export const fetchCategories = async () => {
   return response;
 };
 
-export const addCategories = async (name) => {
+export const addCategory = async (name) => {
   const response = await fetch(`https://onsourcd-backend.vercel.app/api/products/category`, {
     method: "POST",
     headers: {
@@ -22,9 +22,9 @@ export const addCategories = async (name) => {
   return response;
 };
 
-export const addSubCategories = async (name, categoryId) => {
+export const addSubCategory = async (name, categoryId) => {
   const response = await fetch(
-    `https://onsourcd-backend.vercel.app/api/products/subcategory`,
+    `http://localhost:5000/api/products/sub-category`,
     {
       method: "POST",
       headers: {

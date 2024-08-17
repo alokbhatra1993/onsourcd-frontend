@@ -20,8 +20,9 @@ const BuyerRequirementsList = () => {
   const loadMyRequirements = async () => {
     try {
       const response = await fetchMyRequirements(user?.token);
-      console.log({ response });
       const data = await response.json();
+      console.log({ data });
+
       setMyRequirements(data?.requirement);
     } catch (error) {
       console.error("Error loading requirements:", error);

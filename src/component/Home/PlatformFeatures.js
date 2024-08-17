@@ -2,14 +2,17 @@ import React from "react";
 import { FaDollarSign, FaTools, FaTruck, FaSyncAlt } from "react-icons/fa";
 import 'animate.css';
 import { Link } from 'react-router-dom';
+import { useSelector } from "react-redux";
 
 const PlatformFeatures = () => {
+  const user = useSelector((state) => state);
+
   return (
     <section className="py-8 md:py-20 bg-cover bg-center animate__animated animate__fadeIn" style={{ backgroundImage: 'url("https://images.pexels.com/photos/849403/pexels-photo-849403.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1")' }}>
       <div className="container mx-auto px-4">
         <div className="text-center mb-8 md:mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight text-white animate__animated animate__bounceInDown">
-          Platform Features
+            Platform Features
           </h2>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
@@ -58,15 +61,16 @@ const PlatformFeatures = () => {
           </div>
         </div>
 
-      {/* Register Now Button */}
-<div className="flex justify-center mt-8 md:mt-12">
-  <Link 
-    to="/signup" 
-    className="px-4 md:px-6 w-40 py-2 bg-[#f6b60d] text-black rounded-md hover:bg-yellow-600 transition duration-300 text-center"
-  >
-    Register Now
-  </Link>
-</div>
+        {/* Register Now Button */}
+        {!user?.token ? (
+          <div className="text-center mt-8 w-30 mx-auto flex justify-center">
+            <Link to="/signup">
+              <button className="bg-yellow-500 text-white py-2 px-4 rounded">
+                Register Now
+              </button>
+            </Link>
+          </div>
+        ) : null}
 
       </div>
     </section>

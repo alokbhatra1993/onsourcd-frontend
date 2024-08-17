@@ -35,6 +35,8 @@ const SellerRequirements = () => {
     try {
       const response = await fetchNewRequirements(user?.token);
       const results = await response.json();
+      console.log({results});
+      
       setMyRequirements(results);
       setFilteredRequirements(results); // Initial load
     } catch (error) {
