@@ -9,6 +9,7 @@ const Navbar = () => {
   const user = useSelector((state) => state);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [dropdownOpen, setDropdownOpen] = useState(false); // New state variable for dropdown
   const location = useLocation();
   const path = location.pathname;
 
@@ -25,9 +26,14 @@ const Navbar = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
 
-  // Close mobile menu when path changes
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen); // Toggle dropdown visibility
+  };
+
+  // Close mobile menu and dropdown when path changes
   useEffect(() => {
     setMobileMenuOpen(false);
+    setDropdownOpen(false); // Close dropdown when path changes
   }, [path]);
 
   // Helper function to determine if the link is active
@@ -59,40 +65,44 @@ const Navbar = () => {
                 </Link>
               </>
             ) : (
-              <div className="relative group"> {/* Added 'group' class */}
-                <div className="profile-icon cursor-pointer text-lg">
+              <div className="relative">
+                <div
+                  className="profile-icon cursor-pointer text-lg"
+                  onClick={toggleDropdown} // Attach click handler to toggle dropdown
+                >
                   <i className="fas fa-user"></i>
                 </div>
-                <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50 opacity-0 group-hover:opacity-100 group-hover:block transition-opacity duration-200 hidden">
-                  {/* Updated dropdown behavior */}
-                  <li>
-                    <Link
-                      to="customer/company-detail"
-                      className="block px-4 py-2 hover:bg-gray-100 text-black"
-                    >
-                      Company Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/profile"
-                      className="block px-4 py-2 hover:bg-gray-100 text-black"
-                    >
-                      Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <button
-                      className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
-                      onClick={() => {
-                        dispatch(setUserData({ token: null }));
-                        navigate("/login");
-                      }}
-                    >
-                      Logout
-                    </button>
-                  </li>
-                </ul>
+                {dropdownOpen && ( // Conditionally render the dropdown
+                  <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50">
+                    <li>
+                      <Link
+                        to="customer/company-detail"
+                        className="block px-4 py-2 hover:bg-gray-100 text-black"
+                      >
+                        Company Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/profile"
+                        className="block px-4 py-2 hover:bg-gray-100 text-black"
+                      >
+                        Profile
+                      </Link>
+                    </li>
+                    <li>
+                      <button
+                        className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
+                        onClick={() => {
+                          dispatch(setUserData({ token: null }));
+                          navigate("/login");
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </li>
+                  </ul>
+                )}
               </div>
             )}
           </div>
@@ -212,40 +222,44 @@ const Navbar = () => {
                     </Link>
                   </>
                 ) : (
-                  <div className="relative group"> {/* Added 'group' class */}
-                    <div className="cursor-pointer text-2xl">
+                  <div className="relative">
+                    <div
+                      className="cursor-pointer text-2xl"
+                      onClick={toggleDropdown} // Attach click handler to toggle dropdown
+                    >
                       <i className="fas fa-user"></i>
                     </div>
-                    <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50 opacity-0 group-hover:opacity-100 group-hover:block transition-opacity duration-200 hidden">
-                      {/* Updated dropdown behavior */}
-                      <li>
-                        <Link
-                          to="customer/company-detail"
-                          className="block px-4 py-2 hover:bg-gray-100 text-black"
-                        >
-                          Company Profile
-                        </Link>
-                      </li>
-                      <li>
-                        <Link
-                          to="/profile"
-                          className="block px-4 py-2 hover:bg-gray-100 text-black"
-                        >
-                          Profile
-                        </Link>
-                      </li>
-                      <li>
-                        <button
-                          className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
-                          onClick={() => {
-                            dispatch(setUserData({ token: null }));
-                            navigate("/login");
-                          }}
-                        >
-                          Logout
-                        </button>
-                      </li>
-                    </ul>
+                    {dropdownOpen && (
+                      <ul className="absolute right-0 mt-2 w-48 bg-white text-black rounded-md shadow-lg py-2 z-50">
+                        <li>
+                          <Link
+                            to="customer/company-detail"
+                            className="block px-4 py-2 hover:bg-gray-100 text-black"
+                          >
+                            Company Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <Link
+                            to="/profile"
+                            className="block px-4 py-2 hover:bg-gray-100 text-black"
+                          >
+                            Profile
+                          </Link>
+                        </li>
+                        <li>
+                          <button
+                            className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-black"
+                            onClick={() => {
+                              dispatch(setUserData({ token: null }));
+                              navigate("/login");
+                            }}
+                          >
+                            Logout
+                          </button>
+                        </li>
+                      </ul>
+                    )}
                   </div>
                 )}
               </nav>
