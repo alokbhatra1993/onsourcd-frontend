@@ -55,13 +55,13 @@ const SellerRequirements = () => {
 
     if (startDate) {
       filtered = filtered.filter(
-        (req) => req.expectedStartDate.slice(0, 10) >= startDate
+        (req) => req.expectedStartDate?.slice(0, 10) >= startDate
       );
     }
 
     if (endDate) {
       filtered = filtered.filter(
-        (req) => req.expectedEndDate.slice(0, 10) <= endDate
+        (req) => req.expectedEndDate?.slice(0, 10) <= endDate
       );
     }
 
@@ -119,7 +119,7 @@ const SellerRequirements = () => {
           data-tooltip-content={row._id}
           className="text-gray-600 underline cursor-pointer"
         >
-          {row._id.slice(0, 4)}...
+          {row._id?.slice(0, 4)}...
           <Tooltip id={`id-tooltip-${row._id}`} place="top" clickable={true} />
         </span>
       ),
@@ -152,11 +152,11 @@ const SellerRequirements = () => {
     },
     {
       name: 'Expected Start Date',
-      selector: row => row.expectedStartDate.slice(0, 10),
+      selector: row => row.expectedStartDate?.slice(0, 10),
     },
     {
       name: 'Expected End Date',
-      selector: row => row.expectedEndDate.slice(0, 10),
+      selector: row => row.expectedEndDate?.slice(0, 10),
     },
     {
       name: 'Description',
@@ -165,7 +165,7 @@ const SellerRequirements = () => {
           data-tooltip-id={`desc-tooltip-${row._id}`}
           data-tooltip-content={row.description}
         >
-          {row.description.slice(0, 20)}...
+          {row.description?.slice(0, 20)}...
           <Tooltip id={`desc-tooltip-${row._id}`} place="top" clickable={true} />
         </span>
       ),

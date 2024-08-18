@@ -358,7 +358,7 @@ const AddRequirements = () => {
             <input
               id="deliveryCity"
               {...register("deliveryCity", { required: true })}
-              disabled
+              // disabled
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -369,7 +369,7 @@ const AddRequirements = () => {
             <label htmlFor="deliveryState" className="block text-gray-700 font-medium mb-2">State</label>
             <input
               id="deliveryState"
-              disabled
+              // disabled
               {...register("deliveryState", { required: true })}
               type="text"
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -383,7 +383,7 @@ const AddRequirements = () => {
               id="deliveryZipCode"
               {...register("deliveryZipCode", { required: true })}
               type="text"
-              disabled
+              // disabled
               className="w-full mt-2 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {errors.deliveryZipCode && <span className="text-red-500 text-sm">Zip code is required</span>}

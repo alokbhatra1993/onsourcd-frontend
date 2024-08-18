@@ -5,6 +5,7 @@ import { Tooltip } from 'react-tooltip';
 import 'react-tooltip/dist/react-tooltip.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { formatDate } from '../../services/commonFunctions';
 
 const OrdersTable = () => {
     const user = useSelector((state) => state);
@@ -203,7 +204,7 @@ const OrdersTable = () => {
                                     <td className="py-3 px-1 border border-gray-300 text-black">
                                         <img src={order.productId?.image} alt="Product" className="h-10 w-10 rounded-full object-cover" />
                                     </td>
-                                    <td className="py-3 px-1 border border-gray-300 text-black">{order?.expectedDate?.slice(0, 10)}</td>
+                                    <td className="py-3 px-1 border border-gray-300 text-black">{formatDate( order?.expectedDate?.slice(0, 10))}</td>
                                     <td>
                                         <span
                                             data-tooltip-id={`address-tooltip-${order._id}`}
