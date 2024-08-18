@@ -19,6 +19,7 @@ const SellerRequirements = () => {
 
   // Search and filter state
   const [searchId, setSearchId] = useState("");
+  const [searchProductName, setSearchProductName] = useState(""); // New state for product name
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
@@ -29,14 +30,14 @@ const SellerRequirements = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [myRequirements, searchId, startDate, endDate]);
+  }, [myRequirements, searchId, searchProductName, startDate, endDate]);
 
   const loadNewRequirements = async () => {
     try {
       const response = await fetchNewRequirements(user?.token);
       const results = await response.json();
-      console.log({results});
-      
+      console.log({ results });
+
       setMyRequirements(results);
       setFilteredRequirements(results); // Initial load
     } catch (error) {
@@ -50,6 +51,12 @@ const SellerRequirements = () => {
     if (searchId) {
       filtered = filtered.filter((req) =>
         req._id.toLowerCase().includes(searchId.toLowerCase())
+      );
+    }
+
+    if (searchProductName) {
+      filtered = filtered.filter((req) =>
+        req.productId.name.toLowerCase().includes(searchProductName.toLowerCase())
       );
     }
 
@@ -68,6 +75,15 @@ const SellerRequirements = () => {
     setFilteredRequirements(filtered);
   };
 
+
+  const resetFilter = () => {
+    // setFilteredRequirements([])
+    setSearchProductName("")
+    setSearchId("")
+    setStartDate("")
+    setEndDate("")
+  }
+
   const haversineDistance = (lat1, lon1) => {
     const R = 6371; // Radius of the Earth in kilometers
     const dLat = degreesToRadians(myCurrentCordinates?.latitude - lat1);
@@ -75,8 +91,8 @@ const SellerRequirements = () => {
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(degreesToRadians(lat1)) *
-        Math.cos(degreesToRadians(myCurrentCordinates?.latitude)) *
-        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      Math.cos(degreesToRadians(myCurrentCordinates?.latitude)) *
+      Math.sin(dLon / 2) * Math.sin(dLon / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
     const distance = R * c; // Distance in kilometers
     return distance?.toFixed(1);
@@ -179,8 +195,8 @@ const SellerRequirements = () => {
               ? row.quotations[0].status === "pending"
                 ? "text-orange-600"
                 : row.quotations[0].status === "accepted"
-                ? "text-green-600"
-                : "text-red-600"
+                  ? "text-green-600"
+                  : "text-red-600"
               : "text-gray-500"
           }
         >
@@ -221,6 +237,13 @@ const SellerRequirements = () => {
           className="border border-gray-300 rounded p-2 w-1/4"
         />
         <input
+          type="text"
+          placeholder="Search by Product Name" // New search input
+          value={searchProductName}
+          onChange={(e) => setSearchProductName(e.target.value)}
+          className="border border-gray-300 rounded p-2 w-1/4"
+        />
+        <input
           type="date"
           value={startDate}
           onChange={(e) => setStartDate(e.target.value)}
@@ -233,10 +256,10 @@ const SellerRequirements = () => {
           className="border border-gray-300 rounded p-2"
         />
         <button
-          onClick={applyFilters}
+          onClick={resetFilter}
           className="bg-yellow-500 text-white px-4 py-2 rounded shadow-md hover:bg-yellow-600 transition"
         >
-          Apply Filters
+          Reset
         </button>
       </div>
 
@@ -254,19 +277,13 @@ const SellerRequirements = () => {
             customStyles={{
               headRow: {
                 style: {
-                  backgroundColor: '#f1f1f1',
-                  fontWeight: 'bold',
+                  backgroundColor: "#f8fafc",
+                  fontWeight: "bold",
                 },
               },
               rows: {
                 style: {
-                  fontSize: '14px',
-                  minWidth: '200px', // Minimum width for columns
-                },
-              },
-              table: {
-                style: {
-                  minWidth: '800px', // Ensure table can scroll horizontally if needed
+                  minHeight: "72px",
                 },
               },
             }}
@@ -276,6 +293,7 @@ const SellerRequirements = () => {
 
       {openAddQuotation && (
         <AddQuotation
+          isOpen={openAddQuotation}
           closeModal={closeModal}
           requirementId={selectedRequirmentId}
         />
