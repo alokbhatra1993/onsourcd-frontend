@@ -4,6 +4,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        'linear-gradient-white': 'linear-gradient(to right, #ffffff, #f3f4f6)',
+      },
   
     },
   },

@@ -24,7 +24,7 @@ const BuyerOrders = () => {
     console.log({ orders });
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
+        <div className="p-6 bg-gray-100 min-h-screen w-100">
             <div className="mb-6">
                 <h2 className="text-2xl font-bold text-gray-800">My Orders</h2>
             </div>

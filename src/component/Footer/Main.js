@@ -18,9 +18,13 @@ const Footer = () => {
             <div className="col-lg-3 col-md-6 mb-4 animate__animated animate__fadeInUp">
               <div className="footer-widget">
                 <div className="f-widget-title mb-4">
-                <Link to="/">
-              <img src="assets/img/logo/logo.png" alt="logo" className="h-8" />
-            </Link>
+                  <Link to="/">
+                    <img
+                      src="assets/img/logo/logo.png"
+                      alt="logo"
+                      className="h-8"
+                    />
+                  </Link>
                   <h2 className="footer-heading mt-3 text-white animate__animated animate__fadeInUp">
                     Your Partner in Sourcing
                   </h2>
@@ -76,18 +80,24 @@ const Footer = () => {
                 </div>
                 <div className="f-contact">
                   <ul className="list-unstyled">
-                  <li className="mb-2 flex items-center animate__animated animate__fadeInUp">
-  <i className="icon fal fa-phone text-white mr-2" style={{ transform: "rotate(180deg)" }}></i>
-  <a href="tel:+919257646469" className="text-white">
-    +91-9257646469
-  </a>
-</li>
-<li className="mb-2 flex items-center animate__animated animate__fadeInUp">
-  <i className="icon fal fa-phone text-white mr-2" style={{ transform: "rotate(180deg)" }}></i>
-  <a href="tel:+918360656569" className="text-white">
-    +91-8360656569
-  </a>
-</li>
+                    <li className="mb-2 flex items-center animate__animated animate__fadeInUp">
+                      <i
+                        className="icon fal fa-phone text-white mr-2"
+                        style={{ transform: "rotate(180deg)" }}
+                      ></i>
+                      <a href="tel:+919257646469" className="text-white">
+                        +91-9257646469
+                      </a>
+                    </li>
+                    <li className="mb-2 flex items-center animate__animated animate__fadeInUp">
+                      <i
+                        className="icon fal fa-phone text-white mr-2"
+                        style={{ transform: "rotate(180deg)" }}
+                      ></i>
+                      <a href="tel:+918360656569" className="text-white">
+                        +91-8360656569
+                      </a>
+                    </li>
 
                     <li className="mb-2 flex items-center animate__animated animate__fadeInUp">
                       <i className="icon fal fa-envelope text-white mr-2"></i>
@@ -100,9 +110,7 @@ const Footer = () => {
                     </li>
                     <li className="flex items-center animate__animated animate__fadeInUp">
                       <i className="icon fal fa-map-marker-check text-white mr-2"></i>
-                      <span className="text-white">
-                        Jaipur, Rajasthan
-                      </span>
+                      <span className="text-white">Jaipur, Rajasthan</span>
                     </li>
                   </ul>
                 </div>
@@ -170,7 +178,9 @@ const Footer = () => {
           <div className="row">
             <div className="col-lg-12 text-center">
               <p className="mb-0 text-black animate__animated animate__fadeInUp">
-                &copy; {new Date().getFullYear()} All rights reserved with Onjubilant Services India Pvt Ltd | All logos and Trademarks registered with their respective owners. 
+                &copy; {new Date().getFullYear()} All rights reserved with
+                Onjubilant Services India Pvt Ltd | All logos and Trademarks
+                registered with their respective owners.
               </p>
             </div>
           </div>

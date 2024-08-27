@@ -44,87 +44,82 @@ const RequirementQuotation = () => {
   }
 
   return (
-    <div className="container mx-auto py-4 bg-white">
-      <h1 className="text-2xl font-bold mb-4">Quotations</h1>
-      <div className="overflow-x-auto">
-        <table className="min-w-full ">
-          <thead>
+    <div className="container mx-auto py-6 bg-gray-100">
+  <h1 className="text-3xl font-semibold mb-6 text-gray-800">Quotations</h1>
+  <div className="overflow-x-auto bg-white shadow-lg rounded-lg">
+    <table className="min-w-full divide-y divide-gray-200">
+      <thead className="bg-gray-50">
+        <tr>
+          <th className="py-3 px-6 text-left text-sm font-medium text-gray-700 border-b">ID</th>
+          <th className="py-3 px-6 text-left text-sm font-medium text-gray-700 border-b">Requirement ID</th>
+          <th className="py-3 px-6 text-left text-sm font-medium text-gray-700 border-b">Estimated Price</th>
+          <th className="py-3 px-6 text-left text-sm font-medium text-gray-700 border-b">Quality Description</th>
+          <th className="py-3 px-6 text-left text-sm font-medium text-gray-700 border-b">Transportation Price</th>
+          <th className="py-3 px-6 text-left text-sm font-medium text-gray-700 border-b">Transport Availability</th>
+          <th className="py-3 px-6 text-left text-sm font-medium text-gray-700 border-b">Status</th>
+          <th className="py-3 px-6 text-left text-sm font-medium text-gray-700 border-b">Actions</th>
+        </tr>
+      </thead>
+      <tbody className="bg-white divide-y divide-gray-200">
+        {
+          quotations?.length > 0 ? (
+            <>
+              {quotations.map((quotation) => (
+                <tr key={quotation._id}>
+                  <td className="py-3 px-6 text-sm font-medium text-blue-600 cursor-pointer" title={`${quotation._id}`}>
+                    {quotation._id?.slice(0, 4)}...
+                  </td>
+                  <td className="py-3 px-6 text-sm font-medium text-blue-600 cursor-pointer" title={`Go to requirement: ${quotation.requirementId}`}>
+                    {quotation.requirementId?.slice(0, 4)}...
+                  </td>
+                  <td className="py-3 px-6 text-sm text-gray-900">{quotation.estimatedPrice}</td>
+                  <td className="py-3 px-6 text-sm text-gray-900">{quotation.qualityDescription}</td>
+                  <td className="py-3 px-6 text-sm text-gray-900">₹ {quotation?.transportationPrice || 0} km/ton</td>
+                  <td className="py-3 px-6 text-sm text-gray-900">{quotation.transportAvailability ? 'Yes' : 'No'}</td>
+                  <td className="py-3 px-6 text-sm text-gray-900">{quotation.status}</td>
+                  <td className="py-3 px-6 text-sm font-medium flex space-x-2">
+                    {
+                      quotation?.status === "pending" ? (
+                        <button
+                          onClick={() => handleAccpetOrder(quotation?._id)}
+                          className="bg-yellow-500 text-black px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors"
+                        >
+                          Accept
+                        </button>
+                      ) : (
+                        <>
+                          {
+                            quotation?.status == "rejected" ? (
+                              <button disabled className='bg-red-600 text-white px-4 py-2 rounded-lg'>
+                                Rejected
+                              </button>
+                            ) : (
+                              <button
+                                onClick={() => navigate("/customer/requirement-orders", { state: { reqId: quotation.requirementId } })}
+                                className='bg-yellow-500 text-black px-4 py-2 rounded-lg hover:bg-yellow-600 transition-colors'
+                              >
+                                View Orders
+                              </button>
+                            )
+                          }
+                        </>
+                      )
+                    }
+                  </td>
+                </tr>
+              ))}
+            </>
+          ) : (
             <tr>
-              <th className="py-2 px-4 border-b text-black">ID</th>
-              <th className="py-2 px-4 border-b text-black">Requirement ID</th>
-              <th className="py-2 px-4 border-b text-black">Estimated Price</th>
-              {/* <th className="py-2 px-4 border-b text-black">GST</th> */}
-              <th className="py-2 px-4 border-b text-black">Quality Description</th>
-              <th className="py-2 px-4 border-b text-black">Transportation Price </th>
-              <th className="py-2 px-4 border-b text-black">Transport Availability</th>
-              <th className="py-2 px-4 border-b text-black">Status</th>
-              {/* <th className="py-2 px-4 border-b text-black">Created At</th>
-              <th className="py-2 px-4 border-b text-black">Updated At</th> */}
-              <th className="py-2 px-4 border-b text-black">Actions</th>
+              <td colSpan="8" className="py-3 px-6 text-center text-gray-500">No Quotation found yet</td>
             </tr>
-          </thead>
-          <tbody>
-            {
-              quotations?.length > 0 ? (
-                <>
-                  {quotations.map((quotation) => (
-                    <tr key={quotation._id}>
-                      <td className="py-2 px-4 border-b text-blue-600  cursor-pointer" title={`${quotation._id}`}>{quotation._id?.slice(0, 4)}...</td>
-                      <td
-                        className="py-2 px-4 border-b text-blue-600 cursor-pointer"
-                        title={`Go to requirement: ${quotation.requirementId}`}
-                      >
-                        {quotation.requirementId?.slice(0, 4)}...
-                      </td>                      <td className="py-2 px-4 border-b text-black">{quotation.estimatedPrice}</td>
-                      {/* <td className="py-2 px-4 border-b text-black">{quotation.gst ? 'Yes' : 'No'}</td> */}
-                      <td className="py-2 px-4 border-b text-black">{quotation.qualityDescription}</td>
-                      <td className="py-2 px-4 border-b text-black">₹ {quotation?.transportationPrice || 0} km/ton</td>
-                      <td className="py-2 px-4 border-b text-black">{quotation.transportAvailability ? 'Yes' : 'No'}</td>
-                      <td className="py-2 px-4 border-b text-black">{quotation.status}</td>
-                      {/* <td className="py-2 px-4 border-b text-black">{new Date(quotation.createdAt).toLocaleString()}</td>
-                      <td className="py-2 px-4 border-b text-black">{new Date(quotation.updatedAt).toLocaleString()}</td> */}
-                      <td className="py-2 px-4 border-b text-black">
-                        {
-                          quotation?.status === "pending" ? (
-                            <button
-                              onClick={() => {
-                                handleAccpetOrder(quotation?._id)
-                              }}
-                            >Accept </button>
-                          ) : (
-                            <>
-                              {
-                                quotation?.status == "rejected" ? (
-                                  <button disabled className='bg-red-600'>Rejected</button>
-                                ) : (
-                                  <button
-                                    onClick={() => {
-                                      navigate("/customer/requirement-orders", { state: { reqId: quotation.requirementId } })
-                                    }}
-                                    className='bg-green-600'>
-                                    View Orders
-                                  </button>
-                                )
-                              }
-                            </>
-                          )
-                        }
+          )
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
 
-                      </td>
-                    </tr>
-                  ))}
-                </>
-              ) : (
-                <p>
-                  No Qutation found yet
-                </p>
-              )
-            }
-
-          </tbody>
-        </table>
-      </div>
-    </div>
   );
 };
 

@@ -15,6 +15,7 @@ export const AddProductForm = () => {
   const [categoriesState, setCategoriesState] = useState([]);
   const [subCategoriesState, setSubCategoriesState] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(true); // State to manage modal visibility
   const selectedCategory = watch("category");
 
   useEffect(() => {
@@ -74,9 +75,25 @@ export const AddProductForm = () => {
     });
   };
 
+  const handleClose = () => {
+    setIsOpen(false); // Close the modal
+    navigate("/admin-dashboard/products"); // Optionally navigate to a different page or perform another action
+  };
+
+  if (!isOpen) return null; // Return null if the modal is closed
+
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 p-4">
-      <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl w-full mx-auto">
+      <div className="bg-white rounded-lg shadow-lg p-8 max-w-4xl w-full mx-auto relative">
+        <button
+          onClick={handleClose}
+          className="absolute top-2 right-2 p-1 rounded-full text-gray-500 hover:text-gray-700"
+          style={{ width: '28px', height: '28px' }} // Adjust size here
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">Add Product Form</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Product Name */}

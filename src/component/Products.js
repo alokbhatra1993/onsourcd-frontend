@@ -82,11 +82,12 @@ const Products = () => {
                   <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">{product?.subCategory?.name}</td>
                   <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">₹ {product?.gst || 0}</td>
                   <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">₹ {product?.commission || 0}</td>
-                  <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500">
-                    <button
-                      onClick={() => deleteProduct(product?._id)}
-                    ><FaTrash /></button>
-                  </td>
+                  <td className="px-6 py-4 border-b border-gray-200 whitespace-nowrap text-sm text-gray-500 text-center">
+  <button onClick={() => deleteProduct(product?._id)} className="mx-auto flex justify-center">
+    <FaTrash />
+  </button>
+</td>
+
 
                 </tr>
               ))

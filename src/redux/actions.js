@@ -5,6 +5,7 @@ export const SET_EMAIL_VERFICATION = 'SET_EMAIL_VERFICATION';
 
 
 export const setUserData = (userData) => ({
+  // const userdate = {_id ,token, name , email}s
   type: SET_USER_DATA,
   payload: userData,
 });

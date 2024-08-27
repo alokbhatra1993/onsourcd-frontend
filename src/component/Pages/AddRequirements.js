@@ -414,7 +414,7 @@ const AddRequirements = () => {
             {errors.description && <span className="text-red-500 text-sm">Description  is required</span>}
           </div>
 
-          <div className="mb-4">
+          <div className="mb-4 mt-7">
             <button
               type="button"
               className="w-full mt-2 p-2 bg-[#f6b60d] text-black rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 flex justify-center items-center"
