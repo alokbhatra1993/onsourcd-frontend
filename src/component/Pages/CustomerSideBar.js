@@ -57,36 +57,36 @@ const CustomerSideBar = () => {
         </div>
       </div>
       <ul className="flex-grow space-y-4">
-        {user?.userType === "buyer" ? (
-          <li className={`relative group ${collapsed ? "text-center" : ""}`}>
-            <Link
-              to={
-                user?.userType === "buyer"
-                  ? "/customer/customer-products"
-                  : "/customer/seller-products"
-              }
-              className={`flex items-center p-3 rounded-lg ${
-                isActive("/customer/add-product")
-                  ? "bg-yellow-900"
-                  : "bg-gray-800"
-              } hover:bg-yellow-700 transition duration-300`}
-            >
-              <FaBox
-                className={`text-yellow-400 text-lg mr-3 ${
-                  collapsed ? "mx-auto" : ""
-                }`}
-              />
-              {!collapsed && (
-                <span className="text-white font-medium">Products</span>
-              )}
-            </Link>
-            <MdKeyboardArrowDown
-              className={`absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-white transition duration-300 ${
-                collapsed ? "hidden" : ""
-              }`}
-            />
-          </li>
-        ) : null}
+        {/* {user?.userType === "buyer" ? (
+          // <li className={`relative group ${collapsed ? "text-center" : ""}`}>
+          //   <Link
+          //     to={
+          //       user?.userType === "buyer"
+          //         ? "/customer/customer-products"
+          //         : "/customer/seller-products"
+          //     }
+          //     className={`flex items-center p-3 rounded-lg ${
+          //       isActive("/customer/add-product")
+          //         ? "bg-yellow-900"
+          //         : "bg-gray-800"
+          //     } hover:bg-yellow-700 transition duration-300`}
+          //   >
+          //     <FaBox
+          //       className={`text-yellow-400 text-lg mr-3 ${
+          //         collapsed ? "mx-auto" : ""
+          //       }`}
+          //     />
+          //     {!collapsed && (
+          //       <span className="text-white font-medium">Products</span>
+          //     )}
+          //   </Link>
+          //   <MdKeyboardArrowDown
+          //     className={`absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 group-hover:text-white transition duration-300 ${
+          //       collapsed ? "hidden" : ""
+          //     }`}
+          //   />
+          // </li>
+        ) : null} */}
 
         <li className={`relative group ${collapsed ? "text-center" : ""}`}>
           <Link

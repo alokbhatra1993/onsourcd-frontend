@@ -29,32 +29,32 @@ const SellerOrders = () => {
         },
         {
             name: 'Quotation Id',
-            selector: row => row.quotationId,
+            selector: row => row?.quotationId,
         },
         {
             name: 'Product Name',
-            selector: row => row.productId.name,
+            selector: row => row?.productId?.name,
         },
         {
             name: 'Product Image',
             cell: row => (
                 <img
-                    src={row.productId.image}
-                    alt={row.productId.name}
+                    src={row?.productId?.image}
+                    alt={row?.productId?.name}
                     className="w-24 h-24 object-cover"
                 />
             ),
         },
         {
             name: 'Expected Date',
-            selector: row => row.expectedDate.slice(0, 10),
+            selector: row => row?.expectedDate.slice(0, 10),
         },
         {
             name: 'Payment Progress',
-            selector: row => row.paymentProgress,
+            selector: row => row?.paymentProgress,
             cell: row => (
                 <span className={`font-bold ${row.status === 'cancelled' ? 'text-red-600' : row.status === 'received' ? 'text-green-600' : 'text-green-500'}`}>
-                    {row.paymentProgress}
+                    {row?.paymentProgress}
                 </span>
             ),
         },

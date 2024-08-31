@@ -185,7 +185,7 @@ const OrdersTable = () => {
                                         </div>
                                     `}>
                                         <p className='text-blue-500 underline cursor-pointer'>
-                                            {order.sellerId?.email}
+                                            {order?.sellerId?.email}
                                         </p>
                                         <Tooltip id={`seller-email-${order.id}`} place="top" effect="solid" className="custom-tooltip" />
                                     </td>
@@ -197,12 +197,12 @@ const OrdersTable = () => {
                                         </div>
                                     `}>
                                         <p className='text-blue-500 underline cursor-pointer'>
-                                            {order.buyerId?.email}
+                                            {order?.buyerId?.email}
                                         </p>
                                         <Tooltip id={`buyer-email-${order.id}`} place="top" effect="solid" className="custom-tooltip" />
                                     </td>
                                     <td className="py-3 px-1 border border-gray-300 text-black">
-                                        <img src={order.productId?.image} alt="Product" className="h-10 w-10 rounded-full object-cover" />
+                                        <img src={order?.productId?.image} alt="Product" className="h-10 w-10 rounded-full object-cover" />
                                     </td>
                                     <td className="py-3 px-1 border border-gray-300 text-black">{formatDate( order?.expectedDate?.slice(0, 10))}</td>
                                     <td>
