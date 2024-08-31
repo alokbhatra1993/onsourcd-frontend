@@ -142,14 +142,14 @@ const SellerRequirements = () => {
     },
     {
       name: 'Product Name',
-      selector: row => row.productId.name,
+      selector: row => row?.productId?.name,
     },
     {
       name: 'Product Image',
       cell: row => (
         <img
-          src={row.productId.image}
-          alt={row.productId.name}
+          src={row?.productId?.image}
+          alt={row?.productId?.name}
           className="w-24 h-24 object-cover"
         />
       ),
@@ -182,7 +182,7 @@ const SellerRequirements = () => {
           data-tooltip-content={row.description}
         >
           {row.description?.slice(0, 20)}...
-          <Tooltip id={`desc-tooltip-${row._id}`} place="top" clickable={true} />
+          <Tooltip id={`desc-tooltip-${row?._id}`} place="top" clickable={true} />
         </span>
       ),
     },
