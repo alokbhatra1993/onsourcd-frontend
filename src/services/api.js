@@ -384,7 +384,7 @@ export const fetchOrdersDashboard = async () => {
 
 
 export const fetchUserDashboard = async (token, userType) => {
-  const response = await fetch(`http://localhost:5000/api/quotation/user/my-dashboard?userType=${userType}`, {
+  const response = await fetch(`https://onsourcd-backend.vercel.app/api/quotation/user/my-dashboard?userType=${userType}`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
