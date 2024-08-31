@@ -53,6 +53,7 @@ import ReturnShipments from "../component/Home/ReturnShipments";
 import ProductListingPolicy from "../component/Home/ProductListingPolicy";
 import InfringementPolicy from "../component/Home/InfringementPolicy";
 import PrivateRoute from "./privateRoute";
+import UserDashbaord from "../component/Pages/UserDashbaord";
 
 const Routing = () => {
   const user = useSelector((state) => state);
@@ -134,6 +135,7 @@ const Routing = () => {
           <Route path="seller-products" element={<PrivateRoute element={SellerProducts} isAuthenticated={isAuthenticated} />} />
           <Route path="orders" element={<PrivateRoute element={BuyerOrders} isAuthenticated={isAuthenticated} />} />
           <Route path="customer-products" element={<PrivateRoute element={CustomerProducts} isAuthenticated={isAuthenticated} />} />
+          <Route path="my-dashboard" element={<PrivateRoute element={UserDashbaord} isAuthenticated={isAuthenticated} />} />
         </Route>
 
         {/* Admin dashboard  */}

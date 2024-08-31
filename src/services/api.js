@@ -380,3 +380,27 @@ export const fetchOrdersDashboard = async () => {
   });
   return response;
 };
+
+
+
+export const fetchUserDashboard = async (token, userType) => {
+  const response = await fetch(`http://localhost:5000/api/quotation/user/my-dashboard?userType=${userType}`, {
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  });
+  return response;
+};
+
+// export const fetchUserDashboard = async (token , userType) => {
+//   const response = await fetch(`http://localhost:5000/api/quotation/df-dashboard?userType=${userType}`, {
+//     method: "GET",
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//       "Content-Type": "application/json",
+//     },
+//   });
+//   return response;
+// };
